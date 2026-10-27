@@ -1224,7 +1224,6 @@ async function loadRealWorkers() {
       .from('worker_profiles')
       .select(`
         user_id, headline, skills, bio, category_id, service_languages, portfolio_images, work_preference,
-        service_latitude, service_longitude,
         hourly_rate, currency_code, service_city, service_country
       `)
       .eq('is_published', true);
@@ -1307,8 +1306,10 @@ async function loadRealWorkers() {
         category,
         city,
         country,
-        latitude: w.service_latitude === null ? null : Number(w.service_latitude),
-        longitude: w.service_longitude === null ? null : Number(w.service_longitude),
+        // Coordinates are optional; omit them from the public listing query so
+        // listings still load if the optional coordinates migration is not applied.
+        latitude: null,
+        longitude: null,
         rate,
         currency: w.currency_code || 'INR',
         languages: w.service_languages || [],
