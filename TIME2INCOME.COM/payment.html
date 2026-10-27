@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173f34" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Activate your account | TIME2INCOME</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/time2income-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="redesign.css" />
+  <link rel="stylesheet" href="payment.css" />
+</head>
+<body class="payment-page">
+  <main class="payment-shell">
+    <header class="auth-header">
+      <a class="brand" href="auth.html" aria-label="TIME2INCOME">
+        <img class="brand-mark" src="assets/time2income-mark.png" alt="" />
+        <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
+      </a>
+      <button class="btn btn-quiet" id="signOutButton" type="button">Sign out</button>
+    </header>
+    <section class="payment-card" aria-labelledby="paymentTitle">
+      <p class="section-kicker">ONE-TIME ACCOUNT ACTIVATION</p>
+      <h1 id="paymentTitle">Activate your marketplace account</h1>
+      <p>Choose your payment currency. This is a one-time platform activation fee, not a work or booking payment.</p>
+      <label class="form-label" for="paymentCurrency">Payment currency</label>
+      <select id="paymentCurrency" aria-label="Payment currency"></select>
+      <p class="payment-note">Available currencies and payment methods depend on your location and Razorpay account settings. Your bank may apply its own conversion or international-card fees.</p>
+      <p class="payment-message" id="paymentMessage" role="status" aria-live="polite"></p>
+      <button class="btn btn-primary payment-submit" id="activateButton" type="button">Pay once and activate</button>
+      <p class="payment-security">Your payment is processed securely by Razorpay. TIME2INCOME never stores your card details.</p>
+      <nav class="auth-legal-links" aria-label="Help and legal information">
+        <a href="help.html">Help</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </nav>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase/client.js"></script>
+  <script src="currency.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="payment.js"></script>
+</body>
+</html>

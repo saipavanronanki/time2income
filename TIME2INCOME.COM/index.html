@@ -1,0 +1,809 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173f34" />
+  <meta name="description" content="TIME2INCOME helps you hire local professionals for everyday tasks or find flexible local and remote work. Browse skills, post tasks, and manage bookings in one place." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <title>TIME2INCOME | Hire Local Help &amp; Find Flexible Work</title>
+  <link rel="canonical" href="https://time2income.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="TIME2INCOME" />
+  <meta property="og:title" content="TIME2INCOME | Hire Local Help &amp; Find Flexible Work" />
+  <meta property="og:description" content="Hire local professionals for everyday tasks or find flexible local and remote work." />
+  <meta property="og:url" content="https://time2income.com/" />
+  <meta property="og:image" content="https://time2income.com/assets/time2income-512.png" />
+  <meta property="og:image:alt" content="T2I logo for TIME2INCOME" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TIME2INCOME | Hire Local Help &amp; Find Flexible Work" />
+  <meta name="twitter:description" content="Hire local professionals for everyday tasks or find flexible local and remote work." />
+  <meta name="twitter:image" content="https://time2income.com/assets/time2income-512.png" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://time2income.com/#organization",
+          "name": "TIME2INCOME",
+          "url": "https://time2income.com/",
+          "logo": "https://time2income.com/assets/time2income-512.png"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://time2income.com/#website",
+          "name": "TIME2INCOME",
+          "url": "https://time2income.com/",
+          "description": "Hire local professionals for everyday tasks or find flexible local and remote work.",
+          "publisher": { "@id": "https://time2income.com/#organization" }
+        }
+      ]
+    }
+  </script>
+  <link rel="icon" type="image/x-icon" sizes="192x192" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/time2income-192.png" />
+  <link rel="apple-touch-icon" href="assets/time2income-180.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <script>
+    if (new URLSearchParams(location.search).has('app-preview')) {
+      document.documentElement.classList.add('app-preview');
+    }
+  </script>
+  <script>
+    /* ES5 only: must run on very old browsers */
+    (function () {
+      var shown = false;
+      function show(reason) {
+        if (shown) return;
+        shown = true;
+        function render() {
+          var d = document.createElement('div');
+          d.setAttribute('role', 'alert');
+          d.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#173f34;color:#fff;padding:14px 16px;font:15px/1.4 sans-serif;text-align:center';
+          d.innerHTML = 'Aapka browser purana hai, isliye TIME2INCOME poori tarah nahi chal raha. Please Chrome / Android System WebView ko Play Store se update karein ya Chrome mein time2income.com kholein.<br><small>Your browser is outdated. Please update Chrome or Android System WebView.</small> <button type="button" style="margin-left:8px;padding:4px 10px">OK</button>';
+          d.getElementsByTagName('button')[0].onclick = function () { d.parentNode.removeChild(d); };
+          (document.body || document.documentElement).appendChild(d);
+        }
+        if (document.body) render(); else document.addEventListener('DOMContentLoaded', render);
+      }
+      var ok = true;
+      try { new Function('var a={};return a?.b ?? 1;'); new Function('return async function(){await 1};'); } catch (e) { ok = false; }
+      if (!ok || !window.Promise || !window.fetch) show('syntax');
+      window.addEventListener('error', function (e) {
+        if (e && e.filename && /\.js/.test(e.filename)) show('error');
+      });
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="redesign.css" />
+  <script>document.documentElement.classList.add('auth-gate');</script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html?page=marketplace" aria-label="TIME2INCOME marketplace">
+      <img class="brand-mark" src="assets/time2income-mark.png" alt="" />
+      <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="index.html?page=marketplace" data-workspace-page="marketplace">Marketplace</a>
+      <a href="index.html?page=tasks" data-workspace-page="tasks" data-i18n="openTasks">Open tasks</a>
+      <a href="index.html?page=activity" data-workspace-page="activity" data-i18n="myActivity">My activity</a>
+      <a href="index.html?page=profile" data-workspace-page="profile">My profile</a>
+      <a href="index.html?page=guides" data-workspace-page="guides">Guides</a>
+    </nav>
+
+    <div class="top-actions">
+      <div class="locale-controls">
+        <label class="language-label" for="language">🌐</label>
+        <input class="locale-picker" id="language" list="languageOptions" aria-label="Search language" autocomplete="off" value="English" data-i18n-placeholder="languageSearch" />
+        <datalist id="languageOptions"></datalist>
+        <label class="currency-label" for="currencySelector" data-i18n="currency">Currency</label>
+        <input class="locale-picker currency-picker" id="currencySelector" list="currencyOptions" aria-label="Search currency" autocomplete="off" value="INR" />
+        <datalist id="currencyOptions"></datalist>
+        <datalist id="countryOptions"></datalist>
+      </div>
+      <button class="btn btn-quiet" id="signInBtn" type="button" data-i18n="signOut">Sign out</button>
+      <a class="btn btn-outline" href="index.html?page=profile">My profile</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="pulse"></span>
+          <span data-i18n="eyebrow">A marketplace for time, skills and opportunity</span>
+        </div>
+
+        <h1 data-i18n="headline">Find the right skill.<br><em>Make every hour count.</em></h1>
+        <p class="hero-sub" data-i18n="subhead">Hire a professional for a few hours, find flexible work, or connect with talent anywhere.</p>
+
+        <div class="mode-switch" role="group" aria-label="Marketplace mode">
+          <button class="mode-btn active" data-mode="hire" type="button" data-i18n="needWork">I need work done</button>
+          <button class="mode-btn" data-mode="work" type="button" data-i18n="findWork">I want to find work</button>
+        </div>
+
+        <form id="searchForm" class="search-panel">
+          <label class="search-field">
+            <span>⌕</span>
+            <input id="searchInput" type="search" list="marketplaceSearchOptions" placeholder="Try plumber, logo designer…" data-i18n-placeholder="searchPlaceholder" autocomplete="off" aria-controls="marketplaceSearchOptions" />
+            <datalist id="marketplaceSearchOptions"></datalist>
+          </label>
+          <label class="search-field location-field">
+  <span>⌖</span>
+  <input id="locationInput" type="text"
+         placeholder="City or remote"
+         data-i18n-placeholder="locationPlaceholder" />
+
+  <div id="locationSuggestions"
+       class="location-suggestions"
+       role="listbox"
+       aria-label="Location suggestions"
+       hidden></div>
+</label>
+
+<button class="btn btn-primary search-submit"
+        type="submit" data-i18n="search">Search</button>
+</form>
+        <p class="location-test-note">Testing mode: sample India location suggestions (no external API calls).</p>
+        <details class="marketplace-advanced-search" id="marketplaceAdvancedSearch">
+          <summary><span>Refine your search</span><span class="advanced-search-hint">Category · budget · availability · distance</span></summary>
+          <div class="advanced-search-grid">
+            <label class="advanced-filter" for="searchCategoryFilter">Service category
+              <select id="searchCategoryFilter"><option value="">All categories</option></select>
+            </label>
+            <label class="advanced-filter hire-only" for="searchMinRate">Minimum hourly rate
+              <input id="searchMinRate" type="number" min="0" step="any" placeholder="No minimum">
+            </label>
+            <label class="advanced-filter hire-only" for="searchMaxRate">Maximum hourly rate
+              <input id="searchMaxRate" type="number" min="0" step="any" placeholder="No maximum">
+            </label>
+            <label class="advanced-filter hire-only" for="searchWorkTypeFilter">Service delivery
+              <select id="searchWorkTypeFilter"><option value="all">Local or remote</option><option value="Local">In person</option><option value="Remote">Online</option><option value="Both">Local and online</option></select>
+            </label>
+            <label class="advanced-filter hire-only" for="searchAvailableDate">Available on
+              <input id="searchAvailableDate" type="date" min="">
+            </label>
+            <label class="advanced-filter hire-only" for="searchMinRating">Minimum customer rating
+              <select id="searchMinRating"><option value="0">Any rating</option><option value="3">3.0+ stars</option><option value="4">4.0+ stars</option><option value="4.5">4.5+ stars</option><option value="5">5 stars</option></select>
+            </label>
+            <label class="advanced-filter" for="searchSkillsFilter">Specific skills
+              <input id="searchSkillsFilter" type="search" placeholder="e.g. Python, Figma, plumbing">
+            </label>
+            <label class="advanced-filter hire-only" for="searchRadiusFilter">Distance radius (km)
+              <select id="searchRadiusFilter"><option value="">Any distance</option><option value="5">Within 5 km</option><option value="10">Within 10 km</option><option value="25">Within 25 km</option><option value="50">Within 50 km</option><option value="100">Within 100 km</option></select>
+            </label>
+            <label class="advanced-filter work-only" for="searchTaskWorkType" hidden>Task work type
+              <select id="searchTaskWorkType"><option value="all">Any work type</option><option value="local">In person</option><option value="remote">Remote</option><option value="either">Either</option></select>
+            </label>
+            <label class="advanced-filter work-only" for="searchTaskPayType" hidden>Pay type
+              <select id="searchTaskPayType"><option value="all">Any pay type</option><option value="hourly">Hourly</option><option value="fixed">Fixed price</option><option value="shift">Shift</option></select>
+            </label>
+            <label class="advanced-filter work-only" for="searchTaskMinBudget" hidden>Minimum task budget
+              <input id="searchTaskMinBudget" type="number" min="0" step="any" placeholder="No minimum">
+            </label>
+            <label class="advanced-filter work-only" for="searchTaskMaxBudget" hidden>Maximum task budget
+              <input id="searchTaskMaxBudget" type="number" min="0" step="any" placeholder="No maximum">
+            </label>
+          </div>
+          <div class="advanced-search-footer"><p id="advancedSearchStatus" role="status" aria-live="polite">Filters apply to the current search.</p><button class="text-link" id="clearAdvancedSearch" type="button">Clear advanced filters</button></div>
+        </details>
+        <button class="location-action" id="useSearchLocation" type="button" data-i18n="useMyLocation">Use my location</button>
+        <p class="location-status" id="searchLocationStatus" role="status" aria-live="polite"></p>
+
+        <div class="popular">
+          <span data-i18n="popular">Popular:</span>
+          <button class="chip" type="button" data-query="Plumber">Plumber</button>
+          <button class="chip" type="button" data-query="Driver">Driver</button>
+          <button class="chip" type="button" data-query="Graphic designer">Graphic designer</button>
+          <button class="chip" type="button" data-query="Video editor">Video editor</button>
+        </div>
+        <div class="marketplace-filter-summary" id="marketplaceFilterSummary" aria-live="polite"></div>
+      </div>
+
+      <div class="hero-visual" aria-label="A service professional at work">
+        <img class="hero-photo" src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85" alt="A professional preparing a home service" fetchpriority="high" />
+        <span class="hero-photo-label">TIME2INCOME / MARKETPLACE</span>
+
+        <div class="visual-card main-visual-card">
+          <div class="visual-top">
+            <span class="tiny-dot"></span>
+            <span class="visual-label" data-i18n="providerPreview">PROVIDER PREVIEW</span>
+            <span class="visual-more">•••</span>
+          </div>
+          <div class="visual-person">
+            <div class="avatar avatar-large">TP</div>
+            <div><strong data-i18n="sampleProvider">Sample provider</strong><p data-i18n="exampleService">Example service listing</p></div>
+            <span class="online-tag">●</span>
+          </div>
+          <div class="visual-rate">
+            <div><small data-i18n="startingAt">Starting at</small><strong>₹450 <small>/ hr</small></strong></div>
+            <span class="verified" data-i18n="previewOnly">Preview only</span>
+          </div>
+          <div class="mini-calendar">
+            <span>MON</span><b>Today</b><span class="calendar-time">2:00–5:00 PM</span>
+          </div>
+        </div>
+
+        <div class="floating-card float-top">
+          <span class="float-icon">✦</span>
+          <div><strong data-i18n="browseBySkill">Browse by skill</strong><small data-i18n="localRemote">Local and remote services</small></div>
+        </div>
+        <div class="floating-card float-bottom">
+          <div class="mini-avatars"><span>JD</span><span>MK</span><span>+</span></div>
+          <div><strong data-i18n="oneProfile">One profile</strong><small data-i18n="multipleWorkModes">Multiple ways to work</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip">
+      <div class="wrap trust-inner">
+        <span>✓ <span data-i18n="flexibleHours">Flexible hours</span></span>
+        <span>✓ <span data-i18n="localRemote">Local & remote work</span></span>
+        <span>✓ <span data-i18n="clearPricing">Clear pricing</span></span>
+        <span>✓ <span data-i18n="oneAccount">One account, two roles</span></span>
+      </div>
+    </section>
+
+    <section class="section wrap" id="explore">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker" data-i18n="browseBySkill">BROWSE BY SKILL</p>
+          <h2 data-i18n="categoriesTitle">What can we help you with?</h2>
+          <p data-i18n="categoriesSub">Explore everyday help and professional skills in one place.</p>
+        </div>
+        <button class="text-link" id="showAllBtn" type="button" data-i18n="viewAll">View all skills →</button>
+      </div>
+
+      <div class="category-grid" id="categoryGrid">
+        <button class="category-card" type="button" data-category="Home services"><span class="category-icon peach">⌂</span><strong data-i18n="homeServices">Home services</strong><small data-i18n="homeServicesDesc">Plumbing, electrical, repairs</small></button>
+        <button class="category-card" type="button" data-category="Driving & delivery"><span class="category-icon blue">↗</span><strong data-i18n="driving">Driving & delivery</strong><small data-i18n="drivingDesc">Drivers, pickups, moving</small></button>
+        <button class="category-card" type="button" data-category="Digital & creative"><span class="category-icon purple">✳</span><strong data-i18n="digital">Digital & creative</strong><small data-i18n="digitalDesc">Design, editing, websites</small></button>
+        <button class="category-card" type="button" data-category="Office support"><span class="category-icon green">▤</span><strong data-i18n="office">Office support</strong><small data-i18n="officeDesc">Admin, data entry, events</small></button>
+        <button class="category-card" type="button" data-category="Education"><span class="category-icon yellow">✎</span><strong data-i18n="education">Education</strong><small data-i18n="educationDesc">Tutoring, coaching, languages</small></button>
+        <button class="category-card" type="button" data-category="Personal help"><span class="category-icon pink">♡</span><strong data-i18n="personal">Personal help</strong><small data-i18n="personalDesc">Errands, packing, gardening</small></button>
+      </div>
+    </section>
+
+    <section class="section featured-section">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-i18n="readyToHelp">READY TO HELP</p>
+            <h2 data-i18n="professionalsTitle">People with skills, ready to work</h2>
+            <p data-i18n="professionalsSub">Published provider profiles appear here. Create a profile to start offering your skills.</p>
+          </div>
+          <div class="filter-row">
+            <select id="typeFilter" aria-label="Filter work type">
+              <option value="all" data-i18n="allWorkTypes">All work types</option>
+              <option value="Local" data-i18n="local">Local</option>
+              <option value="Remote" data-i18n="remote">Remote</option>
+              <option value="Both" data-i18n="bothModes">Local and remote</option>
+            </select>
+            <select id="sortFilter" aria-label="Sort professionals">
+              <option value="recommended" data-i18n="recommended">Recommended</option>
+              <option value="price" data-i18n="lowestRate">Lowest rate</option>
+              <option value="rating" data-i18n="topRated">Top rated</option>
+            </select>
+          </div>
+        </div>
+        <p class="fx-status" id="fxStatus" role="status" aria-live="polite"></p>
+        <p class="marketplace-results-status" id="marketplaceResultsStatus" role="status" aria-live="polite"></p>
+        <div class="worker-grid" id="workerGrid"></div>
+        <div class="empty-state hidden" id="emptyState">
+          <strong id="emptyStateTitle" data-i18n="noResults">No matching providers</strong>
+          <p id="emptyStateMessage" data-i18n="tryDifferent">Try another skill or clear your filters.</p>
+          <div class="empty-state-actions">
+            <button class="btn btn-outline" id="clearFilters" type="button" data-i18n="clearFilters">Clear filters</button>
+            <a class="btn btn-outline" href="#explore" data-i18n="browseCategories">Browse categories</a>
+            <button class="btn btn-outline" id="changeLocationBtn" type="button" data-i18n="changeLocation">Change location</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-download-section" id="appDownload" aria-labelledby="appDownloadTitle">
+      <div class="wrap app-download-layout">
+        <div class="app-download-copy">
+          <p class="section-kicker" data-i18n="appSectionKicker">TIME2INCOME APP</p>
+          <h2 id="appDownloadTitle" data-i18n="appHeadline">Take TIME2INCOME Anywhere.</h2>
+          <p class="app-download-description" data-i18n="appDescription">Find opportunities, connect with skilled people and manage your work from your phone.</p>
+          <div class="app-download-actions">
+            <button class="btn btn-primary" id="installAppBtn" type="button" data-i18n="installApp" hidden>Install App</button>
+            <a class="btn btn-outline" href="#explore" data-i18n="continueWeb">Continue on Web</a>
+          </div>
+          <p class="install-status" id="installStatus" role="status" aria-live="polite"></p>
+          <button class="btn btn-outline" id="refreshAppBtn" type="button" hidden>Refresh to update</button>
+
+          <div class="store-buttons" aria-label="Mobile app availability">
+            <div class="store-badge">
+              <span data-i18n="googlePlay">Google Play</span>
+              <small data-i18n="appComingSoon">Coming soon</small>
+            </div>
+            <div class="store-badge">
+              <span data-i18n="appleAppStore">Apple App Store</span>
+              <small data-i18n="appComingSoon">Coming soon</small>
+            </div>
+          </div>
+
+          <details class="install-guides">
+            <summary data-i18n="installGuides">Installation instructions</summary>
+            <p data-i18n="androidInstallGuide">Android: use Install App when available, or choose Install app from your browser menu.</p>
+            <p data-i18n="androidInstallHelp">If the home screen icon does nothing: remove it, update Chrome, open this website in Chrome, then install it again. Website updates appear in the installed app when you reopen it online.</p>
+            <p data-i18n="iosInstallGuide">iPhone or iPad: open this site in Safari, tap Share, then Add to Home Screen.</p>
+          </details>
+        </div>
+
+        <div class="app-download-visual">
+          <div class="qr-panel">
+            <span class="qr-kicker" data-i18n="qrCodeLabel">SCAN TO OPEN WEBSITE</span>
+            <img id="websiteQr" width="164" height="164" alt="QR code linking to the TIME2INCOME website" loading="lazy" />
+            <p id="qrFallback" class="qr-fallback" hidden><a href="https://glistening-licorice-42573c.netlify.app/">Open the live website</a></p>
+          </div>
+          <div class="phone-frame" aria-label="Live mobile website preview">
+            <div class="phone-speaker" aria-hidden="true"></div>
+            <div class="phone-screen" id="appPreviewFrame"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap activity-section" id="activity">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker" data-i18n="myDashboard">MY DASHBOARD</p>
+          <h2 data-i18n="myActivity">My activity</h2>
+          <p data-i18n="activityIntro">View your posted tasks and booking requests.</p>
+        </div>
+        <div class="filter-row">
+          <button class="btn btn-primary" id="postTaskBtn" type="button" data-i18n="postTask">Post a task</button>
+          <button class="btn btn-outline" id="refreshActivityBtn" type="button" data-i18n="refreshActivity">Refresh activity</button>
+        </div>
+      </div>
+
+      <div class="activity-grid">
+        <article class="activity-panel">
+          <div class="activity-panel-head">
+            <div><h3 data-i18n="tasksIPosted">Tasks I posted</h3><p data-i18n="taskHistory">Your task history</p></div>
+            <span class="activity-count" id="taskCount">0</span>
+          </div>
+          <div id="myTasksList" class="activity-list">
+            <div class="activity-empty" data-i18n="noTasksYet">No tasks yet. Post your first task to get started.</div>
+          </div>
+        </article>
+
+        <article class="activity-panel">
+          <div class="activity-panel-head">
+            <div><h3 data-i18n="bookingRequests">Booking requests</h3><p data-i18n="serviceRequests">Your service requests</p></div>
+            <span class="activity-count" id="bookingCount">0</span>
+          </div>
+          <div id="myBookingsList" class="activity-list">
+            <div class="activity-empty" data-i18n="noBookingsYet">No booking requests yet. Choose a professional above.</div>
+          </div>
+        </article>
+      </div>
+
+      <section class="activity-panel task-board-panel" id="taskBoardPanel">
+        <div class="activity-panel-head">
+          <div><h3 data-i18n="openTasks">Open tasks</h3><p data-i18n="openTasksIntro">Find customer requests by city and work mode</p></div>
+          <span class="activity-count" id="openTaskCount">0</span>
+        </div>
+        <div class="task-board-filters">
+          <label class="form-label" for="taskCategoryFilter"><span data-i18n="taskCategoryLabel">Category</span>
+            <input id="taskCategoryFilter" list="taskCategoryOptions" autocomplete="off" aria-label="Search task categories" data-i18n-placeholder="categorySearchPlaceholder" placeholder="All categories" />
+            <datalist id="taskCategoryOptions"></datalist>
+          </label>
+          <label class="form-label" for="taskCityFilter"><span data-i18n="city">City</span>
+            <input id="taskCityFilter" type="search" maxlength="100" placeholder="Any city">
+          </label>
+          <label class="form-label" for="taskModeFilter"><span data-i18n="workMode">Work mode</span>
+            <select id="taskModeFilter">
+              <option value="all" data-i18n="allModes">All modes</option>
+              <option value="local" data-i18n="local">Local</option>
+              <option value="remote" data-i18n="remote">Remote</option>
+            </select>
+          </label>
+          <button class="btn btn-outline" id="refreshTasksBtn" type="button" data-i18n="refreshTasks">Refresh tasks</button>
+        </div>
+        <div id="openTaskList" class="activity-list">
+          <div class="activity-empty" data-i18n="signInToTasks">Sign in to browse open tasks.</div>
+        </div>
+      </section>
+
+      <p class="activity-disclaimer" data-i18n="activityDisclaimer">Demo profiles are examples only. Real booking requests require a published provider profile and are confirmed by the provider.</p>
+
+      <section class="account-panel" id="accountPanel" aria-live="polite">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker" data-i18n="yourAccount">YOUR ACCOUNT</p>
+            <h2 data-i18n="marketplaceProfile">Your marketplace profile</h2>
+            <p data-i18n="manageProfile">Manage your customer and worker profile.</p>
+          </div>
+          <span class="activity-count" id="accountState">Not signed in</span>
+        </div>
+        <div id="accountSummary" class="account-summary">
+          <div class="activity-empty">Join the marketplace to create your account.</div>
+        </div>
+      </section>
+    </section>
+
+    <section class="section wrap how-section" id="how">
+      <div class="section-heading centered">
+        <div>
+          <p class="section-kicker" data-i18n="simpleSteps">SIMPLE STEPS</p>
+          <h2 data-i18n="howTitle">Work that fits your time</h2>
+          <p data-i18n="howSub">From finding a skill to getting a task done, keep it simple.</p>
+        </div>
+      </div>
+      <div class="steps-grid">
+        <article class="step-card"><span class="step-number">01</span><div class="step-icon">⌕</div><h3 data-i18n="step1Title">Find or post a task</h3><p data-i18n="step1Body">Search for a skill or describe what you need done.</p></article>
+        <article class="step-card"><span class="step-number">02</span><div class="step-icon">◷</div><h3 data-i18n="step2Title">Agree on time & price</h3><p data-i18n="step2Body">Compare profiles and confirm the scope, schedule and rate.</p></article>
+        <article class="step-card"><span class="step-number">03</span><div class="step-icon">↗</div><h3 data-i18n="step3Title">Get it done</h3><p data-i18n="step3Body">Complete the task, keep a record and share a review.</p></article>
+      </div>
+    </section>
+
+    <section class="section wrap income-calc" id="incomeCalc" aria-labelledby="incomeCalcTitle">
+      <div class="section-heading centered">
+        <div>
+          <p class="section-kicker" data-i18n="incomeCalcKicker">INCOME CALCULATOR</p>
+          <h2 id="incomeCalcTitle" data-i18n="incomeCalcTitle">Estimate your monthly earning potential</h2>
+          <p data-i18n="incomeCalcIntro">Enter your available hours and hourly rate for a simple estimate. This is not a guarantee of income.</p>
+        </div>
+      </div>
+      <form class="income-calc-form" id="incomeCalcForm" onsubmit="return false">
+        <label><span data-i18n="hoursPerWeek">Hours per week</span><input id="calcHours" type="number" min="1" max="80" value="10" inputmode="numeric" /></label>
+        <label><span data-i18n="incomeRateLabel">Rate per hour</span><input id="calcRate" type="number" min="0" step="10" value="300" inputmode="numeric" /></label>
+        <label><span data-i18n="weeksPerMonth">Weeks worked per month</span><input id="calcWeeks" type="number" min="1" max="5" value="4" inputmode="numeric" /></label>
+      </form>
+      <p class="income-calc-result" id="incomeCalcResult" aria-live="polite"></p>
+    </section>
+
+    <section class="section wrap income-finder" id="incomeFinder" aria-labelledby="incomeFinderTitle">
+      <div class="section-heading centered">
+        <div>
+          <p class="section-kicker" data-i18n="incomeFinderKicker">INCOME FINDER</p>
+          <h2 id="incomeFinderTitle" data-i18n="incomeFinderTitle">Find work ideas that fit your skills</h2>
+          <p data-i18n="incomeFinderIntro">Choose your skills, available time and preferred work mode. These ideas are guidance, not a promise of income.</p>
+        </div>
+      </div>
+      <form class="income-calc-form" id="incomeFinderForm" onsubmit="return false">
+        <label><span data-i18n="yourSkill">Your skill</span>
+          <select id="finderSkill">
+            <option value="digital" data-i18n="skillDigital">Computer, design or writing</option>
+            <option value="teaching" data-i18n="skillTeaching">Teaching or tutoring</option>
+            <option value="home" data-i18n="skillHome">Home services or repairs</option>
+            <option value="driving" data-i18n="skillDriving">Driving or delivery</option>
+            <option value="people" data-i18n="skillPeople">Customer or event support</option>
+          </select>
+        </label>
+        <label><span data-i18n="availableTime">Available time per week</span>
+          <select id="finderHours">
+            <option value="low" data-i18n="timeLow">Under 5 hours</option>
+            <option value="mid" selected data-i18n="timeMid">5–15 hours</option>
+            <option value="high" data-i18n="timeHigh">More than 15 hours</option>
+          </select>
+        </label>
+        <label><span data-i18n="workLocation">Where would you like to work?</span>
+          <select id="finderMode">
+            <option value="remote" data-i18n="incomeFinderRemote">Remote</option>
+            <option value="local" data-i18n="incomeFinderLocal">Local</option>
+          </select>
+        </label>
+      </form>
+      <ul class="finder-results" id="finderResults" aria-live="polite"></ul>
+    </section>
+
+    <section class="section wrap challenge" id="challenge" aria-labelledby="challengeTitle">
+      <div class="section-heading centered">
+        <div>
+          <p class="section-kicker" data-i18n="challengeKicker">7-DAY WORK CHALLENGE</p>
+          <h2 id="challengeTitle" data-i18n="challengeTitle">Take your first steps toward finding work</h2>
+          <p data-i18n="challengeIntro">Complete each step at your own pace. Your progress is saved on this device.</p>
+        </div>
+      </div>
+      <ol class="challenge-list" id="challengeList"></ol>
+      <p class="income-calc-result" id="challengeProgress" aria-live="polite"></p>
+      <p class="income-calc-result"><button class="btn btn-primary" id="shareSiteBtn" type="button" data-i18n="shareWithFriends">Share with friends</button></p>
+    </section>
+
+    <section class="section wrap emergency-section" id="emergency" aria-labelledby="emergencyTitle">
+      <div class="section-heading centered">
+        <div>
+          <p class="section-kicker" data-i18n="safetyKicker">SAFETY</p>
+          <h2 id="emergencyTitle" data-i18n="emergencyTitle">Emergency help</h2>
+          <p data-i18n="emergencyIntro">Choose a country to view emergency numbers. Numbers can change—confirm the right number for your location when possible.</p>
+        </div>
+      </div>
+      <form class="income-calc-form" onsubmit="return false">
+        <label><span data-i18n="emergencyCountryLabel">Country</span>
+          <input id="emergencyCountry" list="emergencyCountryOptions" autocomplete="off" data-i18n-placeholder="searchCountry" placeholder="Search or choose a country" />
+          <datalist id="emergencyCountryOptions"></datalist>
+        </label>
+      </form>
+      <ul class="finder-results" id="emergencyList" aria-live="polite"></ul>
+      <p class="income-calc-result">
+        <button class="btn btn-primary" id="shareLocationBtn" type="button" data-i18n="shareLocation">Share my location</button>
+      </p>
+      <p class="income-calc-result" id="locationStatus" aria-live="polite"></p>
+    </section>
+
+    <section class="section wrap tutorial-section" id="tutorial" aria-labelledby="tutorialTitle">
+      <div class="section-heading centered">
+        <div>
+          <p class="section-kicker" data-i18n="tutorialKicker">QUICK TOUR</p>
+          <h2 id="tutorialTitle" data-i18n="tutorialTitle">Take a guided tour of the marketplace</h2>
+          <p data-i18n="tutorialIntro">Start the tour to see key features highlighted and explained in your selected language where available.</p>
+        </div>
+      </div>
+      <p class="tutorial-language-note" data-i18n="tutorialLanguageNote">The tour follows your language selection at the top of the page.</p>
+      <p class="income-calc-result">
+        <button class="btn btn-primary" id="tourPlayBtn" type="button" data-i18n="startTour">Start tour</button>
+        <button class="btn btn-outline" id="tourStopBtn" type="button" data-i18n="stopTour" hidden>Stop tour</button>
+      </p>
+      <p class="income-calc-result" id="tourNote" aria-live="polite"></p>
+    </section>
+
+    <div class="tour-caption" id="tourCaption" role="status" aria-live="polite" hidden></div>
+
+    <section class="section wrap faq-section" id="faq" aria-labelledby="faqTitle">
+      <div class="section-heading centered">
+        <div>
+          <p class="section-kicker" data-i18n="faqKicker">HELP &amp; SUPPORT</p>
+          <h2 id="faqTitle" data-i18n="faqTitle">Frequently asked questions</h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <details><summary data-i18n="faqFreeQuestion">Is TIME2INCOME free to use?</summary><p data-i18n="faqFreeAnswer">Creating an account and browsing are free. Online payments are not available yet, so agree on the price and payment method directly with the other person.</p></details>
+        <details><summary data-i18n="faqWorkQuestion">How can I find work?</summary><p data-i18n="faqWorkAnswer">Create a provider profile or send an offer on an open task. Customers can also send you a booking request.</p></details>
+        <details><summary data-i18n="faqIncomeQuestion">Is income guaranteed?</summary><p data-i18n="faqIncomeAnswer">No. Earnings depend on your skills, availability and demand. The calculator and finder provide estimates and ideas only.</p></details>
+        <details><summary data-i18n="faqSafetyQuestion">How can I stay safe?</summary><p data-i18n="faqSafetyAnswer">Agree on the details in the booking chat. Never share passwords, verification codes or bank details. Avoid large upfront payments and meet in a public place for a first in-person meeting.</p></details>
+        <details><summary data-i18n="faqReviewQuestion">Who can leave a review?</summary><p data-i18n="faqReviewAnswer">The customer can leave one review after a booking is completed.</p></details>
+      </div>
+    </section>
+
+    <section class="worker-cta wrap" id="worker">
+      <div class="cta-copy">
+        <p class="section-kicker light-kicker" data-i18n="yourSkills">YOUR SKILLS, YOUR SCHEDULE</p>
+        <h2 data-i18n="ctaTitle">Turn available hours into opportunities.</h2>
+        <p data-i18n="ctaBody">Create a profile, show what you can do and discover work that fits your schedule.</p>
+        <button class="btn btn-white" id="providerBtn" type="button" data-i18n="becomeProvider">Become a provider <span>→</span></button>
+      </div>
+      <div class="cta-art">
+        <div class="cta-ring ring-one"></div><div class="cta-ring ring-two"></div>
+        <div class="cta-bubble bubble-one">✦</div><div class="cta-bubble bubble-two">₹</div>
+        <div class="cta-note"><span class="note-check">✓</span><div><strong data-i18n="profileReady">Your skills matter</strong><small data-i18n="profileSub">Start with what you know</small></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-main">
+      <a class="brand brand-footer" href="index.html?page=marketplace" aria-label="TIME2INCOME marketplace"><img class="brand-mark" src="assets/time2income-mark.png" alt="" /><span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span></a>
+      <p data-i18n="footerLine">A marketplace for time, skills and opportunity.</p>
+      <div class="footer-link-groups">
+        <nav class="footer-link-group" aria-label="Help and information">
+          <strong data-i18n="footerHelp">Help & information</strong>
+          <a href="help.html" data-i18n="helpCenter">Help</a>
+          <a href="#how" data-i18n="howItWorks">How it works</a>
+          <a href="#faq" data-i18n="faqTitle">Frequently asked questions</a>
+          <a href="privacy.html" data-i18n="privacyPolicy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="termsOfService">Terms of Service</a>
+        </nav>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>© 2026 TIME2INCOME</span>
+      <span class="powered-by">Powered by Spactisu</span>
+      <span data-i18n="prototypeNotice">Prototype in development</span>
+    </div>
+  </footer>
+
+  <dialog id="taskDialog" class="dialog">
+    <form id="taskForm" method="dialog">
+      <div class="dialog-head">
+        <div><p class="section-kicker" data-i18n="taskDialogKicker">POST A TASK</p><h2 data-i18n="taskDialogTitle">What do you need help with?</h2></div>
+        <button class="icon-button" type="button" id="closeDialog" aria-label="Close">×</button>
+      </div>
+      <label class="form-label"><span data-i18n="taskTitleLabel">Task title</span><input id="taskTitle" required maxlength="120" data-i18n-placeholder="taskTitlePlaceholder" placeholder="e.g. Fix a leaking kitchen tap" /></label>
+      <label class="form-label"><span data-i18n="taskDetailsLabel">Details</span><textarea id="taskDetails" rows="3" maxlength="600" data-i18n-placeholder="taskDetailsPlaceholder" placeholder="Describe the work, timing and requirements"></textarea></label>
+      <div class="form-two">
+        <label class="form-label"><span data-i18n="taskCategoryLabel">Category</span>
+          <select id="taskCategory"><option value="Home services" data-i18n="homeServices">Home services</option><option value="Driving & delivery" data-i18n="driving">Driving &amp; delivery</option><option value="Digital & creative" data-i18n="digital">Digital &amp; creative</option><option value="Office support" data-i18n="office">Office support</option><option value="Education" data-i18n="education">Education</option><option value="Personal help" data-i18n="personal">Personal help</option></select>
+        </label>
+        <label class="form-label"><span data-i18n="workMode">Work mode</span>
+          <select id="taskWorkMode"><option value="local" data-i18n="local">Local</option><option value="remote" data-i18n="remote">Remote</option></select>
+        </label>
+      </div>
+      <div class="form-two">
+        <label class="form-label"><span data-i18n="pricingType">Pricing type</span>
+          <select id="taskPricingType"><option value="fixed" data-i18n="fixedPrice">Fixed price</option><option value="hourly" data-i18n="hourly">Hourly</option><option value="shift" data-i18n="shift">Shift</option></select>
+        </label>
+        <label class="form-label"><span data-i18n="estimatedHours">Estimated hours</span>
+          <input id="taskEstimatedHours" type="number" min="0.25" step="0.25" placeholder="Optional">
+        </label>
+      </div>
+      <div class="form-two">
+        <label class="form-label"><span data-i18n="taskBudgetLabel">Budget</span>
+          <input id="taskBudget" type="number" min="0" step="any" data-i18n-placeholder="optional" placeholder="Optional">
+        </label>
+        <label class="form-label"><span data-i18n="budgetCurrency">Budget currency</span>
+          <input id="taskCurrency" list="currencyOptions" autocomplete="off" value="INR" required>
+        </label>
+      </div>
+      <div class="form-two">
+        <label class="form-label"><span data-i18n="country">Country</span>
+          <input id="taskCountry" list="countryOptions" maxlength="80" autocomplete="off" data-i18n-placeholder="selectCountry" placeholder="Select or type country">
+        </label>
+        <label class="form-label"><span data-i18n="taskLocationLabel">City or region</span>
+          <input id="taskLocation" maxlength="120" data-i18n-placeholder="cityOrRegion" placeholder="City or region">
+        </label>
+      </div>
+      <label class="form-label"><span data-i18n="schedule">Schedule</span>
+        <input id="taskScheduledStart" type="datetime-local">
+      </label>
+      <p class="form-hint" id="taskBudgetPreview" aria-live="polite"></p>
+      <p class="demo-warning" data-i18n="demoWarning">Task posting will be connected to your account.</p>
+      <div class="dialog-actions">
+        <button class="btn btn-outline" type="button" id="cancelTask" data-i18n="cancel">Cancel</button>
+        <button class="btn btn-primary" type="submit" data-i18n="saveTask">Post task</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="workerDialog" class="dialog">
+    <div class="dialog-head">
+      <div>
+        <p class="section-kicker" data-i18n="providerProfile">PROVIDER PROFILE</p>
+        <h2 id="workerDialogName">Provider</h2>
+      </div>
+      <button class="icon-button" type="button" id="closeWorkerDialog" aria-label="Close">×</button>
+    </div>
+    <div id="workerDialogContent"></div>
+    <div class="dialog-actions">
+      <button class="btn btn-outline" type="button" id="cancelWorkerDialog" data-i18n="close">Close</button>
+      <button class="btn btn-primary" type="button" id="workerDialogBook" data-i18n="request">Request booking</button>
+    </div>
+  </dialog>
+
+  <dialog id="offerDialog" class="dialog">
+    <form id="offerForm">
+      <div class="dialog-head">
+        <div>
+          <p class="section-kicker" data-i18n="taskOffer">TASK OFFER</p>
+          <h2 id="offerTaskTitle" data-i18n="sendOffer">Send an offer</h2>
+        </div>
+        <button class="icon-button" type="button" id="closeOfferDialog" aria-label="Close">×</button>
+      </div>
+      <p id="offerTaskSummary" class="worker-description"></p>
+      <div class="form-two">
+        <label class="form-label"><span data-i18n="proposedPrice">Your proposed price</span>
+          <input id="offerPrice" type="number" min="0.001" max="1000000000" step="any" required>
+        </label>
+        <label class="form-label"><span data-i18n="offerCurrency">Offer currency</span>
+          <input id="offerCurrency" list="currencyOptions" autocomplete="off" value="INR" required>
+        </label>
+      </div>
+      <label class="form-label"><span data-i18n="messageToCustomer">Message to the customer</span>
+        <textarea id="offerMessage" rows="3" maxlength="600" placeholder="Describe your approach and availability"></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button class="btn btn-outline" type="button" id="cancelOffer" data-i18n="cancel">Cancel</button>
+        <button class="btn btn-primary" type="submit" data-i18n="sendOffer">Send offer</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="bookingChatDialog" class="dialog booking-chat-dialog">
+    <div class="dialog-head">
+      <div>
+        <p class="section-kicker" data-i18n="privateBookingChat">PRIVATE BOOKING CHAT</p>
+        <h2 id="bookingChatTitle">Booking chat</h2>
+        <p id="bookingChatPartner" class="booking-chat-partner"></p>
+      </div>
+      <button class="icon-button" type="button" id="closeBookingChatDialog" aria-label="Close">×</button>
+    </div>
+    <p id="bookingChatStatus" class="booking-chat-status" role="status"></p>
+    <p class="booking-chat-safety" data-i18n="chatSafety">Keep coordination here. Never share passwords, verification codes, or payment details in chat.</p>
+    <div id="bookingChatMessages" class="booking-chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+    <form id="bookingChatForm" class="booking-chat-form">
+      <label class="form-label" for="bookingChatInput"><span data-i18n="chatMessageLabel">Message</span>
+        <textarea id="bookingChatInput" rows="3" maxlength="2000" data-i18n-placeholder="chatMessagePlaceholder" placeholder="Write a message..." required></textarea>
+      </label>
+      <div class="dialog-actions">
+        <button class="btn btn-outline" id="refreshBookingChatBtn" type="button" data-i18n="refreshMessages">Refresh messages</button>
+        <button class="btn btn-primary" id="sendBookingMessageBtn" type="submit" data-i18n="sendMessage">Send message</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="accountDialog" class="dialog">
+    <form id="accountForm">
+      <div class="dialog-head">
+        <div><p class="section-kicker" data-i18n="accountAccess">ACCOUNT ACCESS</p><h2 id="accountDialogTitle">Join the marketplace</h2></div>
+        <button class="icon-button" type="button" id="closeAccountDialog" aria-label="Close">×</button>
+      </div>
+
+      <label class="form-label"><span data-i18n="fullName">Full name</span>
+        <input id="accountName" required maxlength="80" autocomplete="name" data-i18n-placeholder="yourName" placeholder="Your name" />
+      </label>
+
+      <label class="form-label"><span data-i18n="emailAddress">Email address</span>
+        <input id="accountEmail" type="email" required maxlength="120" autocomplete="email" data-i18n-placeholder="emailPlaceholder" placeholder="you@example.com" />
+      </label>
+
+      <label class="form-label" id="passwordLabel"><span data-i18n="password">Password</span>
+        <input id="accountPassword" type="password" required minlength="8" maxlength="72" autocomplete="new-password" data-i18n-placeholder="passwordPlaceholder" placeholder="At least 8 characters" />
+      </label>
+      <button class="text-link forgot-password-link" id="forgotPasswordBtn" type="button" data-i18n="forgotPassword" hidden>Forgot password?</button>
+
+      <div class="form-two" id="accountLocationFields">
+        <label class="form-label"><span data-i18n="country">Country</span>
+          <input id="accountCountry" list="countryOptions" required maxlength="80" value="India" data-i18n-placeholder="country" placeholder="Country" />
+        </label>
+        <label class="form-label"><span data-i18n="city">City</span>
+          <input id="accountCity" maxlength="80" data-i18n-placeholder="cityOrRegion" placeholder="City or region" />
+        </label>
+      </div>
+      <label class="form-label" id="accountCurrencyField"><span data-i18n="preferredCurrency">Preferred currency</span>
+        <input id="accountCurrency" list="currencyOptions" autocomplete="off" value="INR" required>
+      </label>
+
+      <label class="form-label" id="accountRoleField"><span data-i18n="accountRolePrompt">How will you use the platform?</span>
+        <select id="accountRole">
+          <option value="both" data-i18n="bothRoles">Both: hire and offer skills</option>
+          <option value="client" data-i18n="needWork">I need work done</option>
+          <option value="worker" data-i18n="findWork">I want to offer my skills</option>
+        </select>
+      </label>
+
+      <div id="workerFields" class="worker-fields">
+        <label class="form-label"><span data-i18n="taskCategoryLabel">Skill category</span>
+          <select id="accountCategory">
+            <option value="Home services" data-i18n="homeServices">Home services</option><option value="Driving & delivery" data-i18n="driving">Driving &amp; delivery</option><option value="Digital & creative" data-i18n="digital">Digital &amp; creative</option><option value="Office support" data-i18n="office">Office support</option><option value="Education" data-i18n="education">Education</option><option value="Personal help" data-i18n="personal">Personal help</option>
+          </select>
+        </label>
+        <div class="form-two">
+          <label class="form-label"><span data-i18n="primarySkill">Primary skill</span>
+            <input id="accountSkill" maxlength="80" placeholder="e.g. Plumbing, design" />
+          </label>
+          <label class="form-label"><span data-i18n="hourlyRate">Hourly rate</span>
+            <input id="accountRate" type="number" min="0" max="1000000000" step="any" placeholder="e.g. 400" />
+          </label>
+        </div>
+        <label class="form-label"><span data-i18n="languages">Languages</span>
+          <input id="accountLanguages" maxlength="200" placeholder="For example: English, Hindi">
+        </label>
+        <label class="form-label"><span data-i18n="workPreference">Work preference</span>
+          <select id="accountWorkType">
+            <option value="Local" data-i18n="local">Local services</option>
+            <option value="Remote" data-i18n="remote">Remote work</option>
+            <option value="Both" data-i18n="bothModes">Both local and remote</option>
+          </select>
+        </label>
+      </div>
+
+      <p class="demo-warning" id="accountFormNotice" data-i18n="passwordNotice">
+        Your password is managed by Supabase Authentication. Never share your password with anyone.
+      </p>
+
+      <div class="dialog-actions">
+        <button class="btn btn-outline" type="button" id="cancelAccount" data-i18n="cancel">Cancel</button>
+        <button class="btn btn-primary" id="accountSubmitBtn" type="submit">Create account</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Load Supabase before the application script. -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase/client.js"></script>
+  <script src="localization.js"></script>
+  <script src="currency.js"></script>
+  <script src="app.js"></script>
+  <script src="pwa.js" defer></script>
+</body>
+</html>

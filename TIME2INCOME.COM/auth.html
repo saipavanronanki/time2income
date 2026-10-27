@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#173f34" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Join or sign in | TIME2INCOME</title>
+  <link rel="icon" type="image/x-icon" sizes="192x192" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/time2income-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="redesign.css" />
+</head>
+<body class="auth-page auth-only-signin">
+  <main class="auth-shell">
+    <header class="auth-header">
+      <a class="brand" href="auth.html" aria-label="TIME2INCOME">
+        <img class="brand-mark" src="assets/time2income-mark.png" alt="" />
+        <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
+      </a>
+      <span class="auth-header-note">A marketplace for time, skills and opportunity</span>
+    </header>
+
+    <div class="auth-card">
+      <section class="auth-intro">
+        <div>
+          <p class="section-kicker">YOUR NEXT OPPORTUNITY STARTS HERE</p>
+          <h1>Good work begins with the right connection.</h1>
+          <p>Sign in to explore published providers, open tasks and your marketplace activity.</p>
+        </div>
+        <ul class="auth-benefits">
+          <li>Find local and remote skills in one place</li>
+          <li>Post a task or send an offer</li>
+          <li>Build a provider profile and portfolio</li>
+        </ul>
+      </section>
+
+      <section class="auth-panel" aria-labelledby="authTitle">
+        <div class="auth-tabs" role="tablist" aria-label="Account access">
+          <button class="auth-tab" id="signInTab" type="button" role="tab" aria-selected="true">Sign in</button>
+          <button class="auth-tab" id="signUpTab" type="button" role="tab" aria-selected="false">Create account</button>
+        </div>
+        <h2 id="authTitle">Welcome back</h2>
+        <p id="authDescription">Sign in to continue to your marketplace.</p>
+        <p class="auth-fee-note" data-signup-only>A one-time activation fee of 1 unit in a supported currency applies after email confirmation to unlock marketplace access.</p>
+
+        <form class="auth-form" id="authForm">
+          <label class="form-label" data-signup-only>
+            Full name
+            <input id="authName" type="text" autocomplete="name" maxlength="80" />
+          </label>
+          <label class="form-label">
+            Email address
+            <input id="authEmail" type="email" autocomplete="email" maxlength="120" required placeholder="you@example.com" />
+          </label>
+          <label class="form-label">
+            Password
+            <input id="authPassword" type="password" autocomplete="current-password" minlength="8" maxlength="72" required placeholder="At least 8 characters" />
+          </label>
+
+          <div data-signup-only>
+            <div class="form-two">
+              <label class="form-label">
+                Country
+                <input id="authCountry" type="text" autocomplete="country-name" maxlength="80" value="India" required />
+              </label>
+              <label class="form-label">
+                City
+                <input id="authCity" type="text" autocomplete="address-level2" maxlength="80" placeholder="Optional" />
+              </label>
+            </div>
+            <label class="form-label">
+              How will you use TIME2INCOME?
+              <select id="authRole">
+                <option value="both">Hire and offer skills</option>
+                <option value="client">Hire help</option>
+                <option value="worker">Offer my skills</option>
+              </select>
+            </label>
+            <div class="form-two" id="authProviderFields">
+              <label class="form-label">
+                Skill category
+                <select id="authCategory">
+                  <option>Home services</option>
+                  <option>Driving &amp; delivery</option>
+                  <option>Digital &amp; creative</option>
+                  <option>Office support</option>
+                  <option>Education</option>
+                  <option>Personal help</option>
+                </select>
+              </label>
+              <label class="form-label">
+                Primary skill
+                <input id="authSkill" type="text" maxlength="80" placeholder="e.g. Plumbing or design" />
+              </label>
+            </div>
+          </div>
+
+          <button class="auth-toggle-link" id="forgotPasswordBtn" type="button" data-signin-only>Forgot password?</button>
+          <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+          <button class="btn btn-primary auth-submit" id="authSubmit" type="submit">Sign in</button>
+        </form>
+        <p class="auth-footer">Your account is secured by Supabase Authentication. Never share your password or verification codes.</p>
+        <nav class="auth-legal-links" aria-label="Help and legal information">
+          <a href="help.html">Help</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase/client.js"></script>
+  <script src="currency.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
