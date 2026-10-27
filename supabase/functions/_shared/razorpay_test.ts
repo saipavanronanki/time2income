@@ -1,4 +1,5 @@
 import {
+  corsHeaders,
   errorResponse,
   feeForCurrency,
   PaymentConfigurationError,
@@ -201,4 +202,16 @@ Deno.test('activation fee remains one major currency unit with supported minor-u
     rejected = error instanceof Error && error.message === 'INVALID_REQUEST';
   }
   assertEquals(rejected, true);
+});
+
+Deno.test('corsHeaders reflects requesting Origin header or defaults to wildcard', () => {
+  const reqCloudflare = new Request('https://edge.example/functions/v1/create-order', {
+    headers: { Origin: 'https://time2income.pages.dev' },
+  });
+  const headers = corsHeaders(reqCloudflare);
+  assertEquals(headers['Access-Control-Allow-Origin'], 'https://time2income.pages.dev');
+
+  const reqNoOrigin = new Request('https://edge.example/functions/v1/create-order');
+  const defaultHeaders = corsHeaders(reqNoOrigin);
+  assertEquals(defaultHeaders['Access-Control-Allow-Origin'], '*');
 });
