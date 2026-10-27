@@ -105,6 +105,55 @@ async function initializePaymentPage() {
   }
 }
 
+async function invokeEdgeFunction(functionName, bodyPayload) {
+  try {
+    const { data, error } = await supabaseClient.functions.invoke(functionName, { body: bodyPayload });
+    if (!error) return data;
+    const formattedError = await paymentFunctionError(error);
+    if (formattedError && !formattedError.message.includes('Could not connect')) {
+      throw formattedError;
+    }
+  } catch (err) {
+    if (err && !err.message.includes('Could not connect') && !err.message.includes('Failed to send a request')) {
+      throw err;
+    }
+  }
+
+  const { data: sessionData } = await supabaseClient.auth.getSession();
+  const sessionToken = sessionData?.session?.access_token;
+  if (!sessionToken) throw new Error('Please sign in to continue.');
+
+  const supabaseUrl = 'https://epylulnketqwhqxxyjgz.supabase.co';
+  const supabaseKey = 'sb_publishable_nXCxWnwMkW6hmdmYbl1Sdw_U4q08z1T';
+  const endpoint = `${supabaseUrl}/functions/v1/${functionName}`;
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'apikey': supabaseKey,
+      'authorization': `Bearer ${sessionToken}`,
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(bodyPayload),
+  }).catch(() => null);
+
+  if (!response) {
+    throw new Error('Could not connect to payment service. Check your connection and try again.');
+  }
+
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    if (response.status === 409 && payload?.error?.includes('already activated')) {
+      showPaymentMessage('Your account is already activated. Redirecting to marketplace…');
+      window.location.replace('index.html');
+      throw new Error('This account is already activated.');
+    }
+    throw new Error(payload?.error || `Payment service request failed (HTTP ${response.status}).`);
+  }
+
+  return payload;
+}
+
 activateButton.addEventListener('click', async () => {
   if (!window.Razorpay) {
     showPaymentMessage('Secure checkout could not load. Check your connection and try again.', true);
@@ -114,10 +163,7 @@ activateButton.addEventListener('click', async () => {
   activateButton.disabled = true;
   showPaymentMessage('Preparing secure checkout…');
   try {
-    const { data: order, error } = await supabaseClient.functions.invoke('create-order', {
-      body: { currency: paymentCurrency.value },
-    });
-    if (error) throw await paymentFunctionError(error);
+    const order = await invokeEdgeFunction('create-order', { currency: paymentCurrency.value });
     if (!order?.order_id || !order?.key_id) throw new Error('The payment order could not be created.');
     if (supportedPaymentCurrencies.includes(order.currency)) paymentCurrency.value = order.currency;
 
@@ -133,14 +179,11 @@ activateButton.addEventListener('click', async () => {
       handler: async response => {
         showPaymentMessage('Verifying payment securely…');
         try {
-          const { data, error: verifyError } = await supabaseClient.functions.invoke('verify-payment', {
-            body: {
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature,
-            },
+          const data = await invokeEdgeFunction('verify-payment', {
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
           });
-          if (verifyError) throw await paymentFunctionError(verifyError);
           if (!data?.verified || !data?.has_access) throw new Error('Payment verification was not completed.');
           showPaymentMessage('Payment verified. Your account is activated.');
           window.location.replace('index.html');

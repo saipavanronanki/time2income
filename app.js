@@ -1015,6 +1015,30 @@ function renderMarketplaceFilterSummary() {
     clearButton.textContent = `${t('clearSearch')}: ${$('searchInput').value.trim()} ×`;
     parts.push(clearButton);
   }
+  if ($('typeFilter') && $('typeFilter').value !== 'all') {
+    const typeChip = document.createElement('button');
+    typeChip.className = 'marketplace-filter-chip';
+    typeChip.type = 'button';
+    typeChip.dataset.clearType = 'true';
+    typeChip.textContent = `${t('workMode')}: ${$('typeFilter').value} ×`;
+    parts.push(typeChip);
+  }
+  if ($('locationInput') && $('locationInput').value.trim()) {
+    const locChip = document.createElement('button');
+    locChip.className = 'marketplace-filter-chip';
+    locChip.type = 'button';
+    locChip.dataset.clearLocation = 'true';
+    locChip.textContent = `${t('city')}: ${$('locationInput').value.trim()} ×`;
+    parts.push(locChip);
+  }
+  if (parts.length > 0) {
+    const clearAllBtn = document.createElement('button');
+    clearAllBtn.className = 'marketplace-filter-chip clear-all-chip';
+    clearAllBtn.type = 'button';
+    clearAllBtn.dataset.clearAll = 'true';
+    clearAllBtn.textContent = '↺ Reset all filters';
+    parts.push(clearAllBtn);
+  }
   summary.replaceChildren(...parts);
 }
 
@@ -2924,8 +2948,13 @@ function initializeApp() {
     syncCategoryCards();
     updateMarketplaceSuggestions();
     renderWorkers();
+    toast(t('clearFilters') || 'Filters cleared');
   });
   $('marketplaceFilterSummary').addEventListener('click', event => {
+    if (event.target.closest('[data-clear-all]')) {
+      $('clearFilters').click();
+      return;
+    }
     if (event.target.closest('[data-clear-category]')) {
       activeCategory = '';
       activeCategoryId = '';
@@ -2941,6 +2970,19 @@ function initializeApp() {
       updateMarketplaceSuggestions();
       renderWorkers();
       renderMarketplaceFilterSummary();
+      return;
+    }
+    if (event.target.closest('[data-clear-type]')) {
+      $('typeFilter').value = 'all';
+      renderWorkers();
+      return;
+    }
+    if (event.target.closest('[data-clear-location]')) {
+      $('locationInput').value = '';
+      searchLocationCoordinates = null;
+      $('searchLocationStatus').textContent = '';
+      renderWorkers();
+      return;
     }
   });
   $('showAllBtn').addEventListener('click', () => {
