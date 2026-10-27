@@ -1671,7 +1671,7 @@ async function loadAccountProfile() {
   const [profileResult, workerResult] = await Promise.all([
     supabaseClient.from('profiles').select('id, display_name, country, city, preferred_language, preferred_currency, roles')
       .eq('id', currentUser.id).maybeSingle(),
-    supabaseClient.from('worker_profiles').select('user_id, headline, bio, skills, service_languages, portfolio_images, hourly_rate, currency_code, category_id, work_preference, service_city, service_country, service_latitude, service_longitude, is_published')
+    supabaseClient.from('worker_profiles').select('user_id, headline, bio, skills, service_languages, portfolio_images, hourly_rate, currency_code, category_id, work_preference, service_city, service_country, is_published')
       .eq('user_id', currentUser.id).maybeSingle()
   ]);
   if (profileResult.error) throw profileResult.error;
@@ -2746,6 +2746,101 @@ function initializeApp() {
     renderMarketplaceFilterSummary();
   });
   $('searchInput').addEventListener('change', updateMarketplaceSuggestions);
+  // Live city autocomplete. Uses OpenStreetMap Nominatim; typed city search still works if the service is unavailable.
+  const locationInput = $('locationInput');
+  const locationSuggestions = $('locationSuggestions');
+  let locationSuggestTimer = null;
+  let locationSuggestController = null;
+  function closeLocationSuggestions() {
+    if (!locationSuggestions) return;
+    locationSuggestions.hidden = true;
+    locationSuggestions.replaceChildren();
+  }
+  function pickLocationSuggestion(place) {
+    const address = place.address || {};
+    const city = address.city || address.town || address.village || address.municipality || address.county || place.name || '';
+    const country = address.country || '';
+    locationInput.value = city || place.display_name.split(',')[0];
+    searchLocationCoordinates = Number.isFinite(Number(place.lat)) && Number.isFinite(Number(place.lon))
+      ? { latitude: Number(place.lat), longitude: Number(place.lon) } : null;
+    closeLocationSuggestions();
+    if (mode === 'work') {
+      $('taskCityFilter').value = locationInput.value.trim();
+      renderTaskBoard().catch(error => toast(error.message));
+    } else {
+      renderWorkers();
+    }
+    $('searchLocationStatus').textContent = [locationInput.value, country].filter(Boolean).join(', ');
+    try { localStorage.setItem('time2income_marketplace_city', locationInput.value.trim()); } catch (_) {}
+  }
+  if (locationInput && locationSuggestions) {
+    locationInput.setAttribute('autocomplete', 'off');
+    locationInput.setAttribute('aria-autocomplete', 'list');
+    locationInput.setAttribute('aria-controls', 'locationSuggestions');
+    locationInput.addEventListener('input', () => {
+      const term = locationInput.value.trim();
+      searchLocationCoordinates = null;
+      if (locationSuggestTimer) clearTimeout(locationSuggestTimer);
+      if (locationSuggestController) locationSuggestController.abort();
+      if (term.length < 2 || term.toLowerCase() === 'remote') {
+        closeLocationSuggestions();
+        return;
+      }
+      locationSuggestTimer = setTimeout(async () => {
+        locationSuggestions.replaceChildren();
+        const loading = document.createElement('div');
+        loading.className = 'location-suggestion-message';
+        loading.textContent = 'Searching locations…';
+        locationSuggestions.append(loading);
+        locationSuggestions.hidden = false;
+        try {
+          locationSuggestController = new AbortController();
+          const url = new URL('https://nominatim.openstreetmap.org/search');
+          url.search = new URLSearchParams({ q: term, format: 'jsonv2', addressdetails: '1', limit: '6' });
+          const response = await fetch(url, { signal: locationSuggestController.signal, headers: { 'Accept': 'application/json' } });
+          if (!response.ok) throw new Error('Location lookup unavailable');
+          const places = await response.json();
+          locationSuggestions.replaceChildren();
+          if (!places.length) {
+            const empty = document.createElement('div'); empty.className = 'location-suggestion-message';
+            empty.textContent = 'No suggestions found. Press Search to use the city text.';
+            locationSuggestions.append(empty);
+          } else {
+            places.forEach(place => {
+              const address = place.address || {};
+              const city = address.city || address.town || address.village || address.municipality || address.county || place.name || place.display_name.split(',')[0];
+              const country = address.country || '';
+              const region = address.state || address.region || '';
+              const button = document.createElement('button');
+              button.type = 'button'; button.className = 'location-suggestion-option'; button.setAttribute('role', 'option');
+              const pin = document.createElement('span'); pin.className = 'location-suggestion-pin'; pin.setAttribute('aria-hidden', 'true'); pin.textContent = '⌖';
+              const details = document.createElement('span'); const title = document.createElement('strong'); const subtitle = document.createElement('small');
+              title.textContent = city; subtitle.textContent = [region, country].filter(Boolean).join(', ');
+              details.append(title, subtitle); button.append(pin, details);
+              button.addEventListener('click', () => pickLocationSuggestion(place));
+              locationSuggestions.append(button);
+            });
+          }
+          locationSuggestions.hidden = false;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+          closeLocationSuggestions();
+          console.warn('Location suggestions unavailable; manual city search remains available.', error);
+        }
+      }, 350);
+    });
+    locationInput.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeLocationSuggestions();
+      if (event.key === 'Enter' && !locationSuggestions.hidden) {
+        const first = locationSuggestions.querySelector('.location-suggestion-option');
+        if (first) { event.preventDefault(); first.click(); }
+      }
+    });
+    document.addEventListener('click', event => {
+      if (!locationSuggestions.contains(event.target) && event.target !== locationInput) closeLocationSuggestions();
+    });
+  }
+
   $('locationInput').addEventListener('input', () => {
     clearTimeout(marketplaceSearchTimer);
     searchLocationCoordinates = null;

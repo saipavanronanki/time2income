@@ -132,10 +132,13 @@
             <input id="searchInput" type="search" list="marketplaceSearchOptions" placeholder="Try plumber, logo designer…" data-i18n-placeholder="searchPlaceholder" autocomplete="off" aria-controls="marketplaceSearchOptions" />
             <datalist id="marketplaceSearchOptions"></datalist>
           </label>
-          <label class="search-field location-field">
-            <span>⌖</span>
-            <input id="locationInput" type="text" placeholder="City or remote" data-i18n-placeholder="locationPlaceholder" />
-          </label>
+          <div class="location-field-wrap">
+            <label class="search-field location-field">
+              <span>⌖</span>
+              <input id="locationInput" type="text" placeholder="City or remote" data-i18n-placeholder="locationPlaceholder" autocomplete="off" aria-autocomplete="list" aria-controls="locationSuggestions" />
+            </label>
+            <div id="locationSuggestions" class="location-suggestions" role="listbox" aria-label="Location suggestions" hidden></div>
+          </div>
           <button class="btn btn-primary search-submit" type="submit" data-i18n="search">Search</button>
         </form>
         <button class="location-action" id="useSearchLocation" type="button" data-i18n="useMyLocation">Use my location</button>
