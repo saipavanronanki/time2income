@@ -1418,3 +1418,122 @@ body[data-page="marketplace"] .app-download-section {
     padding-block: 42px;
   }
 }
+
+/* TIME2INCOME marketplace provider cards: clean layout, no profile avatars */
+body[data-page="marketplace"] .worker-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+body[data-page="marketplace"] .worker-card,
+body[data-page="marketplace"] .worker-grid > article {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid #e3eae5;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(24, 39, 32, .055);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+body[data-page="marketplace"] .worker-card:hover,
+body[data-page="marketplace"] .worker-grid > article:hover {
+  transform: translateY(-3px);
+  border-color: #b7d8c8;
+  box-shadow: 0 16px 34px rgba(24, 39, 32, .095);
+}
+body[data-page="marketplace"] .worker-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+}
+body[data-page="marketplace"] .worker-meta { min-width: 0; }
+body[data-page="marketplace"] .worker-meta h3 {
+  margin: 0 0 7px;
+  color: #182720;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+body[data-page="marketplace"] .worker-meta p {
+  margin: 0;
+  color: #66756d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+body[data-page="marketplace"] .rating {
+  flex-shrink: 0;
+  padding: 7px 9px;
+  border-radius: 8px;
+  font-size: 11px;
+}
+body[data-page="marketplace"] .worker-description {
+  min-height: 0;
+  margin: 22px 0 18px;
+  color: #53635a;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+body[data-page="marketplace"] .tag-row { gap: 8px; margin-bottom: 20px; }
+body[data-page="marketplace"] .skill-tag {
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #f1f6f2;
+  color: #53675c;
+  font-size: 11px;
+}
+body[data-page="marketplace"] .worker-bottom {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid #edf1ee;
+  align-items: center;
+  gap: 12px;
+}
+body[data-page="marketplace"] .worker-price small { font-size: 11px; }
+body[data-page="marketplace"] .worker-price strong {
+  display: block;
+  margin-top: 4px;
+  color: #17694f;
+  font-size: 24px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+body[data-page="marketplace"] .worker-price strong small {
+  display: inline;
+  color: #66756d;
+  font-size: 12px;
+  font-weight: 500;
+}
+body[data-page="marketplace"] .work-type {
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+body[data-page="marketplace"] .worker-actions {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) minmax(0, 1.35fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+body[data-page="marketplace"] .worker-actions .btn {
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  white-space: normal;
+}
+@media (max-width: 760px) {
+  body[data-page="marketplace"] .worker-grid { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  body[data-page="marketplace"] .worker-card,
+  body[data-page="marketplace"] .worker-grid > article { padding: 19px; border-radius: 14px; }
+  body[data-page="marketplace"] .worker-meta h3 { font-size: 17px; }
+  body[data-page="marketplace"] .worker-actions { grid-template-columns: 44px minmax(0, 1fr); }
+  body[data-page="marketplace"] .worker-actions [data-action="book"] { grid-column: 1 / -1; }
+}

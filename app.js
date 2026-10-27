@@ -29,9 +29,6 @@ let toastTimer;
 let realWorkers = [];
 let workerDirectoryState = 'loading';
 let searchLocationCoordinates = null;
-let unavailableWorkersForDate = new Set();
-let availabilityLookupDate = '';
-let availabilityLookupState = 'idle';
 let demoTasks = [];
 let taskCategories = [];
 let accountProfile = null;
@@ -1114,56 +1111,6 @@ function interleaveUnreviewedProviders(providers, location, coordinates) {
   return result;
 }
 
-function getNumberFilter(id) {
-  const raw = $(id)?.value;
-  if (raw === undefined || raw === null || String(raw).trim() === '') return null;
-  const value = Number(raw);
-  return Number.isFinite(value) && value >= 0 ? value : null;
-}
-
-function getDistanceRadiusKm() {
-  const value = getNumberFilter('searchRadiusFilter');
-  return value === null ? null : value;
-}
-
-async function refreshProviderAvailability(dateValue) {
-  availabilityLookupDate = dateValue || '';
-  unavailableWorkersForDate = new Set();
-  if (!availabilityLookupDate) {
-    availabilityLookupState = 'idle';
-    $('advancedSearchStatus').textContent = 'Filters apply to the current search.';
-    renderWorkers();
-    return;
-  }
-  availabilityLookupState = 'loading';
-  $('advancedSearchStatus').textContent = 'Checking existing bookings for that date…';
-  renderWorkers();
-  const start = new Date(`${availabilityLookupDate}T00:00:00`);
-  const end = new Date(start.getTime() + 24 * 60 * 60 * 1000);
-  try {
-    const { data, error } = await supabaseClient.from('bookings')
-      .select('worker_id, starts_at, ends_at, status')
-      .lt('starts_at', end.toISOString())
-      .or(`ends_at.is.null,ends_at.gt.${start.toISOString()}`)
-      .in('status', ['requested', 'accepted', 'confirmed', 'in_progress'])
-      .limit(1000);
-    if (error) throw error;
-    unavailableWorkersForDate = new Set((data || []).filter(booking => {
-      if (!booking.worker_id || !booking.starts_at) return false;
-      const bookingStart = new Date(booking.starts_at).getTime();
-      const bookingEnd = booking.ends_at ? new Date(booking.ends_at).getTime() : Number.POSITIVE_INFINITY;
-      return bookingStart < end.getTime() && bookingEnd > start.getTime();
-    }).map(booking => booking.worker_id));
-    availabilityLookupState = 'ready';
-    $('advancedSearchStatus').textContent = 'Availability is estimated from visible active bookings; confirm the time with the provider.';
-  } catch (error) {
-    console.warn('Provider availability lookup could not be verified:', error);
-    availabilityLookupState = 'unavailable';
-    $('advancedSearchStatus').textContent = 'Availability could not be verified from current booking permissions. Clear the date or check access policies.';
-  }
-  renderWorkers();
-}
-
 function renderWorkers() {
   const grid = $('workerGrid');
   if (!grid) return;
@@ -1172,13 +1119,6 @@ function renderWorkers() {
   const sort = $('sortFilter').value;
   const location = $('locationInput').value.trim().toLocaleLowerCase();
   const locationCoordinates = searchLocationCoordinates;
-  const minRate = getNumberFilter('searchMinRate');
-  const maxRate = getNumberFilter('searchMaxRate');
-  const minimumRating = Number($('searchMinRating')?.value || 0);
-  const skillsQuery = String($('searchSkillsFilter')?.value || '').trim().toLocaleLowerCase();
-  const selectedCategory = $('searchCategoryFilter')?.value || '';
-  const selectedRadius = getDistanceRadiusKm();
-  const selectedAvailableDate = $('searchAvailableDate')?.value || '';
   const status = $('marketplaceResultsStatus');
   const empty = $('emptyState');
   if (workerDirectoryState === 'loading') {
@@ -1204,28 +1144,14 @@ function renderWorkers() {
 
     const matchesQuery = !query || searchable.includes(query.toLowerCase());
     const matchesCategory = !activeCategoryId || p.categoryId === activeCategoryId;
-    const selectedServiceType = $('searchWorkTypeFilter')?.value || 'all';
-    const matchesType = (type === 'all' || p.type === type ||
-      p.type === 'Both' && ['Local', 'Remote'].includes(type)) &&
-      (selectedServiceType === 'all' || p.type === selectedServiceType ||
-       p.type === 'Both' && ['Local', 'Remote'].includes(selectedServiceType));
+    const matchesType = type === 'all' || p.type === type ||
+      p.type === 'Both' && ['Local', 'Remote'].includes(type);
     const matchesLocation = !location ||
       (p.city || '').toLocaleLowerCase().includes(location) ||
       (p.country || '').toLocaleLowerCase() === location ||
       p.type === 'Remote';
-    const matchesSelectedCategory = !selectedCategory || p.categoryId === selectedCategory;
-    const matchesMinRate = minRate === null || (Number.isFinite(Number(p.rate)) && Number(p.rate) >= minRate);
-    const matchesMaxRate = maxRate === null || (Number.isFinite(Number(p.rate)) && Number(p.rate) <= maxRate);
-    const providerSkills = [p.skill, p.category, ...(p.tags || [])].join(' ').toLocaleLowerCase();
-    const matchesSkills = !skillsQuery || skillsQuery.split(/[;,]+/).map(value => value.trim()).filter(Boolean).every(skill => providerSkills.includes(skill));
-    const matchesRating = minimumRating <= 0 || (p.reviewCount > 0 && Number(p.rating) >= minimumRating);
-    const distanceKm = locationCoordinates ? providerDistanceKm(p, locationCoordinates) : null;
-    const matchesRadius = selectedRadius === null || (distanceKm !== null && Number.isFinite(distanceKm) && distanceKm <= selectedRadius);
-    const matchesAvailability = !selectedAvailableDate || availabilityLookupState !== 'ready' || !unavailableWorkersForDate.has(p.id);
 
-    return matchesQuery && matchesCategory && matchesType && matchesLocation &&
-      matchesSelectedCategory && matchesMinRate && matchesMaxRate && matchesSkills &&
-      matchesRating && matchesRadius && matchesAvailability;
+    return matchesQuery && matchesCategory && matchesType && matchesLocation;
   });
 
   if (sort === 'price') list.sort((a,b) => a.rate - b.rate);
@@ -1247,7 +1173,6 @@ function renderWorkers() {
     return `
       <article class="worker-card">
         <div class="worker-card-top">
-          <div class="worker-avatar" style="background:${safeText(p.color || '#dceafa')}">${safeText(initials)}</div>
           <div class="worker-meta">
             <h3>${safeText(p.name)}</h3>
             <p>${safeText(p.skill)} · ${safeText(p.city || p.country || 'Remote')}</p>
@@ -1260,7 +1185,7 @@ function renderWorkers() {
         <div class="worker-bottom">
           <div class="worker-price">
             <small>${t('startingAt')}</small>
-            <strong>${p.rate ? safeText(formatMoney(p.rate, p.currency || 'INR')) : 'Contact'} <small>${p.rate ? '/ hr' : ''}</small></strong>
+            <strong>${p.rate ? safeText(window.TIME2INCOME_CURRENCY.formatDisplay(Number(p.rate), p.currency || 'INR', 'INR', 'en-IN')) : 'Contact'} <small>${p.rate ? '/ hr' : ''}</small></strong>
           </div>
           <span class="work-type">${safeText(p.type || 'Remote')}</span>
         </div>
@@ -1274,9 +1199,6 @@ function renderWorkers() {
   }).join('');
 
   status.textContent = list.length ? t('providersFound').replace('{count}', String(list.length)) : '';
-  if (selectedRadius !== null && !locationCoordinates) $('advancedSearchStatus').textContent = 'Choose “Use my location” to apply distance radius; providers without coordinates cannot be distance-ranked.';
-  else if (selectedAvailableDate && availabilityLookupState === 'loading') $('advancedSearchStatus').textContent = 'Checking existing bookings for that date…';
-  else if (selectedAvailableDate && availabilityLookupState === 'unavailable') $('advancedSearchStatus').textContent = 'Availability could not be verified from current booking permissions. Clear the date or check access policies.';
   empty.classList.toggle('hidden', list.length > 0);
   $('emptyStateTitle').textContent = t('noResults');
   $('emptyStateMessage').textContent = location
@@ -1298,7 +1220,7 @@ async function loadRealWorkers() {
   workerDirectoryState = 'loading';
   renderWorkers();
   try {
-    let { data, error } = await supabaseClient
+    const { data, error } = await supabaseClient
       .from('worker_profiles')
       .select(`
         user_id, headline, skills, bio, category_id, service_languages, portfolio_images, work_preference,
@@ -1307,15 +1229,6 @@ async function loadRealWorkers() {
       `)
       .eq('is_published', true);
 
-    // Coordinates are supplied by an optional migration. Keep the directory usable
-    // when that migration has not been applied or column-level permissions hide them.
-    if (error && /service_latitude|service_longitude/i.test(String(error.message || ''))) {
-      const fallback = await supabaseClient.from('worker_profiles')
-        .select('user_id, headline, skills, bio, category_id, service_languages, portfolio_images, work_preference, hourly_rate, currency_code, service_city, service_country')
-        .eq('is_published', true);
-      data = (fallback.data || []).map(worker => ({ ...worker, service_latitude: null, service_longitude: null }));
-      error = fallback.error;
-    }
     if (error) throw error;
 
     const userIds = [...new Set((data || []).map(w => w.user_id).filter(Boolean))];
@@ -1441,8 +1354,6 @@ function setMode(nextMode) {
     button.classList.toggle('active', button.dataset.mode === mode);
   });
   $('searchInput').placeholder = t(mode === 'work' ? 'providerSearchPlaceholder' : 'searchPlaceholder');
-  document.querySelectorAll('.hire-only').forEach(el => { el.hidden = mode === 'work'; });
-  document.querySelectorAll('.work-only').forEach(el => { el.hidden = mode !== 'work'; });
   const value = $('searchInput').value.trim();
   const matchedCategory = taskCategories.find(category =>
     category.name.toLocaleLowerCase() === value.toLocaleLowerCase()
@@ -1451,8 +1362,7 @@ function setMode(nextMode) {
     activeCategory = '';
     activeCategoryId = '';
     query = '';
-    const advancedCategory = taskCategories.find(category => category.id === $('searchCategoryFilter')?.value);
-    $('taskCategoryFilter').value = matchedCategory?.name || advancedCategory?.name || '';
+    $('taskCategoryFilter').value = matchedCategory?.name || '';
     workQuery = matchedCategory ? '' : value;
     renderTaskBoard().catch(error => toast(error.message));
   } else {
@@ -2042,15 +1952,6 @@ async function loadTaskCategories() {
   if (error) throw error;
   taskCategories = data || [];
 
-  const searchCategory = $('searchCategoryFilter');
-  if (searchCategory) {
-    const selectedId = searchCategory.value;
-    searchCategory.innerHTML = '<option value="">All categories</option>' + taskCategories.map(category =>
-      `<option value="${safeText(category.id)}">${safeText(category.name)}</option>`
-    ).join('');
-    if (taskCategories.some(category => category.id === selectedId)) searchCategory.value = selectedId;
-  }
-
   const categoryFilter = $('taskCategoryFilter');
   if (categoryFilter) {
     const selectedName = categoryFilter.value;
@@ -2096,13 +1997,7 @@ async function renderTaskBoard() {
   taskOfferStatuses = Object.fromEntries((offersResult.data || []).map(offer => [offer.task_id, offer.status]));
   const city = $('taskCityFilter').value.trim().toLowerCase();
   const workMode = $('taskModeFilter').value;
-  const taskWorkType = $('searchTaskWorkType')?.value || 'all';
-  const taskPayType = $('searchTaskPayType')?.value || 'all';
-  const taskMinBudget = getNumberFilter('searchTaskMinBudget');
-  const taskMaxBudget = getNumberFilter('searchTaskMaxBudget');
-  const selectedSearchCategoryId = $('searchCategoryFilter')?.value || '';
-  const selectedSearchCategory = taskCategories.find(category => category.id === selectedSearchCategoryId);
-  const categoryValue = selectedSearchCategory?.name || $('taskCategoryFilter')?.value.trim() || '';
+  const categoryValue = $('taskCategoryFilter')?.value.trim() || '';
   const matchedCategory = taskCategories.find(category =>
     category.name.toLocaleLowerCase() === categoryValue.toLocaleLowerCase()
   );
@@ -2111,17 +2006,12 @@ async function renderTaskBoard() {
     if (task.customer_id === currentUser.id) return false;
     const place = `${task.city || ''} ${task.country || ''}`.toLowerCase();
     const matchesCity = !city || task.work_mode === 'remote' || place.includes(city);
-    const matchesMode = (workMode === 'all' || task.work_mode === workMode) &&
-      (taskWorkType === 'all' || taskWorkType === 'either' || task.work_mode === taskWorkType);
-    const matchesPayType = taskPayType === 'all' || task.pricing_type === taskPayType;
-    const taskBudget = task.budget === null || task.budget === undefined ? null : Number(task.budget);
-    const matchesMinBudget = taskMinBudget === null || (taskBudget !== null && Number.isFinite(taskBudget) && taskBudget >= taskMinBudget);
-    const matchesMaxBudget = taskMaxBudget === null || (taskBudget !== null && Number.isFinite(taskBudget) && taskBudget <= taskMaxBudget);
+    const matchesMode = workMode === 'all' || task.work_mode === workMode;
     const matchesCategory = categoryId === 'all' || task.category_id === categoryId;
     const categoryName = taskCategories.find(category => category.id === task.category_id)?.name || '';
     const searchable = `${task.title || ''} ${task.description || ''} ${categoryName}`.toLocaleLowerCase();
     const matchesQuery = !workQuery || searchable.includes(workQuery.toLocaleLowerCase());
-    return matchesCity && matchesMode && matchesPayType && matchesMinBudget && matchesMaxBudget && matchesCategory && matchesQuery;
+    return matchesCity && matchesMode && matchesCategory && matchesQuery;
   });
   openTasks = openTasks.map(task => ({
     ...task,
@@ -2785,7 +2675,6 @@ function initializeApp() {
     try {
       searchLocationCoordinates = await readApproximateLocation();
       $('locationInput').value = '';
-      $('locationSuggestions').hidden = true;
       status.textContent = t('searchLocationActive');
       renderWorkers();
     } catch (error) {
@@ -2793,84 +2682,6 @@ function initializeApp() {
     } finally {
       button.disabled = false;
     }
-  });
-
-  // TESTING ONLY: local mock suggestions. Replace with a geocoding/Places API before production.
-  const testLocationSuggestions = [
-    { label: 'Madhapur, Hyderabad, Telangana', city: 'Hyderabad', country: 'India', latitude: 17.4483, longitude: 78.3915 },
-    { label: 'HITEC City, Hyderabad, Telangana', city: 'Hyderabad', country: 'India', latitude: 17.4435, longitude: 78.3772 },
-    { label: 'Kondapur, Hyderabad, Telangana', city: 'Hyderabad', country: 'India', latitude: 17.4697, longitude: 78.3639 },
-    { label: 'Gachibowli, Hyderabad, Telangana', city: 'Hyderabad', country: 'India', latitude: 17.4401, longitude: 78.3489 },
-    { label: 'Banjara Hills, Hyderabad, Telangana', city: 'Hyderabad', country: 'India', latitude: 17.4126, longitude: 78.4482 },
-    { label: 'Secunderabad, Telangana, India', city: 'Secunderabad', country: 'India', latitude: 17.4399, longitude: 78.4983 },
-    { label: 'Visakhapatnam, Andhra Pradesh, India', city: 'Visakhapatnam', country: 'India', latitude: 17.6868, longitude: 83.2185 },
-    { label: 'Vijayawada, Andhra Pradesh, India', city: 'Vijayawada', country: 'India', latitude: 16.5062, longitude: 80.6480 },
-    { label: 'Bengaluru, Karnataka, India', city: 'Bengaluru', country: 'India', latitude: 12.9716, longitude: 77.5946 },
-    { label: 'Chennai, Tamil Nadu, India', city: 'Chennai', country: 'India', latitude: 13.0827, longitude: 80.2707 },
-    { label: 'Mumbai, Maharashtra, India', city: 'Mumbai', country: 'India', latitude: 19.0760, longitude: 72.8777 },
-    { label: 'Pune, Maharashtra, India', city: 'Pune', country: 'India', latitude: 18.5204, longitude: 73.8567 },
-    { label: 'Delhi, India', city: 'Delhi', country: 'India', latitude: 28.6139, longitude: 77.2090 },
-    { label: 'Kolkata, West Bengal, India', city: 'Kolkata', country: 'India', latitude: 22.5726, longitude: 88.3639 },
-    { label: 'Remote / Online', city: 'Remote', country: 'India', latitude: null, longitude: null }
-  ];
-  const locationInput = $('locationInput');
-  const locationSuggestions = $('locationSuggestions');
-  function closeTestLocationSuggestions() {
-    locationSuggestions.hidden = true;
-    locationSuggestions.replaceChildren();
-  }
-  function chooseTestLocation(place) {
-    locationInput.value = place.city;
-    searchLocationCoordinates = Number.isFinite(place.latitude) && Number.isFinite(place.longitude)
-      ? { latitude: place.latitude, longitude: place.longitude } : null;
-    closeTestLocationSuggestions();
-    $('searchLocationStatus').textContent = `Testing location selected: ${place.label}. Suggestions are sample data.`;
-    if (mode === 'work') {
-      $('taskCityFilter').value = place.city === 'Remote' ? '' : place.city;
-      renderTaskBoard().catch(error => toast(error.message));
-    } else {
-      renderWorkers();
-    }
-  }
-  locationInput.setAttribute('autocomplete', 'off');
-  locationInput.setAttribute('aria-autocomplete', 'list');
-  locationInput.setAttribute('aria-controls', 'locationSuggestions');
-  locationInput.addEventListener('input', () => {
-    const term = locationInput.value.trim().toLocaleLowerCase();
-    searchLocationCoordinates = null;
-    locationSuggestions.replaceChildren();
-    if (!term) { closeTestLocationSuggestions(); renderWorkers(); return; }
-    const matches = testLocationSuggestions.filter(place => place.label.toLocaleLowerCase().includes(term) || place.city.toLocaleLowerCase().includes(term)).slice(0, 6);
-    if (!matches.length) {
-      const empty = document.createElement('div');
-      empty.className = 'location-suggestion-empty';
-      empty.textContent = 'No test suggestion found. You can still search using this text.';
-      locationSuggestions.append(empty);
-      locationSuggestions.hidden = false;
-      return;
-    }
-    matches.forEach(place => {
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'location-suggestion-option';
-      button.setAttribute('role', 'option');
-      button.innerHTML = '<span class="location-suggestion-pin" aria-hidden="true">⌖</span><span><strong></strong><small></small></span>';
-      button.querySelector('strong').textContent = place.label;
-      button.querySelector('small').textContent = place.city === 'Remote' ? 'Online services · test option' : `${place.city}, ${place.country} · test location`;
-      button.addEventListener('click', () => chooseTestLocation(place));
-      locationSuggestions.append(button);
-    });
-    locationSuggestions.hidden = false;
-  });
-  locationInput.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeTestLocationSuggestions();
-    if (event.key === 'Enter' && !locationSuggestions.hidden) {
-      const first = locationSuggestions.querySelector('.location-suggestion-option');
-      if (first) { event.preventDefault(); first.click(); }
-    }
-  });
-  document.addEventListener('click', event => {
-    if (!locationSuggestions.contains(event.target) && event.target !== locationInput) closeTestLocationSuggestions();
   });
   let marketplaceSearchTimer = null;
   const resolveMarketplaceCategory = value => taskCategories.find(category =>
@@ -2888,8 +2699,7 @@ function initializeApp() {
     const value = $('searchInput').value.trim();
     const matchedCategory = resolveMarketplaceCategory(value);
     if (mode === 'work') {
-      const advancedCategory = taskCategories.find(category => category.id === $('searchCategoryFilter')?.value);
-      $('taskCategoryFilter').value = matchedCategory?.name || advancedCategory?.name || '';
+      $('taskCategoryFilter').value = matchedCategory?.name || '';
       $('taskCityFilter').value = $('locationInput').value.trim();
       workQuery = matchedCategory ? '' : value;
       renderTaskBoard().then(() => {
@@ -2925,8 +2735,7 @@ function initializeApp() {
       marketplaceSearchTimer = setTimeout(renderWorkers, 180);
     } else {
       const matchedCategory = resolveMarketplaceCategory(value);
-      const advancedCategory = taskCategories.find(category => category.id === $('searchCategoryFilter')?.value);
-      $('taskCategoryFilter').value = matchedCategory?.name || advancedCategory?.name || '';
+      $('taskCategoryFilter').value = matchedCategory?.name || '';
       workQuery = matchedCategory ? '' : value;
       marketplaceSearchTimer = setTimeout(() => {
         renderTaskBoard().catch(error => toast(error.message));
@@ -3003,44 +2812,6 @@ function initializeApp() {
   });
   $('typeFilter').addEventListener('change', renderWorkers);
   $('sortFilter').addEventListener('change', renderWorkers);
-  const providerFilterIds = ['searchMinRate', 'searchMaxRate', 'searchWorkTypeFilter', 'searchMinRating', 'searchSkillsFilter', 'searchRadiusFilter'];
-  providerFilterIds.forEach(id => {
-    const element = $(id);
-    if (!element) return;
-    element.addEventListener(element.tagName === 'INPUT' && element.type === 'search' ? 'input' : 'change', () => {
-      if (id === 'searchRadiusFilter' && getDistanceRadiusKm() !== null && !searchLocationCoordinates) {
-        $('advancedSearchStatus').textContent = 'Choose “Use my location” to apply distance radius.';
-      }
-      renderWorkers();
-    });
-  });
-  $('searchCategoryFilter').addEventListener('change', () => {
-    const selected = taskCategories.find(category => category.id === $('searchCategoryFilter').value);
-    if (mode === 'work') {
-      $('taskCategoryFilter').value = selected?.name || '';
-      renderTaskBoard().catch(error => toast(error.message));
-    } else {
-      renderWorkers();
-    }
-  });
-  $('searchAvailableDate').min = new Date().toISOString().slice(0, 10);
-  $('searchAvailableDate').addEventListener('change', event => refreshProviderAvailability(event.target.value));
-  ['searchTaskWorkType', 'searchTaskPayType', 'searchTaskMinBudget', 'searchTaskMaxBudget'].forEach(id => {
-    const element = $(id);
-    if (!element) return;
-    element.addEventListener(element.type === 'number' ? 'input' : 'change', () => renderTaskBoard().catch(error => toast(error.message)));
-  });
-  $('clearAdvancedSearch').addEventListener('click', () => {
-    ['searchCategoryFilter','searchMinRate','searchMaxRate','searchSkillsFilter','searchRadiusFilter','searchAvailableDate','searchTaskMinBudget','searchTaskMaxBudget'].forEach(id => { if ($(id)) $(id).value = ''; });
-    $('searchWorkTypeFilter').value = 'all';
-    $('searchMinRating').value = '0';
-    $('searchTaskWorkType').value = 'all';
-    $('searchTaskPayType').value = 'all';
-    $('taskCategoryFilter').value = '';
-    unavailableWorkersForDate = new Set(); availabilityLookupDate = ''; availabilityLookupState = 'idle';
-    $('advancedSearchStatus').textContent = 'Filters apply to the current search.';
-    renderWorkers(); renderTaskBoard().catch(error => toast(error.message));
-  });
   $('clearFilters').addEventListener('click', () => {
     query = '';
     activeCategory = '';
@@ -3052,10 +2823,6 @@ function initializeApp() {
     $('searchLocationStatus').textContent = '';
     $('typeFilter').value = 'all';
     $('sortFilter').value = 'recommended';
-    ['searchCategoryFilter','searchMinRate','searchMaxRate','searchSkillsFilter','searchRadiusFilter','searchAvailableDate','searchTaskMinBudget','searchTaskMaxBudget'].forEach(id => { if ($(id)) $(id).value = ''; });
-    $('searchWorkTypeFilter').value = 'all'; $('searchMinRating').value = '0'; $('searchTaskWorkType').value = 'all'; $('searchTaskPayType').value = 'all';
-    unavailableWorkersForDate = new Set(); availabilityLookupDate = ''; availabilityLookupState = 'idle';
-    $('advancedSearchStatus').textContent = 'Filters apply to the current search.';
     $('taskCategoryFilter').value = '';
     $('taskCityFilter').value = '';
     syncCategoryCards();

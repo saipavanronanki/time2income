@@ -133,64 +133,11 @@
             <datalist id="marketplaceSearchOptions"></datalist>
           </label>
           <label class="search-field location-field">
-  <span>⌖</span>
-  <input id="locationInput" type="text"
-         placeholder="City or remote"
-         data-i18n-placeholder="locationPlaceholder" />
-
-  <div id="locationSuggestions"
-       class="location-suggestions"
-       role="listbox"
-       aria-label="Location suggestions"
-       hidden></div>
-</label>
-
-<button class="btn btn-primary search-submit"
-        type="submit" data-i18n="search">Search</button>
-</form>
-        <p class="location-test-note">Testing mode: sample India location suggestions (no external API calls).</p>
-        <details class="marketplace-advanced-search" id="marketplaceAdvancedSearch">
-          <summary><span>Refine your search</span><span class="advanced-search-hint">Category · budget · availability · distance</span></summary>
-          <div class="advanced-search-grid">
-            <label class="advanced-filter" for="searchCategoryFilter">Service category
-              <select id="searchCategoryFilter"><option value="">All categories</option></select>
-            </label>
-            <label class="advanced-filter hire-only" for="searchMinRate">Minimum hourly rate
-              <input id="searchMinRate" type="number" min="0" step="any" placeholder="No minimum">
-            </label>
-            <label class="advanced-filter hire-only" for="searchMaxRate">Maximum hourly rate
-              <input id="searchMaxRate" type="number" min="0" step="any" placeholder="No maximum">
-            </label>
-            <label class="advanced-filter hire-only" for="searchWorkTypeFilter">Service delivery
-              <select id="searchWorkTypeFilter"><option value="all">Local or remote</option><option value="Local">In person</option><option value="Remote">Online</option><option value="Both">Local and online</option></select>
-            </label>
-            <label class="advanced-filter hire-only" for="searchAvailableDate">Available on
-              <input id="searchAvailableDate" type="date" min="">
-            </label>
-            <label class="advanced-filter hire-only" for="searchMinRating">Minimum customer rating
-              <select id="searchMinRating"><option value="0">Any rating</option><option value="3">3.0+ stars</option><option value="4">4.0+ stars</option><option value="4.5">4.5+ stars</option><option value="5">5 stars</option></select>
-            </label>
-            <label class="advanced-filter" for="searchSkillsFilter">Specific skills
-              <input id="searchSkillsFilter" type="search" placeholder="e.g. Python, Figma, plumbing">
-            </label>
-            <label class="advanced-filter hire-only" for="searchRadiusFilter">Distance radius (km)
-              <select id="searchRadiusFilter"><option value="">Any distance</option><option value="5">Within 5 km</option><option value="10">Within 10 km</option><option value="25">Within 25 km</option><option value="50">Within 50 km</option><option value="100">Within 100 km</option></select>
-            </label>
-            <label class="advanced-filter work-only" for="searchTaskWorkType" hidden>Task work type
-              <select id="searchTaskWorkType"><option value="all">Any work type</option><option value="local">In person</option><option value="remote">Remote</option><option value="either">Either</option></select>
-            </label>
-            <label class="advanced-filter work-only" for="searchTaskPayType" hidden>Pay type
-              <select id="searchTaskPayType"><option value="all">Any pay type</option><option value="hourly">Hourly</option><option value="fixed">Fixed price</option><option value="shift">Shift</option></select>
-            </label>
-            <label class="advanced-filter work-only" for="searchTaskMinBudget" hidden>Minimum task budget
-              <input id="searchTaskMinBudget" type="number" min="0" step="any" placeholder="No minimum">
-            </label>
-            <label class="advanced-filter work-only" for="searchTaskMaxBudget" hidden>Maximum task budget
-              <input id="searchTaskMaxBudget" type="number" min="0" step="any" placeholder="No maximum">
-            </label>
-          </div>
-          <div class="advanced-search-footer"><p id="advancedSearchStatus" role="status" aria-live="polite">Filters apply to the current search.</p><button class="text-link" id="clearAdvancedSearch" type="button">Clear advanced filters</button></div>
-        </details>
+            <span>⌖</span>
+            <input id="locationInput" type="text" placeholder="City or remote" data-i18n-placeholder="locationPlaceholder" />
+          </label>
+          <button class="btn btn-primary search-submit" type="submit" data-i18n="search">Search</button>
+        </form>
         <button class="location-action" id="useSearchLocation" type="button" data-i18n="useMyLocation">Use my location</button>
         <p class="location-status" id="searchLocationStatus" role="status" aria-live="polite"></p>
 
