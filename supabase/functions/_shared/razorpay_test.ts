@@ -1,6 +1,8 @@
 import {
+  corsHeaders,
   errorResponse,
   feeForCurrency,
+  isAllowedOrigin,
   PaymentConfigurationError,
   PaymentNetworkError,
   PaymentProviderAuthenticationError,
@@ -201,4 +203,29 @@ Deno.test('activation fee remains one major currency unit with supported minor-u
     rejected = error instanceof Error && error.message === 'INVALID_REQUEST';
   }
   assertEquals(rejected, true);
+});
+
+Deno.test('corsHeaders allows Cloudflare Pages, localhost, and time2income origins', () => {
+  const siteOrigin = 'https://time2income.com';
+
+  assertEquals(isAllowedOrigin('https://time2income.com', siteOrigin), true);
+  assertEquals(isAllowedOrigin('https://www.time2income.com', siteOrigin), true);
+  assertEquals(isAllowedOrigin('https://time2income.pages.dev', siteOrigin), true);
+  assertEquals(isAllowedOrigin('https://my-branch.time2income.pages.dev', siteOrigin), true);
+  assertEquals(isAllowedOrigin('http://localhost:3000', siteOrigin), true);
+  assertEquals(isAllowedOrigin('http://127.0.0.1:8765', siteOrigin), true);
+
+  assertEquals(isAllowedOrigin('https://malicious-site.example.com', siteOrigin), false);
+
+  const reqCloudflare = new Request('https://edge.example/functions/v1/create-order', {
+    headers: { Origin: 'https://time2income.pages.dev' },
+  });
+  const headers = corsHeaders(reqCloudflare);
+  assertEquals(headers['Access-Control-Allow-Origin'], 'https://time2income.pages.dev');
+
+  const reqUntrusted = new Request('https://edge.example/functions/v1/create-order', {
+    headers: { Origin: 'https://untrusted.example.com' },
+  });
+  const untrustedHeaders = corsHeaders(reqUntrusted);
+  assertEquals(untrustedHeaders['Access-Control-Allow-Origin'], 'https://time2income.com');
 });

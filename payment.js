@@ -33,9 +33,13 @@ function showPaymentMessage(message, isError = false) {
 }
 
 async function paymentFunctionError(error) {
+  if (!error) return new Error('An unknown payment error occurred.');
   if (error?.context instanceof Response) {
     const body = await error.context.clone().json().catch(() => null);
     if (body && typeof body.error === 'string') return new Error(body.error);
+  }
+  if (typeof error.message === 'string' && error.message.includes('Failed to send a request to the Edge Function')) {
+    return new Error('Could not connect to payment service. Check your connection or deployment origin and try again.');
   }
   return error;
 }
