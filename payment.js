@@ -34,14 +34,44 @@ function showPaymentMessage(message, isError = false) {
 
 async function paymentFunctionError(error) {
   if (!error) return new Error('An unknown payment error occurred.');
-  if (error?.context instanceof Response) {
-    const body = await error.context.clone().json().catch(() => null);
-    if (body && typeof body.error === 'string') return new Error(body.error);
+
+  let response = null;
+  if (error.context instanceof Response) {
+    response = error.context;
+  } else if (error.response instanceof Response) {
+    response = error.response;
+  } else if (error.context && typeof error.context.clone === 'function') {
+    response = error.context;
   }
-  if (typeof error.message === 'string' && error.message.includes('Failed to send a request to the Edge Function')) {
-    return new Error('Could not connect to payment service. Check your connection or deployment origin and try again.');
+
+  if (response) {
+    const body = await response.clone().json().catch(() => null);
+    if (body && typeof body.error === 'string' && body.error.trim()) {
+      return new Error(body.error);
+    }
+    const text = await response.clone().text().catch(() => null);
+    if (text && text.trim()) {
+      try {
+        const parsed = JSON.parse(text);
+        if (parsed && typeof parsed.error === 'string' && parsed.error.trim()) {
+          return new Error(parsed.error);
+        }
+      } catch {
+        // text is not JSON
+      }
+    }
   }
-  return error;
+
+  if (typeof error.message === 'string') {
+    if (error.message.includes('Failed to send a request to the Edge Function')) {
+      return new Error('Could not connect to payment service. Check your connection and try again.');
+    }
+    if (error.message.trim()) {
+      return error;
+    }
+  }
+
+  return new Error('Payment service is unavailable. Please try again later.');
 }
 
 async function getPaymentStatus() {
