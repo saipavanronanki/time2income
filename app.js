@@ -993,53 +993,60 @@ function updateMarketplaceSuggestions() {
 }
 
 function renderMarketplaceFilterSummary() {
-  const summary = $('marketplaceFilterSummary');
-  if (!summary) return;
-  const parts = [];
-  if (activeCategoryId) {
-    const category = taskCategories.find(item => item.id === activeCategoryId);
-    if (category) {
-      const chip = document.createElement('button');
-      chip.className = 'marketplace-filter-chip';
-      chip.type = 'button';
-      chip.dataset.clearCategory = 'true';
-      chip.textContent = `${t('category')}: ${category.name} ×`;
-      parts.push(chip);
+  const containers = [$('marketplaceFilterSummary'), $('workerGridFilterSummary')].filter(Boolean);
+  if (!containers.length) return;
+
+  function createChips() {
+    const parts = [];
+    if (activeCategoryId) {
+      const category = taskCategories.find(item => item.id === activeCategoryId);
+      if (category) {
+        const chip = document.createElement('button');
+        chip.className = 'marketplace-filter-chip';
+        chip.type = 'button';
+        chip.dataset.clearCategory = 'true';
+        chip.textContent = `${t('category')}: ${category.name} ×`;
+        parts.push(chip);
+      }
     }
+    if ($('searchInput') && $('searchInput').value.trim()) {
+      const clearButton = document.createElement('button');
+      clearButton.className = 'marketplace-filter-chip';
+      clearButton.type = 'button';
+      clearButton.dataset.clearSearch = 'true';
+      clearButton.textContent = `${t('clearSearch')}: ${$('searchInput').value.trim()} ×`;
+      parts.push(clearButton);
+    }
+    if ($('typeFilter') && $('typeFilter').value !== 'all') {
+      const typeChip = document.createElement('button');
+      typeChip.className = 'marketplace-filter-chip';
+      typeChip.type = 'button';
+      typeChip.dataset.clearType = 'true';
+      typeChip.textContent = `${t('workMode')}: ${$('typeFilter').value} ×`;
+      parts.push(typeChip);
+    }
+    if ($('locationInput') && $('locationInput').value.trim()) {
+      const locChip = document.createElement('button');
+      locChip.className = 'marketplace-filter-chip';
+      locChip.type = 'button';
+      locChip.dataset.clearLocation = 'true';
+      locChip.textContent = `${t('city')}: ${$('locationInput').value.trim()} ×`;
+      parts.push(locChip);
+    }
+    if (parts.length > 0) {
+      const clearAllBtn = document.createElement('button');
+      clearAllBtn.className = 'marketplace-filter-chip clear-all-chip';
+      clearAllBtn.type = 'button';
+      clearAllBtn.dataset.clearAll = 'true';
+      clearAllBtn.textContent = '↺ Reset all filters';
+      parts.push(clearAllBtn);
+    }
+    return parts;
   }
-  if ($('searchInput').value.trim()) {
-    const clearButton = document.createElement('button');
-    clearButton.className = 'marketplace-filter-chip';
-    clearButton.type = 'button';
-    clearButton.dataset.clearSearch = 'true';
-    clearButton.textContent = `${t('clearSearch')}: ${$('searchInput').value.trim()} ×`;
-    parts.push(clearButton);
-  }
-  if ($('typeFilter') && $('typeFilter').value !== 'all') {
-    const typeChip = document.createElement('button');
-    typeChip.className = 'marketplace-filter-chip';
-    typeChip.type = 'button';
-    typeChip.dataset.clearType = 'true';
-    typeChip.textContent = `${t('workMode')}: ${$('typeFilter').value} ×`;
-    parts.push(typeChip);
-  }
-  if ($('locationInput') && $('locationInput').value.trim()) {
-    const locChip = document.createElement('button');
-    locChip.className = 'marketplace-filter-chip';
-    locChip.type = 'button';
-    locChip.dataset.clearLocation = 'true';
-    locChip.textContent = `${t('city')}: ${$('locationInput').value.trim()} ×`;
-    parts.push(locChip);
-  }
-  if (parts.length > 0) {
-    const clearAllBtn = document.createElement('button');
-    clearAllBtn.className = 'marketplace-filter-chip clear-all-chip';
-    clearAllBtn.type = 'button';
-    clearAllBtn.dataset.clearAll = 'true';
-    clearAllBtn.textContent = '↺ Reset all filters';
-    parts.push(clearAllBtn);
-  }
-  summary.replaceChildren(...parts);
+
+  containers.forEach(container => {
+    container.replaceChildren(...createChips());
+  });
 }
 
 function providerLocationRank(provider, location, coordinates) {
@@ -2950,7 +2957,7 @@ function initializeApp() {
     renderWorkers();
     toast(t('clearFilters') || 'Filters cleared');
   });
-  $('marketplaceFilterSummary').addEventListener('click', event => {
+  const handleFilterClick = event => {
     if (event.target.closest('[data-clear-all]')) {
       $('clearFilters').click();
       return;
@@ -2984,7 +2991,9 @@ function initializeApp() {
       renderWorkers();
       return;
     }
-  });
+  };
+  if ($('marketplaceFilterSummary')) $('marketplaceFilterSummary').addEventListener('click', handleFilterClick);
+  if ($('workerGridFilterSummary')) $('workerGridFilterSummary').addEventListener('click', handleFilterClick);
   $('showAllBtn').addEventListener('click', () => {
     $('clearFilters').click();
     document.querySelector('.featured-section').scrollIntoView({ behavior: 'smooth', block: 'start' });

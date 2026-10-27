@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'time2income-static-v4';
+const CACHE_NAME = 'time2income-static-v5';
 const OFFLINE_ASSETS = ['/offline.html', '/assets/time2income-mark.png'];
 const STATIC_ASSETS = [
   '/offline.html',
