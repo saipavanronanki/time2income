@@ -76,8 +76,8 @@
       });
     })();
   </script>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="redesign.css" />
+  <link rel="stylesheet" href="styles.css?v=20261028" />
+  <link rel="stylesheet" href="redesign.css?v=20261028" />
   <script>document.documentElement.classList.add('auth-gate');</script>
 </head>
 <body>
@@ -242,6 +242,7 @@
         </div>
         <p class="fx-status" id="fxStatus" role="status" aria-live="polite"></p>
         <p class="marketplace-results-status" id="marketplaceResultsStatus" role="status" aria-live="polite"></p>
+        <div class="marketplace-filter-summary" id="workerGridFilterSummary" aria-live="polite"></div>
         <div class="worker-grid" id="workerGrid"></div>
         <div class="empty-state hidden" id="emptyState">
           <strong id="emptyStateTitle" data-i18n="noResults">No matching providers</strong>
@@ -751,9 +752,9 @@
   <!-- Load Supabase before the application script. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase/client.js"></script>
-  <script src="localization.js"></script>
-  <script src="currency.js"></script>
-  <script src="app.js"></script>
-  <script src="pwa.js" defer></script>
+  <script src="localization.js?v=20261028"></script>
+  <script src="currency.js?v=20261028"></script>
+  <script src="app.js?v=20261028"></script>
+  <script src="pwa.js?v=20261028" defer></script>
 </body>
 </html>
