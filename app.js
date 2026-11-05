@@ -2552,6 +2552,10 @@ async function syncSession(session) {
   currentSession = session;
   currentUser = session?.user || null;
   if (!currentUser) {
+    if (new URLSearchParams(location.search).has('preview')) {
+      document.documentElement.classList.remove('auth-gate');
+      return;
+    }
     location.replace('auth.html?mode=signin');
     return;
   }
@@ -3398,3 +3402,954 @@ function isSavedWorker(id) {
   });
   if (synth && synth.onvoiceschanged !== undefined) synth.onvoiceschanged = () => { };
 })();
+
+
+
+/* ==========================================================================
+   P2P Two-Way Marketplace Implementation (Dual Feed & Modals Engine)
+   ========================================================================== */
+
+const SEED_PROVIDERS = [
+  {
+    id: 'prov-1',
+    name: 'Aarav Sharma',
+    avatarColor: 'avatar-emerald',
+    role: 'Full-Stack Web Developer',
+    category: 'Development',
+    location: 'Bengaluru, India',
+    city: 'Bengaluru',
+    country: 'India',
+    workType: 'Remote',
+    rating: 4.9,
+    reviewCount: 38,
+    bio: 'Specialized in modern responsive React, Node.js, and Supabase cloud applications. Fast turnaround with high attention to code quality and test coverage.',
+    skills: ['React.js', 'Node.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
+    languages: ['English', 'Hindi', 'Kannada'],
+    rate: 850,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-2',
+    name: 'Priya Sundaram',
+    avatarColor: 'avatar-indigo',
+    role: 'Brand & UI/UX Product Designer',
+    category: 'Design',
+    location: 'Mumbai, India',
+    city: 'Mumbai',
+    country: 'India',
+    workType: 'Both',
+    rating: 5.0,
+    reviewCount: 24,
+    bio: 'Crafting clean, accessible, and delightful design systems, web experiences, and mobile UI kits in Figma.',
+    skills: ['Figma', 'UI/UX Design', 'Design Systems', 'Wireframing', 'Prototyping'],
+    languages: ['English', 'Tamil', 'Hindi'],
+    rate: 1100,
+    currency: 'INR',
+    isFavorite: true
+  },
+  {
+    id: 'prov-3',
+    name: 'Vikram Singh',
+    avatarColor: 'avatar-amber',
+    role: 'Licensed Master Plumber & HVAC Specialist',
+    category: 'Trades/Plumbing',
+    location: 'New Delhi, India',
+    city: 'New Delhi',
+    country: 'India',
+    workType: 'Local',
+    rating: 4.8,
+    reviewCount: 52,
+    bio: '12+ years certified plumbing and sanitary installations. Emergency pipeline fixes, bathroom overhauls, and drainage pressure maintenance.',
+    skills: ['Plumbing', 'Pipe Fitting', 'Sanitary Repair', 'Water Heaters', 'Drainage'],
+    languages: ['Hindi', 'Punjabi', 'English'],
+    rate: 450,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-4',
+    name: 'Ananya Deshmukh',
+    avatarColor: 'avatar-purple',
+    role: 'Executive Virtual Assistant & Data Specialist',
+    category: 'Admin/Backoffice',
+    location: 'Pune, India',
+    city: 'Pune',
+    country: 'India',
+    workType: 'Remote',
+    rating: 4.9,
+    reviewCount: 19,
+    bio: 'Accurate, detail-driven backoffice support, calendar scheduling, spreadsheet modelling, and customer support coordination.',
+    skills: ['Executive Support', 'Excel/Sheets', 'Data Entry', 'CRM Management', 'Calendar Sync'],
+    languages: ['English', 'Marathi', 'Hindi'],
+    rate: 550,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-5',
+    name: 'Karan Mehra',
+    avatarColor: 'avatar-blue',
+    role: 'Performance Marketing & Growth Lead',
+    category: 'Marketing',
+    location: 'Hyderabad, India',
+    city: 'Hyderabad',
+    country: 'India',
+    workType: 'Remote',
+    rating: 4.7,
+    reviewCount: 15,
+    bio: 'Data-driven growth strategist managing high-ROAS Meta, Google Ads, and SEO traffic funnels for D2C and SaaS brands.',
+    skills: ['Google Ads', 'Meta Ads', 'SEO Growth', 'Analytics', 'Conversion Optimization'],
+    languages: ['English', 'Telugu', 'Hindi'],
+    rate: 950,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-6',
+    name: 'Rohan Gupta',
+    avatarColor: 'avatar-teal',
+    role: 'Mobile App Developer (Flutter & React Native)',
+    category: 'Development',
+    location: 'Gurugram, India',
+    city: 'Gurugram',
+    country: 'India',
+    workType: 'Both',
+    rating: 0,
+    reviewCount: 0,
+    bio: 'Passionate cross-platform mobile engineer delivering fluid iOS and Android apps with clean architecture.',
+    skills: ['Flutter', 'React Native', 'Firebase', 'State Management', 'REST APIs'],
+    languages: ['English', 'Hindi'],
+    rate: 750,
+    currency: 'INR',
+    isFavorite: false
+  }
+];
+
+const SEED_JOBS = [
+  {
+    id: 'job-1',
+    clientName: 'Nesta Tech Solutions',
+    clientAvatarColor: 'avatar-blue',
+    title: 'Modernize SaaS Landing Page in Next.js & Tailwind CSS',
+    category: 'Development',
+    postedAgo: '2 hours ago',
+    urgency: 'urgent',
+    workType: 'Remote',
+    location: 'Remote',
+    city: 'Remote',
+    description: 'We need an experienced frontend developer to revamp our landing page with clean minimalist UI, responsive layouts, and smooth animations.',
+    skills: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Responsive Design'],
+    duration: '2 weeks · ~25 hours',
+    budgetType: 'Fixed',
+    budgetAmount: 35000,
+    hourlyRateRange: null,
+    currency: 'INR',
+    isSaved: false
+  },
+  {
+    id: 'job-2',
+    clientName: 'Heritage Bakery & Cafe',
+    clientAvatarColor: 'avatar-amber',
+    title: 'Brand Refresh & Packaging Label Design',
+    category: 'Design',
+    postedAgo: '5 hours ago',
+    urgency: 'normal',
+    workType: 'Both',
+    location: 'Bengaluru, India',
+    city: 'Bengaluru',
+    description: 'Seeking a creative designer to craft elegant packaging labels, typography selection, and color palettes for 4 new artisanal pastry boxes.',
+    skills: ['Packaging Design', 'Illustration', 'Print Ready', 'Figma'],
+    duration: '3 weeks',
+    budgetType: 'Hourly',
+    budgetAmount: null,
+    hourlyRateRange: '₹600 - ₹900 / hr',
+    currency: 'INR',
+    isSaved: true
+  },
+  {
+    id: 'job-3',
+    clientName: 'Aero Residency Complex',
+    clientAvatarColor: 'avatar-emerald',
+    title: 'Complete Water Line & Pressure Valve Overhaul',
+    category: 'Trades/Plumbing',
+    postedAgo: '1 day ago',
+    urgency: 'urgent',
+    workType: 'Local',
+    location: 'New Delhi, India',
+    city: 'New Delhi',
+    description: 'Immediate requirement for certified plumber to inspect and replace a faulty main intake pressure valve and seal 3 leak points in the ground riser.',
+    skills: ['Plumbing', 'Pipe Fitting', 'Pressure Valve', 'Emergency Repair'],
+    duration: '1 - 2 days',
+    budgetType: 'Fixed',
+    budgetAmount: 7500,
+    hourlyRateRange: null,
+    currency: 'INR',
+    isSaved: false
+  },
+  {
+    id: 'job-4',
+    clientName: 'Apex Health Systems',
+    clientAvatarColor: 'avatar-indigo',
+    title: 'Healthcare Patient Portal Records Digitization',
+    category: 'Admin/Backoffice',
+    postedAgo: '2 days ago',
+    urgency: 'normal',
+    workType: 'Remote',
+    location: 'Remote',
+    city: 'Remote',
+    description: 'Looking for a reliable virtual assistant to reconcile and migrate patient records from paper scans into our secure HIPAA-compliant database.',
+    skills: ['Data Entry', 'Attention to Detail', 'Spreadsheets', 'Confidentiality'],
+    duration: '1 month · 15 hrs/wk',
+    budgetType: 'Fixed',
+    budgetAmount: 18000,
+    hourlyRateRange: null,
+    currency: 'INR',
+    isSaved: false
+  },
+  {
+    id: 'job-5',
+    clientName: 'GreenLeaf Organics',
+    clientAvatarColor: 'avatar-teal',
+    title: 'Local SEO & Google Business Profile Campaign',
+    category: 'Marketing',
+    postedAgo: '3 days ago',
+    urgency: 'normal',
+    workType: 'Local',
+    location: 'Mumbai, India',
+    city: 'Mumbai',
+    description: 'Help our 3 retail grocery stores rank in local 3-pack map results, build citations, and optimize on-page schema.',
+    skills: ['Local SEO', 'Google Maps', 'Citations', 'Schema Markup'],
+    duration: '4 weeks',
+    budgetType: 'Fixed',
+    budgetAmount: 22000,
+    hourlyRateRange: null,
+    currency: 'INR',
+    isSaved: false
+  }
+];
+
+let p2pActiveMode = 'talent'; // 'talent' or 'work'
+let p2pCurrentViewFormat = 'grid'; // 'grid' or 'list'
+let p2pSavedFavorites = new Set(['prov-2', 'job-2']);
+let p2pCurrentPage = 1;
+const P2P_ITEMS_PER_PAGE = 4;
+
+function getAvatarInitials(name) {
+  if (!name) return '??';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function renderDualMarketplaceFeed() {
+  const container = document.getElementById('p2pCardsFeed');
+  const countBadge = document.getElementById('feedResultsCountBadge');
+  const emptyState = document.getElementById('p2pEmptyFeedState');
+  const title = document.getElementById('feedMainTitle');
+  const sub = document.getElementById('feedMainSub');
+
+  if (!container) return;
+
+  const keyword = (document.getElementById('p2pKeywordSearch')?.value || '').trim().toLowerCase();
+  const category = document.getElementById('p2pCategorySelect')?.value || 'all';
+  const workType = document.getElementById('p2pWorkTypeSelect')?.value || 'all';
+  const location = (document.getElementById('p2pLocationInput')?.value || '').trim().toLowerCase();
+  const sort = document.getElementById('p2pSortSelect')?.value || 'newest';
+
+  if (p2pActiveMode === 'talent') {
+    if (title) title.textContent = 'Skilled Providers Ready to Work';
+    if (sub) sub.textContent = 'Browse verified professionals, review profiles, and request direct bookings.';
+  } else {
+    if (title) title.textContent = 'Available Jobs Seeking Skilled Talent';
+    if (sub) sub.textContent = 'Browse tasks and projects posted by clients, send quotes, and submit proposals.';
+  }
+
+  let items = [];
+  if (p2pActiveMode === 'talent') {
+    items = [...SEED_PROVIDERS];
+    items = items.filter(p => {
+      const matchKeyword = !keyword ||
+        p.name.toLowerCase().includes(keyword) ||
+        p.role.toLowerCase().includes(keyword) ||
+        p.bio.toLowerCase().includes(keyword) ||
+        p.skills.some(s => s.toLowerCase().includes(keyword));
+      const matchCategory = category === 'all' || p.category === category;
+      const matchType = workType === 'all' || p.workType === workType || (p.workType === 'Both' && (workType === 'Local' || workType === 'Remote'));
+      const matchLoc = !location || p.location.toLowerCase().includes(location) || p.city.toLowerCase().includes(location);
+      return matchKeyword && matchCategory && matchType && matchLoc;
+    });
+
+    if (sort === 'rate-low') {
+      items.sort((a, b) => (a.rate || 0) - (b.rate || 0));
+    } else if (sort === 'budget-high') {
+      items.sort((a, b) => (b.rate || 0) - (a.rate || 0));
+    } else if (sort === 'rating') {
+      items.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    }
+  } else {
+    items = [...SEED_JOBS];
+    items = items.filter(j => {
+      const matchKeyword = !keyword ||
+        j.title.toLowerCase().includes(keyword) ||
+        j.clientName.toLowerCase().includes(keyword) ||
+        j.description.toLowerCase().includes(keyword) ||
+        j.skills.some(s => s.toLowerCase().includes(keyword));
+      const matchCategory = category === 'all' || j.category === category;
+      const matchType = workType === 'all' || j.workType === workType || (j.workType === 'Both' && (workType === 'Local' || workType === 'Remote'));
+      const matchLoc = !location || j.location.toLowerCase().includes(location) || j.city.toLowerCase().includes(location);
+      return matchKeyword && matchCategory && matchType && matchLoc;
+    });
+
+    if (sort === 'budget-high') {
+      items.sort((a, b) => (b.budgetAmount || 0) - (a.budgetAmount || 0));
+    } else if (sort === 'rate-low') {
+      items.sort((a, b) => (a.budgetAmount || 0) - (b.budgetAmount || 0));
+    }
+  }
+
+  if (countBadge) {
+    countBadge.textContent = items.length + ' ' + (p2pActiveMode === 'talent' ? 'talent' : 'open jobs');
+  }
+
+  const totalCount = items.length;
+  const totalPages = Math.ceil(totalCount / P2P_ITEMS_PER_PAGE) || 1;
+  if (p2pCurrentPage > totalPages) {
+    p2pCurrentPage = totalPages;
+  }
+  if (p2pCurrentPage < 1) {
+    p2pCurrentPage = 1;
+  }
+
+  const startIndex = (p2pCurrentPage - 1) * P2P_ITEMS_PER_PAGE;
+  const pageItems = items.slice(startIndex, startIndex + P2P_ITEMS_PER_PAGE);
+
+  if (totalCount === 0) {
+    container.innerHTML = '';
+    if (emptyState) emptyState.classList.remove('hidden');
+    renderP2PPagination(0, 1);
+    return;
+  } else {
+    if (emptyState) emptyState.classList.add('hidden');
+  }
+
+  if (p2pActiveMode === 'talent') {
+    container.innerHTML = pageItems.map(p => {
+      const initials = getAvatarInitials(p.name);
+      const isFav = p2pSavedFavorites.has(p.id);
+      const ratingBadge = p.rating > 0
+        ? '<span class="badge-rating">⭐ ' + p.rating.toFixed(1) + ' (' + p.reviewCount + ' reviews)</span>'
+        : '<span class="badge-new">🌱 New</span>';
+
+      const workTypeClass = p.workType.toLowerCase();
+
+      return '<article class="p2p-card" data-provider-id="' + p.id + '">' +
+        '<div class="p2p-card-header">' +
+          '<div class="p2p-avatar ' + p.avatarColor + '">' + initials + '</div>' +
+          '<div class="p2p-header-meta">' +
+            '<h3 class="p2p-entity-title" title="' + p.name + '">' + p.name + '</h3>' +
+            '<div class="p2p-sub-meta">' +
+              '<span>' + p.role + '</span>' +
+            '</div>' +
+            '<div class="p2p-sub-meta">' +
+              '<span>📍 ' + p.location + '</span>' +
+              '<span class="meta-dot">•</span>' +
+              '<span class="badge-worktype ' + workTypeClass + '">' + p.workType + '</span>' +
+            '</div>' +
+            '<div style="margin-top: 4px;">' +
+              ratingBadge +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="p2p-card-body">' +
+          '<p class="p2p-card-snippet">' + p.bio + '</p>' +
+          '<div class="p2p-pills-row">' +
+            p.skills.slice(0, 4).map(s => '<span class="p2p-pill">' + s + '</span>').join('') +
+            (p.skills.length > 4 ? '<span class="p2p-pill">+' + (p.skills.length - 4) + '</span>' : '') +
+          '</div>' +
+          '<div class="p2p-pills-row">' +
+            '<span style="font-size: 0.75rem; color: #64748B; margin-right: 4px; align-self: center;">Languages:</span>' +
+            p.languages.map(l => '<span class="p2p-pill language-pill">' + l + '</span>').join('') +
+          '</div>' +
+        '</div>' +
+        '<div class="p2p-card-pricing">' +
+          '<div>' +
+            '<span class="pricing-primary">₹' + p.rate.toLocaleString() + ' <span class="rate-unit">/ hr</span></span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="p2p-card-actions">' +
+          '<button type="button" class="p2p-fav-btn ' + (isFav ? 'active' : '') + '" data-p2p-action="toggle-fav" data-id="' + p.id + '" title="' + (isFav ? 'Remove favorite' : 'Add to favorites') + '">' +
+            (isFav ? '❤️' : '🤍') +
+          '</button>' +
+          '<button type="button" class="btn-card-secondary" data-p2p-action="view-provider" data-id="' + p.id + '">' +
+            'View Profile' +
+          '</button>' +
+          '<button type="button" class="btn-card-primary" data-p2p-action="book-provider" data-id="' + p.id + '">' +
+            'Request Booking' +
+          '</button>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  } else {
+    container.innerHTML = pageItems.map(j => {
+      const initials = getAvatarInitials(j.clientName);
+      const isSaved = p2pSavedFavorites.has(j.id);
+      const urgencyBadge = j.urgency === 'urgent'
+        ? '<span class="badge-urgency-urgent">🔥 Urgent</span>'
+        : '<span class="badge-urgency-normal">⚡ Normal</span>';
+
+      const workTypeClass = j.workType.toLowerCase();
+      const budgetDisplay = j.hourlyRateRange
+        ? j.hourlyRateRange
+        : ('Fixed: ₹' + (j.budgetAmount || 0).toLocaleString());
+
+      return '<article class="p2p-card" data-job-id="' + j.id + '">' +
+        '<div class="p2p-card-header">' +
+          '<div class="p2p-avatar ' + j.clientAvatarColor + '">' + initials + '</div>' +
+          '<div class="p2p-header-meta">' +
+            '<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">' +
+              '<h3 class="p2p-entity-title" title="' + j.title + '">' + j.title + '</h3>' +
+              urgencyBadge +
+            '</div>' +
+            '<div class="p2p-sub-meta">' +
+              '<span>' + j.clientName + '</span>' +
+              '<span class="meta-dot">•</span>' +
+              '<span>' + j.category + '</span>' +
+            '</div>' +
+            '<div class="p2p-sub-meta">' +
+              '<span>⏱️ ' + j.postedAgo + '</span>' +
+              '<span class="meta-dot">•</span>' +
+              '<span>📍 ' + j.location + '</span>' +
+              '<span class="meta-dot">•</span>' +
+              '<span class="badge-worktype ' + workTypeClass + '">' + j.workType + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="p2p-card-body">' +
+          '<p class="p2p-card-snippet">' + j.description + '</p>' +
+          '<div class="p2p-pills-row">' +
+            j.skills.map(s => '<span class="p2p-pill">' + s + '</span>').join('') +
+          '</div>' +
+          '<div class="p2p-duration-row">' +
+            '<span>📅 Duration:</span> ' +
+            '<strong>' + j.duration + '</strong>' +
+          '</div>' +
+        '</div>' +
+        '<div class="p2p-card-pricing">' +
+          '<div>' +
+            '<span class="pricing-primary">' + budgetDisplay + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="p2p-card-actions">' +
+          '<button type="button" class="p2p-save-btn ' + (isSaved ? 'active' : '') + '" data-p2p-action="toggle-save-job" data-id="' + j.id + '" title="' + (isSaved ? 'Remove bookmark' : 'Bookmark job') + '">' +
+            '🏷️' +
+          '</button>' +
+          '<button type="button" class="btn-card-secondary" data-p2p-action="view-job" data-id="' + j.id + '">' +
+            'View Details' +
+          '</button>' +
+          '<button type="button" class="btn-card-primary" data-p2p-action="apply-job" data-id="' + j.id + '">' +
+            'Apply for Work' +
+          '</button>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  renderP2PPagination(totalPages, p2pCurrentPage);
+}
+
+function renderP2PPagination(totalPages, currentPage) {
+  const container = document.getElementById('p2pPaginationContainer');
+  if (!container) return;
+
+  if (totalPages <= 1) {
+    container.innerHTML = '';
+    container.style.display = 'none';
+    return;
+  }
+
+  container.style.display = 'flex';
+  let html = '';
+
+  // Prev Button
+  html += '<button type="button" class="p2p-page-btn p2p-page-arrow ' + (currentPage === 1 ? 'disabled' : '') + '" data-p2p-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled aria-disabled="true"' : '') + ' aria-label="Previous page">← Prev</button>';
+
+  // Page Numbers
+  for (let i = 1; i <= totalPages; i++) {
+    const isActive = i === currentPage;
+    html += '<button type="button" class="p2p-page-btn p2p-page-num ' + (isActive ? 'active' : '') + '" data-p2p-page="' + i + '" aria-current="' + (isActive ? 'page' : 'false') + '" aria-label="Page ' + i + '">' + i + '</button>';
+  }
+
+  // Next Button
+  html += '<button type="button" class="p2p-page-btn p2p-page-arrow ' + (currentPage === totalPages ? 'disabled' : '') + '" data-p2p-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled aria-disabled="true"' : '') + ' aria-label="Next page">Next →</button>';
+
+  container.innerHTML = html;
+}
+
+function setupDualMarketplaceControls() {
+  const toggleTalent = document.getElementById('toggleFindTalent');
+  const toggleWork = document.getElementById('toggleFindWork');
+  const viewGrid = document.getElementById('viewModeGrid');
+  const viewList = document.getElementById('viewModeList');
+  const cardsContainer = document.getElementById('p2pCardsFeed');
+  const keywordInput = document.getElementById('p2pKeywordSearch');
+  const clearSearchBtn = document.getElementById('p2pClearSearch');
+  const categorySelect = document.getElementById('p2pCategorySelect');
+  const workTypeSelect = document.getElementById('p2pWorkTypeSelect');
+  const locationInput = document.getElementById('p2pLocationInput');
+  const sortSelect = document.getElementById('p2pSortSelect');
+  const resetBtn = document.getElementById('p2pResetFiltersBtn');
+
+  const paginationContainer = document.getElementById('p2pPaginationContainer');
+  if (paginationContainer) {
+    paginationContainer.addEventListener('click', (e) => {
+      const pageBtn = e.target.closest('[data-p2p-page]');
+      if (pageBtn && !pageBtn.disabled) {
+        const targetPage = parseInt(pageBtn.dataset.p2pPage, 10);
+        if (targetPage && targetPage !== p2pCurrentPage) {
+          p2pCurrentPage = targetPage;
+          renderDualMarketplaceFeed();
+          cardsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  }
+
+  if (toggleTalent && toggleWork) {
+    toggleTalent.addEventListener('click', () => {
+      p2pActiveMode = 'talent';
+      p2pCurrentPage = 1;
+      toggleTalent.classList.add('active');
+      toggleTalent.setAttribute('aria-checked', 'true');
+      toggleWork.classList.remove('active');
+      toggleWork.setAttribute('aria-checked', 'false');
+      renderDualMarketplaceFeed();
+    });
+
+    toggleWork.addEventListener('click', () => {
+      p2pActiveMode = 'work';
+      p2pCurrentPage = 1;
+      toggleWork.classList.add('active');
+      toggleWork.setAttribute('aria-checked', 'true');
+      toggleTalent.classList.remove('active');
+      toggleTalent.setAttribute('aria-checked', 'false');
+      renderDualMarketplaceFeed();
+    });
+  }
+
+  if (viewGrid && viewList && cardsContainer) {
+    viewGrid.addEventListener('click', () => {
+      p2pCurrentViewFormat = 'grid';
+      viewGrid.classList.add('active');
+      viewGrid.setAttribute('aria-pressed', 'true');
+      viewList.classList.remove('active');
+      viewList.setAttribute('aria-pressed', 'false');
+      cardsContainer.className = 'p2p-cards-container view-grid';
+    });
+
+    viewList.addEventListener('click', () => {
+      p2pCurrentViewFormat = 'list';
+      viewList.classList.add('active');
+      viewList.setAttribute('aria-pressed', 'true');
+      viewGrid.classList.remove('active');
+      viewGrid.setAttribute('aria-pressed', 'false');
+      cardsContainer.className = 'p2p-cards-container view-list';
+    });
+  }
+
+  if (keywordInput) {
+    keywordInput.addEventListener('input', () => {
+      if (clearSearchBtn) clearSearchBtn.hidden = !keywordInput.value;
+      p2pCurrentPage = 1;
+      renderDualMarketplaceFeed();
+    });
+  }
+  if (clearSearchBtn && keywordInput) {
+    clearSearchBtn.addEventListener('click', () => {
+      keywordInput.value = '';
+      clearSearchBtn.hidden = true;
+      p2pCurrentPage = 1;
+      renderDualMarketplaceFeed();
+      keywordInput.focus();
+    });
+  }
+  if (categorySelect) categorySelect.addEventListener('change', () => { p2pCurrentPage = 1; renderDualMarketplaceFeed(); });
+  if (workTypeSelect) workTypeSelect.addEventListener('change', () => { p2pCurrentPage = 1; renderDualMarketplaceFeed(); });
+  if (locationInput) locationInput.addEventListener('input', () => { p2pCurrentPage = 1; renderDualMarketplaceFeed(); });
+  if (sortSelect) sortSelect.addEventListener('change', () => { p2pCurrentPage = 1; renderDualMarketplaceFeed(); });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (keywordInput) keywordInput.value = '';
+      if (clearSearchBtn) clearSearchBtn.hidden = true;
+      if (categorySelect) categorySelect.value = 'all';
+      if (workTypeSelect) workTypeSelect.value = 'all';
+      if (locationInput) locationInput.value = '';
+      if (sortSelect) sortSelect.value = 'newest';
+      p2pCurrentPage = 1;
+      renderDualMarketplaceFeed();
+    });
+  }
+
+  if (cardsContainer) {
+    cardsContainer.addEventListener('click', (e) => {
+      const target = e.target.closest('[data-p2p-action]');
+      if (!target) return;
+      const action = target.dataset.p2pAction;
+      const id = target.dataset.id;
+
+      if (action === 'toggle-fav') {
+        if (p2pSavedFavorites.has(id)) {
+          p2pSavedFavorites.delete(id);
+          target.classList.remove('active');
+          target.innerHTML = '🤍';
+          target.title = 'Add to favorites';
+        } else {
+          p2pSavedFavorites.add(id);
+          target.classList.add('active');
+          target.innerHTML = '❤️';
+          target.title = 'Remove favorite';
+        }
+      } else if (action === 'toggle-save-job') {
+        if (p2pSavedFavorites.has(id)) {
+          p2pSavedFavorites.delete(id);
+          target.classList.remove('active');
+          target.title = 'Bookmark job';
+        } else {
+          p2pSavedFavorites.add(id);
+          target.classList.add('active');
+          target.title = 'Remove bookmark';
+        }
+      } else if (action === 'view-provider') {
+        const prov = SEED_PROVIDERS.find(p => p.id === id);
+        if (prov && typeof openP2PProviderProfileModal === 'function') {
+          openP2PProviderProfileModal(prov);
+        }
+      } else if (action === 'book-provider') {
+        const prov = SEED_PROVIDERS.find(p => p.id === id);
+        if (prov && typeof openP2PBookingModal === 'function') {
+          openP2PBookingModal(prov);
+        }
+      } else if (action === 'view-job') {
+        const job = SEED_JOBS.find(j => j.id === id);
+        if (job && typeof openP2PJobDetailModal === 'function') {
+          openP2PJobDetailModal(job);
+        }
+      } else if (action === 'apply-job') {
+        const job = SEED_JOBS.find(j => j.id === id);
+        if (job && typeof openP2PApplyModal === 'function') {
+          openP2PApplyModal(job);
+        }
+      }
+    });
+  }
+
+  renderDualMarketplaceFeed();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupDualMarketplaceControls);
+} else {
+  setupDualMarketplaceControls();
+}
+
+/* ==========================================================================
+   P2P Modals Workflow Implementation
+   ========================================================================== */
+
+function showP2PToast(message) {
+  const tDiv = document.getElementById('toast');
+  if (!tDiv) return;
+  tDiv.textContent = message;
+  tDiv.classList.add('visible');
+  setTimeout(() => {
+    tDiv.classList.remove('visible');
+  }, 3500);
+}
+
+function openP2PApplyModal(job) {
+  const modal = document.getElementById('p2pApplyModal');
+  if (!modal) return;
+  document.getElementById('p2pApplyJobId').value = job.id;
+  document.getElementById('p2pApplyJobTitle').textContent = 'Apply for: ' + job.title;
+  document.getElementById('p2pApplyClientMeta').textContent = 'Client: ' + job.clientName + ' · ' + job.category + ' · ' + job.location;
+
+  const brief = document.getElementById('p2pApplyJobBrief');
+  if (brief) {
+    const budgetStr = job.hourlyRateRange || ('₹' + (job.budgetAmount || 0).toLocaleString());
+    brief.innerHTML = '<strong>Task Description:</strong><br/>' + job.description + '<br/><br/><strong>Budget:</strong> ' + budgetStr + ' · <strong>Urgency:</strong> ' + job.urgency;
+  }
+
+  document.getElementById('p2pApplyForm').reset();
+  modal.showModal();
+}
+
+function openP2PBookingModal(provider) {
+  const modal = document.getElementById('p2pBookingModal');
+  if (!modal) return;
+  document.getElementById('p2pBookingProviderId').value = provider.id;
+  document.getElementById('p2pBookingProviderName').textContent = 'Hire ' + provider.name;
+  document.getElementById('p2pBookingProviderRole').textContent = provider.role + ' · ' + provider.location;
+
+  const banner = document.getElementById('p2pBookingRateBanner');
+  if (banner) {
+    banner.innerHTML = '<strong>Hourly Rate:</strong> ₹' + provider.rate.toLocaleString() + ' / hr · <strong>Work Preference:</strong> ' + provider.workType + '<br/><small>Review score: ⭐ ' + (provider.rating || 'New') + ' (' + provider.reviewCount + ' reviews)</small>';
+  }
+
+  document.getElementById('p2pBookingForm').reset();
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const dateStr = tomorrow.toISOString().split('T')[0];
+  const dateInput = document.getElementById('p2pBookingDateInput');
+  if (dateInput) dateInput.value = dateStr;
+  const timeInput = document.getElementById('p2pBookingTimeInput');
+  if (timeInput) timeInput.value = '10:00';
+
+  modal.showModal();
+}
+
+function openP2PProviderProfileModal(provider) {
+  const modal = document.getElementById('p2pDetailViewModal');
+  if (!modal) return;
+  document.getElementById('p2pDetailKicker').textContent = 'PROVIDER FULL PROFILE';
+  document.getElementById('p2pDetailTitle').textContent = provider.name;
+
+  const body = document.getElementById('p2pDetailBody');
+  const actions = document.getElementById('p2pDetailActions');
+
+  body.innerHTML = '<div>' +
+    '<p style="font-size: 1.05rem; font-weight: 600; color: #0F172A;">' + provider.role + ' <span class="badge-rating" style="margin-left: 8px;">⭐ ' + (provider.rating || 'New') + ' (' + provider.reviewCount + ' reviews)</span></p>' +
+    '<p style="color: #64748B;">📍 ' + provider.location + ' · Work Type: ' + provider.workType + '</p>' +
+    '<h4>About & Experience</h4>' +
+    '<p>' + provider.bio + '</p>' +
+    '<h4>Key Skills & Expertise</h4>' +
+    '<div class="p2p-pills-row">' + provider.skills.map(s => '<span class="p2p-pill">' + s + '</span>').join('') + '</div>' +
+    '<h4>Spoken Languages</h4>' +
+    '<p>' + provider.languages.join(', ') + '</p>' +
+    '<h4>Standard Hourly Rate</h4>' +
+    '<p style="font-size: 1.2rem; font-weight: 700; color: #059669;">₹' + provider.rate.toLocaleString() + ' <span style="font-size: 0.85rem; color: #64748B; font-weight: normal;">/ hour</span></p>' +
+  '</div>';
+
+  actions.innerHTML = '<button type="button" class="btn btn-card-secondary" id="p2pCloseDetailBtn">Close</button>' +
+    '<button type="button" class="btn btn-primary-emerald" id="p2pBookFromDetailBtn">Request Booking</button>';
+
+  document.getElementById('p2pCloseDetailBtn').addEventListener('click', () => modal.close());
+  document.getElementById('p2pBookFromDetailBtn').addEventListener('click', () => {
+    modal.close();
+    openP2PBookingModal(provider);
+  });
+
+  modal.showModal();
+}
+
+function openP2PJobDetailModal(job) {
+  const modal = document.getElementById('p2pDetailViewModal');
+  if (!modal) return;
+  document.getElementById('p2pDetailKicker').textContent = 'PROJECT SCOPE & REQUIREMENTS';
+  document.getElementById('p2pDetailTitle').textContent = job.title;
+
+  const body = document.getElementById('p2pDetailBody');
+  const actions = document.getElementById('p2pDetailActions');
+
+  const budgetDisplay = job.hourlyRateRange || ('Fixed Budget: ₹' + (job.budgetAmount || 0).toLocaleString());
+
+  body.innerHTML = '<div>' +
+    '<p style="font-size: 1.05rem; font-weight: 600; color: #0F172A;">Client: ' + job.clientName + ' · ' + job.category + '</p>' +
+    '<p style="color: #64748B;">📍 ' + job.location + ' · Work Type: ' + job.workType + ' · Posted: ' + job.postedAgo + '</p>' +
+    '<h4>Project Description</h4>' +
+    '<p>' + job.description + '</p>' +
+    '<h4>Required Skills</h4>' +
+    '<div class="p2p-pills-row">' + job.skills.map(s => '<span class="p2p-pill">' + s + '</span>').join('') + '</div>' +
+    '<h4>Duration & Compensation</h4>' +
+    '<p>⏱️ Estimated duration: <strong>' + job.duration + '</strong></p>' +
+    '<p style="font-size: 1.2rem; font-weight: 700; color: #059669;">' + budgetDisplay + '</p>' +
+  '</div>';
+
+  actions.innerHTML = '<button type="button" class="btn btn-card-secondary" id="p2pCloseDetailBtn">Close</button>' +
+    '<button type="button" class="btn btn-primary-emerald" id="p2pApplyFromDetailBtn">Apply for Work</button>';
+
+  document.getElementById('p2pCloseDetailBtn').addEventListener('click', () => modal.close());
+  document.getElementById('p2pApplyFromDetailBtn').addEventListener('click', () => {
+    modal.close();
+    openP2PApplyModal(job);
+  });
+
+  modal.showModal();
+}
+
+function setupP2PModalEventListeners() {
+  const headerPostJobBtn = document.getElementById('headerPostJobBtn');
+  const headerOfferSkillBtn = document.getElementById('headerOfferSkillBtn');
+
+  const postJobModal = document.getElementById('p2pPostJobModal');
+  const closePostJobModal = document.getElementById('closePostJobModal');
+  const cancelPostJobModal = document.getElementById('cancelPostJobModal');
+  const postJobForm = document.getElementById('p2pPostJobForm');
+
+  const offerSkillModal = document.getElementById('p2pOfferSkillModal');
+  const closeOfferSkillModal = document.getElementById('closeOfferSkillModal');
+  const cancelOfferSkillModal = document.getElementById('cancelOfferSkillModal');
+  const offerSkillForm = document.getElementById('p2pOfferSkillForm');
+
+  const applyModal = document.getElementById('p2pApplyModal');
+  const closeApplyModal = document.getElementById('closeApplyModal');
+  const cancelApplyModal = document.getElementById('cancelApplyModal');
+  const applyForm = document.getElementById('p2pApplyForm');
+
+  const bookingModal = document.getElementById('p2pBookingModal');
+  const closeBookingModal = document.getElementById('closeBookingModal');
+  const cancelBookingModal = document.getElementById('cancelBookingModal');
+  const bookingForm = document.getElementById('p2pBookingForm');
+
+  const detailModal = document.getElementById('p2pDetailViewModal');
+  const closeDetailModal = document.getElementById('closeDetailModal');
+
+  if (headerPostJobBtn && postJobModal) {
+    headerPostJobBtn.addEventListener('click', () => {
+      postJobForm.reset();
+      postJobModal.showModal();
+    });
+  }
+  if (closePostJobModal) closePostJobModal.addEventListener('click', () => postJobModal.close());
+  if (cancelPostJobModal) cancelPostJobModal.addEventListener('click', () => postJobModal.close());
+
+  if (headerOfferSkillBtn && offerSkillModal) {
+    headerOfferSkillBtn.addEventListener('click', () => {
+      offerSkillForm.reset();
+      offerSkillModal.showModal();
+    });
+  }
+  if (closeOfferSkillModal) closeOfferSkillModal.addEventListener('click', () => offerSkillModal.close());
+  if (cancelOfferSkillModal) cancelOfferSkillModal.addEventListener('click', () => offerSkillModal.close());
+
+  if (closeApplyModal) closeApplyModal.addEventListener('click', () => applyModal.close());
+  if (cancelApplyModal) cancelApplyModal.addEventListener('click', () => applyModal.close());
+
+  if (closeBookingModal) closeBookingModal.addEventListener('click', () => bookingModal.close());
+  if (cancelBookingModal) cancelBookingModal.addEventListener('click', () => bookingModal.close());
+
+  if (closeDetailModal) closeDetailModal.addEventListener('click', () => detailModal.close());
+
+  if (postJobForm) {
+    postJobForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('p2pJobTitleInput').value.trim();
+      const category = document.getElementById('p2pJobCategoryInput').value;
+      const workType = document.getElementById('p2pJobWorkTypeInput').value;
+      const desc = document.getElementById('p2pJobDescInput').value.trim();
+      const budgetType = document.getElementById('p2pJobBudgetTypeInput').value;
+      const budgetAmount = parseFloat(document.getElementById('p2pJobBudgetAmountInput').value) || 0;
+      const urgency = document.getElementById('p2pJobUrgencyInput').value;
+      const location = document.getElementById('p2pJobLocationInput').value.trim() || 'Remote';
+
+      const newJob = {
+        id: 'job-' + Date.now(),
+        clientName: 'Current User',
+        clientAvatarColor: 'avatar-emerald',
+        title: title,
+        category: category,
+        postedAgo: 'Just now',
+        urgency: urgency,
+        workType: workType,
+        location: location,
+        city: location,
+        description: desc,
+        skills: [category, workType],
+        duration: 'Flexible',
+        budgetType: budgetType,
+        budgetAmount: budgetAmount,
+        hourlyRateRange: budgetType === 'Hourly' ? ('₹' + budgetAmount + ' / hr') : null,
+        currency: 'INR',
+        isSaved: false
+      };
+
+      SEED_JOBS.unshift(newJob);
+      postJobModal.close();
+      p2pActiveMode = 'work';
+      const toggleWork = document.getElementById('toggleFindWork');
+      const toggleTalent = document.getElementById('toggleFindTalent');
+      if (toggleWork && toggleTalent) {
+        toggleWork.classList.add('active');
+        toggleWork.setAttribute('aria-checked', 'true');
+        toggleTalent.classList.remove('active');
+        toggleTalent.setAttribute('aria-checked', 'false');
+      }
+      renderDualMarketplaceFeed();
+      showP2PToast('Your job "' + title + '" has been posted successfully!');
+    });
+  }
+
+  if (offerSkillForm) {
+    offerSkillForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('p2pProviderNameInput').value.trim();
+      const role = document.getElementById('p2pProviderRoleInput').value.trim();
+      const category = document.getElementById('p2pProviderCategoryInput').value;
+      const rate = parseFloat(document.getElementById('p2pProviderRateInput').value) || 500;
+      const bio = document.getElementById('p2pProviderBioInput').value.trim();
+      const skillsStr = document.getElementById('p2pProviderSkillsInput').value.trim();
+      const languagesStr = document.getElementById('p2pProviderLanguagesInput').value.trim();
+      const location = document.getElementById('p2pProviderLocationInput').value.trim();
+
+      const newProvider = {
+        id: 'prov-' + Date.now(),
+        name: name,
+        avatarColor: 'avatar-teal',
+        role: role,
+        category: category,
+        location: location,
+        city: location,
+        country: 'India',
+        workType: 'Both',
+        rating: 0,
+        reviewCount: 0,
+        bio: bio,
+        skills: skillsStr ? skillsStr.split(',').map(s => s.trim()).filter(Boolean) : [category],
+        languages: languagesStr ? languagesStr.split(',').map(l => l.trim()).filter(Boolean) : ['English'],
+        rate: rate,
+        currency: 'INR',
+        isFavorite: false
+      };
+
+      SEED_PROVIDERS.unshift(newProvider);
+      offerSkillModal.close();
+      p2pActiveMode = 'talent';
+      const toggleTalent = document.getElementById('toggleFindTalent');
+      const toggleWork = document.getElementById('toggleFindWork');
+      if (toggleTalent && toggleWork) {
+        toggleTalent.classList.add('active');
+        toggleTalent.setAttribute('aria-checked', 'true');
+        toggleWork.classList.remove('active');
+        toggleWork.setAttribute('aria-checked', 'false');
+      }
+      renderDualMarketplaceFeed();
+      showP2PToast('Skill profile published successfully! You are now visible to clients.');
+    });
+  }
+
+  if (applyForm) {
+    applyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const quote = document.getElementById('p2pQuoteInput').value;
+      const timeline = document.getElementById('p2pTimelineInput').value;
+      applyModal.close();
+      showP2PToast('Proposal sent! Quote: ₹' + Number(quote).toLocaleString() + ' with timeline: ' + timeline);
+    });
+  }
+
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const date = document.getElementById('p2pBookingDateInput').value;
+      const time = document.getElementById('p2pBookingTimeInput').value;
+      bookingModal.close();
+      showP2PToast('Booking request sent for ' + date + ' at ' + time + '. The provider has been notified!');
+    });
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupP2PModalEventListeners);
+} else {
+  setupP2PModalEventListeners();
+}
