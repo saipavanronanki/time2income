@@ -78,37 +78,305 @@
   </script>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="redesign.css" />
-  <script>document.documentElement.classList.add('auth-gate');</script>
+  <script>
+    if (!new URLSearchParams(location.search).has('preview')) {
+      document.documentElement.classList.add('auth-gate');
+    }
+  </script>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="index.html?page=marketplace" aria-label="TIME2INCOME marketplace">
-      <img class="brand-mark" src="assets/time2income-mark.png" alt="" />
-      <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
-    </a>
+  <!-- Reference-Inspired Sleek Dark Topbar & Control Bar Section -->
+  <div class="dark-portal-header-wrapper">
+    <header class="dark-topbar" id="p2pStickyHeader">
+      <div class="header-inner">
+        <!-- Logo Brand -->
+        <div class="dark-brand-block">
+          <a class="dark-brand" href="index.html?page=marketplace" aria-label="TIME2INCOME">
+            <svg class="dark-brand-logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="#FFFFFF"/>
+              <path d="M8.5 7.5L16.5 12L8.5 16.5V7.5Z" fill="#14161B"/>
+            </svg>
+            <span class="dark-brand-text">TIME<span class="text-accent">2</span>INCOME</span>
+          </a>
+        </div>
 
-    <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="index.html?page=marketplace" data-workspace-page="marketplace">Marketplace</a>
-      <a href="index.html?page=tasks" data-workspace-page="tasks" data-i18n="openTasks">Open tasks</a>
-      <a href="index.html?page=activity" data-workspace-page="activity" data-i18n="myActivity">My activity</a>
-      <a href="index.html?page=profile" data-workspace-page="profile">My profile</a>
-      <a href="index.html?page=guides" data-workspace-page="guides">Guides</a>
-    </nav>
+        <!-- Primary Navigation Links -->
+        <nav class="dark-nav-links" aria-label="Primary navigation">
+          <button type="button" class="dark-nav-item active" id="navItemFindJob">Find job</button>
+          <button type="button" class="dark-nav-item" id="navItemFindTalent">Find talent</button>
+          <a href="#activity" class="dark-nav-item">Messages</a>
+          <button type="button" class="dark-nav-item" id="navItemHiring">Hiring</button>
+          <a href="#explore" class="dark-nav-item">Community</a>
+          <a href="#faq" class="dark-nav-item">FAQ</a>
+        </nav>
 
-    <div class="top-actions">
-      <div class="locale-controls">
-        <label class="language-label" for="language">🌐</label>
-        <input class="locale-picker" id="language" list="languageOptions" aria-label="Search language" autocomplete="off" value="English" data-i18n-placeholder="languageSearch" />
-        <datalist id="languageOptions"></datalist>
-        <label class="currency-label" for="currencySelector" data-i18n="currency">Currency</label>
-        <input class="locale-picker currency-picker" id="currencySelector" list="currencyOptions" aria-label="Search currency" autocomplete="off" value="INR" />
-        <datalist id="currencyOptions"></datalist>
-        <datalist id="countryOptions"></datalist>
+        <!-- Right Side Location, CTAs, User Profile & Actions -->
+        <div class="dark-header-right">
+          <div class="dark-location-pill" title="Current search location">
+            <span class="loc-pin">📍</span>
+            <span class="loc-text" id="topbarLocationDisplay">New York, NY</span>
+          </div>
+
+          <div class="dark-header-ctas">
+            <button type="button" class="dark-btn-post-job" id="headerPostJobBtn">+ Post a Job</button>
+            <button type="button" class="dark-btn-offer-skill" id="headerOfferSkillBtn">+ Offer Skill</button>
+          </div>
+
+          <!-- Hidden auxiliary locale pickers for functional compatibility -->
+          <div class="locale-controls" style="display:none;">
+            <input class="locale-picker" id="language" list="languageOptions" value="English" />
+            <datalist id="languageOptions"></datalist>
+            <input class="locale-picker currency-picker" id="currencySelector" list="currencyOptions" value="INR" />
+            <datalist id="currencyOptions"></datalist>
+            <datalist id="countryOptions"></datalist>
+          </div>
+
+          <!-- User Profile & Action Icons -->
+          <div class="dark-profile-group">
+            <div class="user-avatar-circle" title="User Profile">
+              <img src="assets/hero-art.jpg" alt="User" class="avatar-photo" />
+            </div>
+            <button type="button" class="dark-circle-icon-btn" title="Settings" aria-label="Settings">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+            <button type="button" class="dark-circle-icon-btn" title="Notifications" aria-label="Notifications">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </button>
+            <button type="button" class="btn btn-quiet" id="signInBtn" style="color:#A0AEC0; font-size:12px; margin-left:4px;" data-i18n="signOut">Sign out</button>
+          </div>
+        </div>
       </div>
-      <button class="btn btn-quiet" id="signInBtn" type="button" data-i18n="signOut">Sign out</button>
-      <a class="btn btn-outline" href="index.html?page=profile">My profile</a>
+    </header>
+
+    <!-- Reference-Inspired Dark Control Bar with Pill Inputs & Salary Slider -->
+    <div class="dark-control-bar-container">
+      <div class="dark-control-bar-inner">
+        <!-- 1. Search / Role Pill Input -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">🔍</span>
+            <input type="text" id="p2pKeywordSearch" class="dark-pill-text-input" placeholder="Designer" value="Designer" aria-label="Role search" />
+            <button type="button" class="clear-search-btn" id="p2pClearSearch" title="Clear search" hidden>×</button>
+            <span class="dark-pill-chevron">⌄</span>
+          </div>
+        </div>
+
+        <!-- 2. Work Location Pill Input -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">📍</span>
+            <input type="text" id="p2pLocationInput" class="dark-pill-text-input" placeholder="Work location" aria-label="Work location" />
+            <span class="dark-pill-chevron">⌄</span>
+          </div>
+        </div>
+
+        <!-- 3. Experience / Category Dropdown -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">💼</span>
+            <select id="p2pCategorySelect" class="dark-pill-select" aria-label="Category / Experience">
+              <option value="all">Experience</option>
+              <option value="Development">Development</option>
+              <option value="Design" selected>Design</option>
+              <option value="Trades/Plumbing">Trades/Plumbing</option>
+              <option value="Admin/Backoffice">Admin/Backoffice</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+            <span class="dark-pill-chevron">⌄</span>
+          </div>
+        </div>
+
+        <!-- 4. Rate Period / Work Type Dropdown -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">⏱️</span>
+            <select id="p2pWorkTypeSelect" class="dark-pill-select" aria-label="Per month / Rate type">
+              <option value="all">Per month</option>
+              <option value="Remote">Remote</option>
+              <option value="Local">Local</option>
+              <option value="Both">Both</option>
+            </select>
+            <span class="dark-pill-chevron">⌄</span>
+          </div>
+        </div>
+
+        <!-- 5. Salary Range Double-Handle Slider Inspired by Image -->
+        <div class="dark-salary-slider-cell">
+          <div class="dark-salary-meta">
+            <span class="salary-label">Salary range</span>
+            <span class="salary-values" id="salaryDisplayValue">$1200-$2000</span>
+          </div>
+          <div class="dual-range-slider-wrap">
+            <div class="slider-track-bar"></div>
+            <div class="slider-fill-highlight" id="sliderFillHighlight"></div>
+            <input type="range" min="100" max="3000" step="50" value="1200" id="salaryRangeMin" class="range-handle handle-min" aria-label="Minimum salary" />
+            <input type="range" min="100" max="3000" step="50" value="2000" id="salaryRangeMax" class="range-handle handle-max" aria-label="Maximum salary" />
+          </div>
+        </div>
+      </div>
     </div>
-  </header>
+  </div>
+
+  <!-- Main Canvas Section: Curved White Card Frame on Soft Grey Background -->
+  <main class="reference-main-canvas" id="top">
+    <div class="curved-app-frame">
+      <div class="curved-frame-layout">
+
+        <!-- Left Sidebar: Promo Card + Detailed Filter Checklists -->
+        <aside class="canvas-sidebar" aria-label="Filters and promotional sidebar">
+          <!-- Get Your best profession Promo Banner Card -->
+          <div class="promo-banner-card">
+            <div class="promo-banner-art">
+              <div class="promo-glow-circle"></div>
+              <div class="promo-mesh-lines"></div>
+            </div>
+            <div class="promo-content">
+              <h2 class="promo-title">Get Your best profession with TIME2INCOME</h2>
+              <button type="button" class="promo-btn-learn" id="promoLearnMoreBtn">Learn more</button>
+            </div>
+          </div>
+
+          <!-- Comprehensive Sidebar Filters -->
+          <div class="sidebar-filters-widget">
+            <div class="sidebar-filters-head">
+              <h3 class="filters-heading">Filters</h3>
+              <button type="button" class="filter-collapse-btn" id="toggleSidebarFilters" aria-label="Toggle filters">◀</button>
+            </div>
+
+            <!-- Working schedule group -->
+            <div class="filter-group-block">
+              <h4 class="filter-group-title">Working schedule</h4>
+              <div class="checkbox-list">
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="full-time" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Full time</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="part-time" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Part time</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="internship" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Internship</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="project" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Project work</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="volunteering" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Volunteering</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Employment type group -->
+            <div class="filter-group-block">
+              <h4 class="filter-group-title">Employment type</h4>
+              <div class="checkbox-list">
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="full-day" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Full day</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="flexible" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Flexible schedule</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="shift" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Shift work</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="distant" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Distant work</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="shift-method" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Shift method</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right / Main Content Column: Cards Grid, Header & Controls -->
+        <section class="canvas-main-content">
+          <!-- Main Content Top Header -->
+          <div class="feed-top-bar">
+            <div class="feed-heading-cluster">
+              <h1 class="main-feed-heading" id="feedMainTitle">Recommended jobs</h1>
+              <span class="feed-count-pill" id="feedResultsCountBadge">387</span>
+            </div>
+
+            <!-- Marketplace Switcher & Sort By Controls -->
+            <div class="feed-action-bar">
+              <!-- Mode Switcher Pill: Find Jobs vs Find Talent -->
+              <div class="mode-pill-switcher" role="radiogroup" aria-label="Feed mode">
+                <button type="button" class="mode-pill-btn active" id="toggleFindWork" role="radio" aria-checked="true">
+                  Find Work
+                </button>
+                <button type="button" class="mode-pill-btn" id="toggleFindTalent" role="radio" aria-checked="false">
+                  Find Talent
+                </button>
+              </div>
+
+              <!-- Sort Dropdown -->
+              <div class="sort-control-wrap">
+                <span class="sort-prefix-label">Sort by:</span>
+                <select id="p2pSortSelect" class="sort-by-select" aria-label="Sort listings">
+                  <option value="newest">Last updated</option>
+                  <option value="rate-low">Rate: Low to High</option>
+                  <option value="budget-high">Budget: High to Low</option>
+                  <option value="rating">Top Rated</option>
+                </select>
+                <button type="button" class="sort-filter-icon-btn" aria-label="Sort filter">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                </button>
+              </div>
+
+              <!-- View Switcher (Grid vs List) -->
+              <div class="view-switcher-group" role="group" aria-label="View format">
+                <button type="button" class="view-switch-btn active" id="viewModeGrid" title="Grid View" aria-pressed="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </button>
+                <button type="button" class="view-switch-btn" id="viewModeList" title="List View" aria-pressed="false">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Pastel Card Grid (3 Columns like in Reference) -->
+          <div class="p2p-cards-container view-grid" id="p2pCardsFeed">
+            <!-- Dynamically populated by app.js with pastel-colored cards -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-feed-state hidden" id="p2pEmptyFeedState">
+            <div class="empty-icon">🔍</div>
+            <h3>No matching opportunities found</h3>
+            <p>Try adjusting your search query, location, or clearing sidebar filter checkboxes.</p>
+            <button type="button" class="btn btn-primary" id="p2pResetFiltersBtn" style="background:#111315; border-radius:999px;">Reset Filters</button>
+          </div>
+
+          <!-- Pagination Container -->
+          <nav class="p2p-pagination-container" id="p2pPaginationContainer" aria-label="Pagination Navigation">
+            <!-- Dynamically populated by app.js -->
+          </nav>
+        </section>
+      </div>
+    </div>
+  </main>
 
   <main id="top">
     <section class="hero wrap">
@@ -746,6 +1014,256 @@
     </form>
   </dialog>
 
+
+  <!-- ========================================== -->
+  <!-- Modern Interactive Modals for P2P Workflows -->
+  <!-- ========================================== -->
+
+  <!-- 1. Post a Job Modal -->
+  <dialog id="p2pPostJobModal" class="dialog p2p-modal">
+    <div class="p2p-modal-content">
+      <div class="p2p-modal-header">
+        <div>
+          <span class="p2p-modal-kicker">CLIENT WORK REQUEST</span>
+          <h2 class="p2p-modal-title">Post a Job</h2>
+        </div>
+        <button type="button" class="p2p-modal-close" id="closePostJobModal" aria-label="Close">✕</button>
+      </div>
+      <form id="p2pPostJobForm" class="p2p-modal-form">
+        <div class="form-group">
+          <label class="form-label" for="p2pJobTitleInput">Job Title *</label>
+          <input type="text" id="p2pJobTitleInput" class="p2p-form-input" required placeholder="e.g., Build Modern SaaS Dashboard in Next.js" />
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="p2pJobCategoryInput">Category *</label>
+            <select id="p2pJobCategoryInput" class="p2p-form-select" required>
+              <option value="Development">Development</option>
+              <option value="Design">Design</option>
+              <option value="Trades/Plumbing">Trades/Plumbing</option>
+              <option value="Admin/Backoffice">Admin/Backoffice</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pJobWorkTypeInput">Work Type *</label>
+            <select id="p2pJobWorkTypeInput" class="p2p-form-select" required>
+              <option value="Remote">Remote</option>
+              <option value="Local">Local</option>
+              <option value="Both">Both (Local & Remote)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="p2pJobDescInput">Full Description *</label>
+          <textarea id="p2pJobDescInput" class="p2p-form-textarea" rows="4" required placeholder="Describe the project scope, key deliverables, and requirements..."></textarea>
+        </div>
+
+        <div class="form-row-3">
+          <div class="form-group">
+            <label class="form-label" for="p2pJobBudgetTypeInput">Budget Type</label>
+            <select id="p2pJobBudgetTypeInput" class="p2p-form-select">
+              <option value="Fixed">Fixed Price</option>
+              <option value="Hourly">Hourly Rate</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pJobBudgetAmountInput">Budget / Rate (₹) *</label>
+            <input type="number" id="p2pJobBudgetAmountInput" class="p2p-form-input" required placeholder="e.g. 25000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pJobUrgencyInput">Urgency</label>
+            <select id="p2pJobUrgencyInput" class="p2p-form-select">
+              <option value="normal">Normal</option>
+              <option value="urgent">Urgent 🔥</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="p2pJobLocationInput">Location / City</label>
+          <input type="text" id="p2pJobLocationInput" class="p2p-form-input" placeholder="e.g. Bengaluru, India or Remote" />
+        </div>
+
+        <div class="p2p-modal-actions">
+          <button type="button" class="btn btn-card-secondary" id="cancelPostJobModal">Cancel</button>
+          <button type="submit" class="btn btn-primary-emerald">Publish Job Post</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- 2. Offer Your Skill Modal -->
+  <dialog id="p2pOfferSkillModal" class="dialog p2p-modal">
+    <div class="p2p-modal-content">
+      <div class="p2p-modal-header">
+        <div>
+          <span class="p2p-modal-kicker">PROVIDER REGISTRATION</span>
+          <h2 class="p2p-modal-title">Offer Your Skill</h2>
+        </div>
+        <button type="button" class="p2p-modal-close" id="closeOfferSkillModal" aria-label="Close">✕</button>
+      </div>
+      <form id="p2pOfferSkillForm" class="p2p-modal-form">
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="p2pProviderNameInput">Your Full Name *</label>
+            <input type="text" id="p2pProviderNameInput" class="p2p-form-input" required placeholder="e.g. Rohan Sharma" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pProviderRoleInput">Professional Title / Role *</label>
+            <input type="text" id="p2pProviderRoleInput" class="p2p-form-input" required placeholder="e.g. Senior Frontend Engineer" />
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="p2pProviderCategoryInput">Primary Category *</label>
+            <select id="p2pProviderCategoryInput" class="p2p-form-select" required>
+              <option value="Development">Development</option>
+              <option value="Design">Design</option>
+              <option value="Trades/Plumbing">Trades/Plumbing</option>
+              <option value="Admin/Backoffice">Admin/Backoffice</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pProviderRateInput">Hourly Rate (₹) *</label>
+            <input type="number" id="p2pProviderRateInput" class="p2p-form-input" required placeholder="e.g. 750" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="p2pProviderBioInput">Professional Bio & Summary *</label>
+          <textarea id="p2pProviderBioInput" class="p2p-form-textarea" rows="3" required placeholder="Highlight your experience, past achievements, and working approach..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="p2pProviderSkillsInput">Skills List (comma-separated) *</label>
+          <input type="text" id="p2pProviderSkillsInput" class="p2p-form-input" required placeholder="e.g. React, Next.js, TypeScript, Tailwind" />
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="p2pProviderLanguagesInput">Languages Spoken *</label>
+            <input type="text" id="p2pProviderLanguagesInput" class="p2p-form-input" required placeholder="e.g. English, Hindi" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pProviderLocationInput">Location / City *</label>
+            <input type="text" id="p2pProviderLocationInput" class="p2p-form-input" required placeholder="e.g. Mumbai, India" />
+          </div>
+        </div>
+
+        <div class="p2p-modal-actions">
+          <button type="button" class="btn btn-card-secondary" id="cancelOfferSkillModal">Cancel</button>
+          <button type="submit" class="btn btn-primary-emerald">Publish My Profile</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- 3. Apply for Work Modal -->
+  <dialog id="p2pApplyModal" class="dialog p2p-modal">
+    <div class="p2p-modal-content">
+      <div class="p2p-modal-header">
+        <div>
+          <span class="p2p-modal-kicker">PROPOSAL SUBMISSION</span>
+          <h2 class="p2p-modal-title" id="p2pApplyJobTitle">Apply for Job</h2>
+          <p class="p2p-modal-subtitle" id="p2pApplyClientMeta"></p>
+        </div>
+        <button type="button" class="p2p-modal-close" id="closeApplyModal" aria-label="Close">✕</button>
+      </div>
+      <form id="p2pApplyForm" class="p2p-modal-form">
+        <input type="hidden" id="p2pApplyJobId" />
+        <div class="p2p-job-brief-box" id="p2pApplyJobBrief"></div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="p2pQuoteInput">Your Custom Quote (₹) *</label>
+            <input type="number" id="p2pQuoteInput" class="p2p-form-input" required placeholder="e.g. 15000" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pTimelineInput">Estimated Delivery Timeline *</label>
+            <input type="text" id="p2pTimelineInput" class="p2p-form-input" required placeholder="e.g. 10 business days" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="p2pPitchMessageInput">Cover Letter / Pitch Message *</label>
+          <textarea id="p2pPitchMessageInput" class="p2p-form-textarea" rows="4" required placeholder="Explain why you are the best fit for this project, relevant past experience, and your approach..."></textarea>
+        </div>
+
+        <div class="p2p-modal-actions">
+          <button type="button" class="btn btn-card-secondary" id="cancelApplyModal">Cancel</button>
+          <button type="submit" class="btn btn-primary-emerald">Send Proposal</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- 4. Direct Booking Modal -->
+  <dialog id="p2pBookingModal" class="dialog p2p-modal">
+    <div class="p2p-modal-content">
+      <div class="p2p-modal-header">
+        <div>
+          <span class="p2p-modal-kicker">DIRECT HIRE REQUEST</span>
+          <h2 class="p2p-modal-title" id="p2pBookingProviderName">Request Booking</h2>
+          <p class="p2p-modal-subtitle" id="p2pBookingProviderRole"></p>
+        </div>
+        <button type="button" class="p2p-modal-close" id="closeBookingModal" aria-label="Close">✕</button>
+      </div>
+      <form id="p2pBookingForm" class="p2p-modal-form">
+        <input type="hidden" id="p2pBookingProviderId" />
+        <div class="p2p-provider-rate-banner" id="p2pBookingRateBanner"></div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="p2pBookingDateInput">Preferred Date *</label>
+            <input type="date" id="p2pBookingDateInput" class="p2p-form-input" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="p2pBookingTimeInput">Preferred Time *</label>
+            <input type="time" id="p2pBookingTimeInput" class="p2p-form-input" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="p2pBookingTaskDetailsInput">Task / Project Details *</label>
+          <textarea id="p2pBookingTaskDetailsInput" class="p2p-form-textarea" rows="3" required placeholder="Describe exactly what you need help with..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="p2pBookingContactPrefInput">Contact Preference *</label>
+          <select id="p2pBookingContactPrefInput" class="p2p-form-select">
+            <option value="In-App Chat">In-App Chat & Notifications</option>
+            <option value="Email">Email</option>
+            <option value="Phone / WhatsApp">Phone / WhatsApp</option>
+          </select>
+        </div>
+
+        <div class="p2p-modal-actions">
+          <button type="button" class="btn btn-card-secondary" id="cancelBookingModal">Cancel</button>
+          <button type="submit" class="btn btn-primary-emerald">Confirm & Send Request</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- 5. Full View Details Modal (for Provider Profile or Job Details) -->
+  <dialog id="p2pDetailViewModal" class="dialog p2p-modal">
+    <div class="p2p-modal-content">
+      <div class="p2p-modal-header">
+        <div>
+          <span class="p2p-modal-kicker" id="p2pDetailKicker">DETAILS</span>
+          <h2 class="p2p-modal-title" id="p2pDetailTitle">Details</h2>
+        </div>
+        <button type="button" class="p2p-modal-close" id="closeDetailModal" aria-label="Close">✕</button>
+      </div>
+      <div class="p2p-modal-body" id="p2pDetailBody"></div>
+      <div class="p2p-modal-actions" id="p2pDetailActions"></div>
+    </div>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- Load Supabase before the application script. -->
