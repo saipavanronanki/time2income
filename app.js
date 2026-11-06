@@ -3515,12 +3515,126 @@ const SEED_PROVIDERS = [
     city: 'Gurugram',
     country: 'India',
     workType: 'Both',
-    rating: 0,
-    reviewCount: 0,
-    bio: 'Passionate cross-platform mobile engineer delivering fluid iOS and Android apps with clean architecture.',
+    rating: 4.8,
+    reviewCount: 11,
+    bio: 'Passionate cross-platform mobile engineer delivering fluid iOS and Android apps with clean architecture and Supabase integration.',
     skills: ['Flutter', 'React Native', 'Firebase', 'State Management', 'REST APIs'],
     languages: ['English', 'Hindi'],
     rate: 750,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-7',
+    name: 'Sunita Reddy',
+    avatarColor: 'avatar-emerald',
+    role: 'Expert Residential Electrician & Technician',
+    category: 'Trades/Plumbing',
+    location: 'Hyderabad, India',
+    city: 'Hyderabad',
+    country: 'India',
+    workType: 'Local',
+    rating: 4.9,
+    reviewCount: 42,
+    bio: 'Licensed electrical contractor specializing in smart home switchgear, inverter backup installations, and complete rewiring.',
+    skills: ['Electrical Wiring', 'Appliance Repair', 'Inverter Setup', 'Safety Audits'],
+    languages: ['Telugu', 'Hindi', 'English'],
+    rate: 500,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-8',
+    name: 'Deepak Verma',
+    avatarColor: 'avatar-blue',
+    role: 'Motion Graphics & Video Editor',
+    category: 'Design',
+    location: 'Hyderabad, India',
+    city: 'Hyderabad',
+    country: 'India',
+    workType: 'Remote',
+    rating: 4.95,
+    reviewCount: 31,
+    bio: 'High-impact product demo reels, YouTube longform editing, and viral Instagram reels with Premiere Pro and After Effects.',
+    skills: ['Premiere Pro', 'After Effects', 'Video Editing', 'Sound Design', 'Color Grading'],
+    languages: ['English', 'Hindi'],
+    rate: 900,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-9',
+    name: 'Meera Nambiar',
+    avatarColor: 'avatar-purple',
+    role: 'Financial Analyst & Bookkeeper',
+    category: 'Admin/Backoffice',
+    location: 'Kochi, India',
+    city: 'Kochi',
+    country: 'India',
+    workType: 'Remote',
+    rating: 4.88,
+    reviewCount: 26,
+    bio: 'Certified QuickBooks and Tally professional managing P&L statements, monthly reconciliations, and payroll processing.',
+    skills: ['Bookkeeping', 'Tally Prime', 'QuickBooks', 'Tax Compliance', 'Financial Modeling'],
+    languages: ['English', 'Malayalam', 'Hindi'],
+    rate: 700,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-10',
+    name: 'Arjun Das',
+    avatarColor: 'avatar-amber',
+    role: 'Commercial Driver & Fleet Logistics',
+    category: 'Trades/Plumbing',
+    location: 'Hyderabad, India',
+    city: 'Hyderabad',
+    country: 'India',
+    workType: 'Local',
+    rating: 4.9,
+    reviewCount: 65,
+    bio: 'Experienced, verified personal and commercial vehicle driver with 10+ accident-free years across Telangana and Andhra Pradesh.',
+    skills: ['Driver', 'Intercity Travel', 'Luxury Fleet', 'Vehicle Maintenance'],
+    languages: ['Telugu', 'Hindi', 'English'],
+    rate: 400,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-11',
+    name: 'Kavita Joshi',
+    avatarColor: 'avatar-indigo',
+    role: 'Content Strategist & Copywriter',
+    category: 'Marketing',
+    location: 'Pune, India',
+    city: 'Pune',
+    country: 'India',
+    workType: 'Both',
+    rating: 4.92,
+    reviewCount: 18,
+    bio: 'Authoring conversion-focused SaaS landing copy, case studies, and email drip sequences that drive signups.',
+    skills: ['Copywriting', 'SEO Articles', 'Email Marketing', 'Brand Voice'],
+    languages: ['English', 'Hindi', 'Marathi'],
+    rate: 800,
+    currency: 'INR',
+    isFavorite: false
+  },
+  {
+    id: 'prov-12',
+    name: 'Suresh Patel',
+    avatarColor: 'avatar-teal',
+    role: 'Cloud DevOps & Infrastructure Engineer',
+    category: 'Development',
+    location: 'Ahmedabad, India',
+    city: 'Ahmedabad',
+    country: 'India',
+    workType: 'Remote',
+    rating: 5.0,
+    reviewCount: 29,
+    bio: 'Designing fault-tolerant AWS/GCP setups, Docker containers, Kubernetes clusters, and automated CI/CD deployment pipelines.',
+    skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD Pipelines', 'Linux'],
+    languages: ['English', 'Gujarati', 'Hindi'],
+    rate: 1400,
     currency: 'INR',
     isFavorite: false
   }
@@ -3626,6 +3740,86 @@ const SEED_JOBS = [
     hourlyRateRange: null,
     currency: 'INR',
     isSaved: false
+  },
+  {
+    id: 'job-6',
+    clientName: 'Urban Fleet Hub',
+    clientAvatarColor: 'avatar-blue',
+    title: 'Chauffeur / Driver for Executive Roadshow',
+    category: 'Trades/Plumbing',
+    postedAgo: '4 hours ago',
+    urgency: 'urgent',
+    workType: 'Local',
+    location: 'Hyderabad, India',
+    city: 'Hyderabad',
+    description: 'Need a dependable professional driver for a 3-day executive business delegation in Hyderabad. Punctuality and route knowledge essential.',
+    skills: ['Driver', 'City Navigation', 'VIP Transport'],
+    duration: '3 days · 8 hrs/day',
+    budgetType: 'Hourly',
+    budgetAmount: null,
+    hourlyRateRange: '₹400 - ₹550 / hr',
+    currency: 'INR',
+    isSaved: false
+  },
+  {
+    id: 'job-7',
+    clientName: 'Nexus AI Lab',
+    clientAvatarColor: 'avatar-purple',
+    title: 'Explainer Video Editing & Motion Graphics',
+    category: 'Design',
+    postedAgo: '1 day ago',
+    urgency: 'normal',
+    workType: 'Remote',
+    location: 'Remote',
+    city: 'Remote',
+    description: 'Produce a 90-second animated explainer video showcasing our newly launched API features. Script and voiceover provided.',
+    skills: ['Video Editor', 'Motion Graphics', 'After Effects', 'Sound Design'],
+    duration: '10 days',
+    budgetType: 'Fixed',
+    budgetAmount: 28000,
+    hourlyRateRange: null,
+    currency: 'INR',
+    isSaved: false
+  },
+  {
+    id: 'job-8',
+    clientName: 'Metro Residential Society',
+    clientAvatarColor: 'avatar-emerald',
+    title: 'Plumber for Club House Water Filtration System',
+    category: 'Trades/Plumbing',
+    postedAgo: '6 hours ago',
+    urgency: 'urgent',
+    workType: 'Local',
+    location: 'Hyderabad, India',
+    city: 'Hyderabad',
+    description: 'Repair and service commercial RO filtration unit, replace inlet connectors and pipe lines in the clubhouse.',
+    skills: ['Plumber', 'Pipe Fitting', 'Water Filtration'],
+    duration: '1 day',
+    budgetType: 'Fixed',
+    budgetAmount: 4800,
+    hourlyRateRange: null,
+    currency: 'INR',
+    isSaved: false
+  },
+  {
+    id: 'job-9',
+    clientName: 'Creative Bloom Studio',
+    clientAvatarColor: 'avatar-indigo',
+    title: 'Senior Graphic Designer for Brand Identity',
+    category: 'Design',
+    postedAgo: '2 days ago',
+    urgency: 'normal',
+    workType: 'Both',
+    location: 'Hyderabad, India',
+    city: 'Hyderabad',
+    description: 'Design complete brand assets including logo system, typography guide, pitch deck templates, and social media banners.',
+    skills: ['Graphic Designer', 'Figma', 'Illustrator', 'Branding'],
+    duration: '3 weeks',
+    budgetType: 'Fixed',
+    budgetAmount: 40000,
+    hourlyRateRange: null,
+    currency: 'INR',
+    isSaved: false
   }
 ];
 
@@ -3633,7 +3827,7 @@ let p2pActiveMode = 'talent'; // 'talent' or 'work'
 let p2pCurrentViewFormat = 'grid'; // 'grid' or 'list'
 let p2pSavedFavorites = new Set(['prov-2', 'job-2']);
 let p2pCurrentPage = 1;
-const P2P_ITEMS_PER_PAGE = 4;
+const P2P_ITEMS_PER_PAGE = 8;
 
 function getAvatarInitials(name) {
   if (!name) return '??';
@@ -3871,17 +4065,40 @@ function renderP2PPagination(totalPages, currentPage) {
   container.style.display = 'flex';
   let html = '';
 
-  // Prev Button
-  html += '<button type="button" class="p2p-page-btn p2p-page-arrow ' + (currentPage === 1 ? 'disabled' : '') + '" data-p2p-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled aria-disabled="true"' : '') + ' aria-label="Previous page">← Prev</button>';
+  // Previous (←) page arrow button
+  html += '<button type="button" class="p2p-page-btn p2p-page-arrow ' + (currentPage === 1 ? 'disabled' : '') + '" data-p2p-page="' + (currentPage - 1) + '" ' + (currentPage === 1 ? 'disabled aria-disabled="true"' : '') + ' aria-label="Previous page">←</button>';
 
-  // Page Numbers
-  for (let i = 1; i <= totalPages; i++) {
-    const isActive = i === currentPage;
-    html += '<button type="button" class="p2p-page-btn p2p-page-num ' + (isActive ? 'active' : '') + '" data-p2p-page="' + i + '" aria-current="' + (isActive ? 'page' : 'false') + '" aria-label="Page ' + i + '">' + i + '</button>';
+  // Determine pages with ellipses if many pages (e.g., 1, 2, 3, 4, 5, ..., 10)
+  const pages = [];
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages.push(1);
+    if (currentPage > 3) {
+      pages.push('...');
+    }
+    const start = Math.max(2, currentPage - 1);
+    const end = Math.min(totalPages - 1, currentPage + 1);
+    for (let i = start; i <= end; i++) {
+      if (!pages.includes(i)) pages.push(i);
+    }
+    if (currentPage < totalPages - 2) {
+      pages.push('...');
+    }
+    if (!pages.includes(totalPages)) pages.push(totalPages);
   }
 
-  // Next Button
-  html += '<button type="button" class="p2p-page-btn p2p-page-arrow ' + (currentPage === totalPages ? 'disabled' : '') + '" data-p2p-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled aria-disabled="true"' : '') + ' aria-label="Next page">Next →</button>';
+  pages.forEach(p => {
+    if (p === '...') {
+      html += '<span class="p2p-page-ellipsis">…</span>';
+    } else {
+      const isActive = p === currentPage;
+      html += '<button type="button" class="p2p-page-btn p2p-page-num ' + (isActive ? 'active' : '') + '" data-p2p-page="' + p + '" aria-current="' + (isActive ? 'page' : 'false') + '" aria-label="Page ' + p + '">' + p + '</button>';
+    }
+  });
+
+  // Next (→) page arrow button
+  html += '<button type="button" class="p2p-page-btn p2p-page-arrow ' + (currentPage === totalPages ? 'disabled' : '') + '" data-p2p-page="' + (currentPage + 1) + '" ' + (currentPage === totalPages ? 'disabled aria-disabled="true"' : '') + ' aria-label="Next page">→</button>';
 
   container.innerHTML = html;
 }
@@ -3889,6 +4106,13 @@ function renderP2PPagination(totalPages, currentPage) {
 function setupDualMarketplaceControls() {
   const toggleTalent = document.getElementById('toggleFindTalent');
   const toggleWork = document.getElementById('toggleFindWork');
+  const heroIntentNeedWork = document.getElementById('heroIntentNeedWork');
+  const heroIntentFindWork = document.getElementById('heroIntentFindWork');
+  const heroKeywordInput = document.getElementById('heroKeywordInput');
+  const heroLocationInput = document.getElementById('heroLocationInput');
+  const heroSearchBtn = document.getElementById('heroSearchBtn');
+  const heroUseMyLocationBtn = document.getElementById('heroUseMyLocationBtn');
+  const heroPopularPills = document.querySelectorAll('.hero-popular-pill');
   const viewGrid = document.getElementById('viewModeGrid');
   const viewList = document.getElementById('viewModeList');
   const cardsContainer = document.getElementById('p2pCardsFeed');
@@ -3915,27 +4139,96 @@ function setupDualMarketplaceControls() {
     });
   }
 
-  if (toggleTalent && toggleWork) {
-    toggleTalent.addEventListener('click', () => {
-      p2pActiveMode = 'talent';
-      p2pCurrentPage = 1;
-      toggleTalent.classList.add('active');
-      toggleTalent.setAttribute('aria-checked', 'true');
-      toggleWork.classList.remove('active');
-      toggleWork.setAttribute('aria-checked', 'false');
-      renderDualMarketplaceFeed();
-    });
+  function setMarketplaceMode(mode) {
+    p2pActiveMode = mode;
+    p2pCurrentPage = 1;
+    if (toggleTalent && toggleWork) {
+      if (mode === 'talent') {
+        toggleTalent.classList.add('active');
+        toggleTalent.setAttribute('aria-checked', 'true');
+        toggleWork.classList.remove('active');
+        toggleWork.setAttribute('aria-checked', 'false');
+      } else {
+        toggleWork.classList.add('active');
+        toggleWork.setAttribute('aria-checked', 'true');
+        toggleTalent.classList.remove('active');
+        toggleTalent.setAttribute('aria-checked', 'false');
+      }
+    }
+    if (heroIntentNeedWork && heroIntentFindWork) {
+      if (mode === 'talent') {
+        heroIntentNeedWork.classList.add('active');
+        heroIntentNeedWork.setAttribute('aria-checked', 'true');
+        heroIntentFindWork.classList.remove('active');
+        heroIntentFindWork.setAttribute('aria-checked', 'false');
+      } else {
+        heroIntentFindWork.classList.add('active');
+        heroIntentFindWork.setAttribute('aria-checked', 'true');
+        heroIntentNeedWork.classList.remove('active');
+        heroIntentNeedWork.setAttribute('aria-checked', 'false');
+      }
+    }
+    renderDualMarketplaceFeed();
+  }
 
-    toggleWork.addEventListener('click', () => {
-      p2pActiveMode = 'work';
+  if (toggleTalent && toggleWork) {
+    toggleTalent.addEventListener('click', () => setMarketplaceMode('talent'));
+    toggleWork.addEventListener('click', () => setMarketplaceMode('work'));
+  }
+
+  if (heroIntentNeedWork && heroIntentFindWork) {
+    heroIntentNeedWork.addEventListener('click', () => setMarketplaceMode('talent'));
+    heroIntentFindWork.addEventListener('click', () => setMarketplaceMode('work'));
+  }
+
+  if (heroSearchBtn) {
+    heroSearchBtn.addEventListener('click', () => {
+      const q = (heroKeywordInput?.value || '').trim();
+      const loc = (heroLocationInput?.value || '').trim();
+      if (keywordInput) {
+        keywordInput.value = q;
+        if (clearSearchBtn) clearSearchBtn.hidden = !q;
+      }
+      if (locationInput) {
+        locationInput.value = loc;
+      }
       p2pCurrentPage = 1;
-      toggleWork.classList.add('active');
-      toggleWork.setAttribute('aria-checked', 'true');
-      toggleTalent.classList.remove('active');
-      toggleTalent.setAttribute('aria-checked', 'false');
       renderDualMarketplaceFeed();
+      cardsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
+
+  if (heroKeywordInput) {
+    heroKeywordInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        heroSearchBtn?.click();
+      }
+    });
+  }
+
+  if (heroUseMyLocationBtn) {
+    heroUseMyLocationBtn.addEventListener('click', () => {
+      if (heroLocationInput) heroLocationInput.value = 'Hyderabad';
+      if (locationInput) locationInput.value = 'Hyderabad';
+      p2pCurrentPage = 1;
+      renderDualMarketplaceFeed();
+      showP2PToast('Location set to Hyderabad');
+    });
+  }
+
+  heroPopularPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const kw = pill.dataset.keyword || pill.textContent.trim();
+      if (heroKeywordInput) heroKeywordInput.value = kw;
+      if (keywordInput) {
+        keywordInput.value = kw;
+        if (clearSearchBtn) clearSearchBtn.hidden = false;
+      }
+      p2pCurrentPage = 1;
+      renderDualMarketplaceFeed();
+      cardsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 
   if (viewGrid && viewList && cardsContainer) {
     viewGrid.addEventListener('click', () => {

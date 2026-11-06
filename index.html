@@ -130,6 +130,116 @@
     </div>
   </header>
 
+  <!-- Top Section: Dark Green Hero Banner -->
+  <section class="hero-marketplace-banner" id="heroMarketplaceBanner">
+    <div class="wrap hero-banner-grid">
+      <!-- Left Content Column -->
+      <div class="hero-banner-content">
+        <div class="hero-pill-badge">
+          <span class="hero-pill-dot">🟢</span>
+          <span class="hero-pill-text">A MARKETPLACE FOR TIME, SKILLS AND OPPORTUNITY</span>
+        </div>
+
+        <h1 class="hero-banner-title">
+          <span class="hero-title-main">Find the right skill.</span>
+          <span class="hero-title-accent">Make every hour count.</span>
+        </h1>
+
+        <p class="hero-banner-subtitle">
+          Hire a professional for a few hours, find flexible work, or connect with talent anywhere.
+        </p>
+
+        <!-- Hero Intent Switcher -->
+        <div class="hero-intent-switcher" role="radiogroup" aria-label="Marketplace intent switcher">
+          <button type="button" class="hero-intent-btn active" id="heroIntentNeedWork" role="radio" aria-checked="true">
+            I need work done
+          </button>
+          <button type="button" class="hero-intent-btn" id="heroIntentFindWork" role="radio" aria-checked="false">
+            I want to find work
+          </button>
+        </div>
+
+        <!-- Hero Search & Location Bar -->
+        <div class="hero-search-location-box">
+          <div class="hero-input-field hero-keyword-field">
+            <span class="hero-field-icon">🔍</span>
+            <input type="text" id="heroKeywordInput" class="hero-input" placeholder='Try "plumber", "logo designer"...' aria-label="Search skills or jobs" />
+            <button type="button" class="hero-select-indicator" aria-hidden="true">⌄</button>
+          </div>
+          <div class="hero-input-divider" aria-hidden="true"></div>
+          <div class="hero-input-field hero-location-field">
+            <span class="hero-field-icon">⌖</span>
+            <input type="text" id="heroLocationInput" class="hero-input" placeholder="hyderabad" value="hyderabad" aria-label="Location" />
+          </div>
+          <button type="button" class="hero-search-btn" id="heroSearchBtn">
+            Search
+          </button>
+        </div>
+
+        <!-- Use My Location Link -->
+        <div class="hero-location-link-row">
+          <button type="button" class="hero-use-location-link" id="heroUseMyLocationBtn">
+            Use my location
+          </button>
+        </div>
+
+        <!-- Popular Filter Pills -->
+        <div class="hero-popular-row">
+          <span class="hero-popular-label">Popular:</span>
+          <div class="hero-popular-pills">
+            <button type="button" class="hero-popular-pill" data-keyword="Plumber">Plumber</button>
+            <button type="button" class="hero-popular-pill" data-keyword="Driver">Driver</button>
+            <button type="button" class="hero-popular-pill" data-keyword="Graphic designer">Graphic designer</button>
+            <button type="button" class="hero-popular-pill" data-keyword="Video editor">Video editor</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Graphic / Preview Card Column -->
+      <div class="hero-banner-graphic">
+        <div class="hero-graphic-frame">
+          <img src="assets/hero-art.jpg" alt="Professional working" class="hero-art-img" />
+
+          <!-- Floating Provider Preview Card -->
+          <div class="hero-preview-card" role="region" aria-label="Provider preview card">
+            <div class="preview-card-header">
+              <div class="preview-card-kicker">
+                <span class="preview-dot"></span>
+                <span class="preview-kicker-text">PROVIDER PREVIEW</span>
+              </div>
+              <span class="preview-more-dots">•••</span>
+            </div>
+
+            <div class="preview-card-profile">
+              <div class="preview-avatar">TP</div>
+              <div class="preview-profile-info">
+                <h4 class="preview-name">Sample provider</h4>
+                <p class="preview-subtitle">Example service listing</p>
+              </div>
+              <span class="preview-status-dot" aria-label="Online"></span>
+            </div>
+
+            <div class="preview-card-pricing-row">
+              <div class="preview-price-block">
+                <span class="preview-price-caption">Starting at</span>
+                <div class="preview-price-val">₹450 <span class="preview-price-unit">/ hr</span></div>
+              </div>
+              <span class="preview-tag-badge">Preview only</span>
+            </div>
+
+            <div class="preview-card-footer">
+              <div class="preview-schedule-day">
+                <span class="day-abbr">MON</span>
+                <span class="day-name">Today</span>
+              </div>
+              <div class="preview-schedule-time">2:00–5:00 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Unified Control Bar directly under header -->
   <section class="unified-control-bar-wrapper" id="unifiedControlBar">
     <div class="wrap control-bar-inner">
