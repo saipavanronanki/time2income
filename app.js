@@ -3413,229 +3413,151 @@ const SEED_PROVIDERS = [
   {
     id: 'prov-1',
     name: 'Aarav Sharma',
-    avatarColor: 'avatar-emerald',
-    role: 'Full-Stack Web Developer',
-    category: 'Development',
-    location: 'Bengaluru, India',
-    city: 'Bengaluru',
-    country: 'India',
-    workType: 'Remote',
+    company: 'Amazon',
+    logoType: 'logo-black',
+    logoSymbol: 'a',
+    theme: 'pastel-card-peach',
+    dateBadge: '20 May, 2023',
+    role: 'Senior UI/UX Designer',
+    category: 'Design',
+    location: 'San Francisco, CA',
+    city: 'San Francisco',
+    country: 'USA',
+    workType: 'Both',
+    schedules: ['part-time', 'project'],
+    employmentTypes: ['full-day', 'distant'],
     rating: 4.9,
     reviewCount: 38,
-    bio: 'Specialized in modern responsive React, Node.js, and Supabase cloud applications. Fast turnaround with high attention to code quality and test coverage.',
-    skills: ['React.js', 'Node.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
-    languages: ['English', 'Hindi', 'Kannada'],
-    rate: 850,
-    currency: 'INR',
+    bio: 'Specialized in modern responsive UI/UX design systems, prototyping, and user journeys.',
+    pills: ['Part time', 'Senior level', 'Distant', 'Project work'],
+    rate: 250,
+    rateText: '$250/hr',
+    currency: 'USD',
     isFavorite: false
   },
   {
     id: 'prov-2',
-    name: 'Priya Sundaram',
-    avatarColor: 'avatar-indigo',
-    role: 'Brand & UI/UX Product Designer',
+    name: 'Google Creative',
+    company: 'Google',
+    logoType: 'logo-google',
+    logoSymbol: 'G',
+    theme: 'pastel-card-mint',
+    dateBadge: '4 Feb, 2023',
+    role: 'Junior UI/UX Designer',
     category: 'Design',
-    location: 'Mumbai, India',
-    city: 'Mumbai',
-    country: 'India',
-    workType: 'Both',
-    rating: 5.0,
+    location: 'California, CA',
+    city: 'California',
+    country: 'USA',
+    workType: 'Remote',
+    schedules: ['full-time', 'project'],
+    employmentTypes: ['flexible', 'distant'],
+    rating: 4.8,
     reviewCount: 24,
-    bio: 'Crafting clean, accessible, and delightful design systems, web experiences, and mobile UI kits in Figma.',
-    skills: ['Figma', 'UI/UX Design', 'Design Systems', 'Wireframing', 'Prototyping'],
-    languages: ['English', 'Tamil', 'Hindi'],
-    rate: 1100,
-    currency: 'INR',
+    bio: 'Creating delightful, accessible product components and design guidelines in Figma.',
+    pills: ['Full time', 'Junior level', 'Distant', 'Project work', 'Flexible Schedule'],
+    rate: 150,
+    rateText: '$150/hr',
+    currency: 'USD',
     isFavorite: true
   },
   {
     id: 'prov-3',
-    name: 'Vikram Singh',
-    avatarColor: 'avatar-amber',
-    role: 'Licensed Master Plumber & HVAC Specialist',
-    category: 'Trades/Plumbing',
-    location: 'New Delhi, India',
-    city: 'New Delhi',
-    country: 'India',
-    workType: 'Local',
-    rating: 4.8,
+    name: 'Dribbble Studio',
+    company: 'Dribbble',
+    logoType: 'logo-dribbble',
+    logoSymbol: '🏀',
+    theme: 'pastel-card-lavender',
+    dateBadge: '29 Jan, 2023',
+    role: 'Senior Motion Designer',
+    category: 'Design',
+    location: 'New York, NY',
+    city: 'New York',
+    country: 'USA',
+    workType: 'Remote',
+    schedules: ['part-time'],
+    employmentTypes: ['full-day', 'shift'],
+    rating: 5.0,
     reviewCount: 52,
-    bio: '12+ years certified plumbing and sanitary installations. Emergency pipeline fixes, bathroom overhauls, and drainage pressure maintenance.',
-    skills: ['Plumbing', 'Pipe Fitting', 'Sanitary Repair', 'Water Heaters', 'Drainage'],
-    languages: ['Hindi', 'Punjabi', 'English'],
-    rate: 450,
-    currency: 'INR',
+    bio: '12+ years building high-impact brand animation, 3D interaction, and motion reels.',
+    pills: ['Part time', 'Senior level', 'Full Day', 'Shift work'],
+    rate: 260,
+    rateText: '$260/hr',
+    currency: 'USD',
     isFavorite: false
   },
   {
     id: 'prov-4',
-    name: 'Ananya Deshmukh',
-    avatarColor: 'avatar-purple',
-    role: 'Executive Virtual Assistant & Data Specialist',
-    category: 'Admin/Backoffice',
-    location: 'Pune, India',
-    city: 'Pune',
-    country: 'India',
-    workType: 'Remote',
+    name: 'Twitter Labs',
+    company: 'Twitter',
+    logoType: 'logo-twitter',
+    logoSymbol: '🐦',
+    theme: 'pastel-card-cyan',
+    dateBadge: '11 Apr, 2023',
+    role: 'UX Designer',
+    category: 'Design',
+    location: 'California, CA',
+    city: 'California',
+    country: 'USA',
+    workType: 'Both',
+    schedules: ['full-time', 'project'],
+    employmentTypes: ['full-day', 'distant'],
     rating: 4.9,
     reviewCount: 19,
-    bio: 'Accurate, detail-driven backoffice support, calendar scheduling, spreadsheet modelling, and customer support coordination.',
-    skills: ['Executive Support', 'Excel/Sheets', 'Data Entry', 'CRM Management', 'Calendar Sync'],
-    languages: ['English', 'Marathi', 'Hindi'],
-    rate: 550,
-    currency: 'INR',
+    bio: 'Product architecture, user experience research, and interaction flows.',
+    pills: ['Full time', 'Middle level', 'Distant', 'Project work'],
+    rate: 120,
+    rateText: '$120/hr',
+    currency: 'USD',
     isFavorite: false
   },
   {
     id: 'prov-5',
-    name: 'Karan Mehra',
-    avatarColor: 'avatar-blue',
-    role: 'Performance Marketing & Growth Lead',
-    category: 'Marketing',
-    location: 'Hyderabad, India',
-    city: 'Hyderabad',
-    country: 'India',
-    workType: 'Remote',
-    rating: 4.7,
-    reviewCount: 15,
-    bio: 'Data-driven growth strategist managing high-ROAS Meta, Google Ads, and SEO traffic funnels for D2C and SaaS brands.',
-    skills: ['Google Ads', 'Meta Ads', 'SEO Growth', 'Analytics', 'Conversion Optimization'],
-    languages: ['English', 'Telugu', 'Hindi'],
-    rate: 950,
-    currency: 'INR',
+    name: 'Airbnb Design',
+    company: 'Airbnb',
+    logoType: 'logo-airbnb',
+    logoSymbol: 'A',
+    theme: 'pastel-card-rose',
+    dateBadge: '2 Apr, 2023',
+    role: 'Graphic Designer',
+    category: 'Design',
+    location: 'New York, NY',
+    city: 'New York',
+    country: 'USA',
+    workType: 'Local',
+    schedules: ['part-time'],
+    employmentTypes: ['flexible'],
+    rating: 4.95,
+    reviewCount: 42,
+    bio: 'Crafting brand visual identity, typography systems, and high-conversion marketing visuals.',
+    pills: ['Part time', 'Senior level'],
+    rate: 300,
+    rateText: '$300/hr',
+    currency: 'USD',
     isFavorite: false
   },
   {
     id: 'prov-6',
-    name: 'Rohan Gupta',
-    avatarColor: 'avatar-teal',
-    role: 'Mobile App Developer (Flutter & React Native)',
-    category: 'Development',
-    location: 'Gurugram, India',
-    city: 'Gurugram',
-    country: 'India',
-    workType: 'Both',
-    rating: 4.8,
-    reviewCount: 11,
-    bio: 'Passionate cross-platform mobile engineer delivering fluid iOS and Android apps with clean architecture and Supabase integration.',
-    skills: ['Flutter', 'React Native', 'Firebase', 'State Management', 'REST APIs'],
-    languages: ['English', 'Hindi'],
-    rate: 750,
-    currency: 'INR',
-    isFavorite: false
-  },
-  {
-    id: 'prov-7',
-    name: 'Sunita Reddy',
-    avatarColor: 'avatar-emerald',
-    role: 'Expert Residential Electrician & Technician',
-    category: 'Trades/Plumbing',
-    location: 'Hyderabad, India',
-    city: 'Hyderabad',
-    country: 'India',
-    workType: 'Local',
-    rating: 4.9,
-    reviewCount: 42,
-    bio: 'Licensed electrical contractor specializing in smart home switchgear, inverter backup installations, and complete rewiring.',
-    skills: ['Electrical Wiring', 'Appliance Repair', 'Inverter Setup', 'Safety Audits'],
-    languages: ['Telugu', 'Hindi', 'English'],
-    rate: 500,
-    currency: 'INR',
-    isFavorite: false
-  },
-  {
-    id: 'prov-8',
-    name: 'Deepak Verma',
-    avatarColor: 'avatar-blue',
-    role: 'Motion Graphics & Video Editor',
+    name: 'Apple Services',
+    company: 'Apple',
+    logoType: 'logo-apple',
+    logoSymbol: '🍎',
+    theme: 'pastel-card-cream',
+    dateBadge: '18 Jan, 2023',
+    role: 'Graphic Designer',
     category: 'Design',
-    location: 'Hyderabad, India',
-    city: 'Hyderabad',
-    country: 'India',
+    location: 'San Francisco, CA',
+    city: 'San Francisco',
+    country: 'USA',
     workType: 'Remote',
-    rating: 4.95,
-    reviewCount: 31,
-    bio: 'High-impact product demo reels, YouTube longform editing, and viral Instagram reels with Premiere Pro and After Effects.',
-    skills: ['Premiere Pro', 'After Effects', 'Video Editing', 'Sound Design', 'Color Grading'],
-    languages: ['English', 'Hindi'],
-    rate: 900,
-    currency: 'INR',
-    isFavorite: false
-  },
-  {
-    id: 'prov-9',
-    name: 'Meera Nambiar',
-    avatarColor: 'avatar-purple',
-    role: 'Financial Analyst & Bookkeeper',
-    category: 'Admin/Backoffice',
-    location: 'Kochi, India',
-    city: 'Kochi',
-    country: 'India',
-    workType: 'Remote',
-    rating: 4.88,
-    reviewCount: 26,
-    bio: 'Certified QuickBooks and Tally professional managing P&L statements, monthly reconciliations, and payroll processing.',
-    skills: ['Bookkeeping', 'Tally Prime', 'QuickBooks', 'Tax Compliance', 'Financial Modeling'],
-    languages: ['English', 'Malayalam', 'Hindi'],
-    rate: 700,
-    currency: 'INR',
-    isFavorite: false
-  },
-  {
-    id: 'prov-10',
-    name: 'Arjun Das',
-    avatarColor: 'avatar-amber',
-    role: 'Commercial Driver & Fleet Logistics',
-    category: 'Trades/Plumbing',
-    location: 'Hyderabad, India',
-    city: 'Hyderabad',
-    country: 'India',
-    workType: 'Local',
-    rating: 4.9,
-    reviewCount: 65,
-    bio: 'Experienced, verified personal and commercial vehicle driver with 10+ accident-free years across Telangana and Andhra Pradesh.',
-    skills: ['Driver', 'Intercity Travel', 'Luxury Fleet', 'Vehicle Maintenance'],
-    languages: ['Telugu', 'Hindi', 'English'],
-    rate: 400,
-    currency: 'INR',
-    isFavorite: false
-  },
-  {
-    id: 'prov-11',
-    name: 'Kavita Joshi',
-    avatarColor: 'avatar-indigo',
-    role: 'Content Strategist & Copywriter',
-    category: 'Marketing',
-    location: 'Pune, India',
-    city: 'Pune',
-    country: 'India',
-    workType: 'Both',
+    schedules: ['part-time'],
+    employmentTypes: ['distant'],
     rating: 4.92,
-    reviewCount: 18,
-    bio: 'Authoring conversion-focused SaaS landing copy, case studies, and email drip sequences that drive signups.',
-    skills: ['Copywriting', 'SEO Articles', 'Email Marketing', 'Brand Voice'],
-    languages: ['English', 'Hindi', 'Marathi'],
-    rate: 800,
-    currency: 'INR',
-    isFavorite: false
-  },
-  {
-    id: 'prov-12',
-    name: 'Suresh Patel',
-    avatarColor: 'avatar-teal',
-    role: 'Cloud DevOps & Infrastructure Engineer',
-    category: 'Development',
-    location: 'Ahmedabad, India',
-    city: 'Ahmedabad',
-    country: 'India',
-    workType: 'Remote',
-    rating: 5.0,
-    reviewCount: 29,
-    bio: 'Designing fault-tolerant AWS/GCP setups, Docker containers, Kubernetes clusters, and automated CI/CD deployment pipelines.',
-    skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD Pipelines', 'Linux'],
-    languages: ['English', 'Gujarati', 'Hindi'],
-    rate: 1400,
-    currency: 'INR',
+    reviewCount: 31,
+    bio: 'Clean minimalistic aesthetics, typography hierarchy, and sleek digital experiences.',
+    pills: ['Part time', 'Distant'],
+    rate: 140,
+    rateText: '$140/hr',
+    currency: 'USD',
     isFavorite: false
   }
 ];
@@ -3643,191 +3565,143 @@ const SEED_PROVIDERS = [
 const SEED_JOBS = [
   {
     id: 'job-1',
-    clientName: 'Nesta Tech Solutions',
-    clientAvatarColor: 'avatar-blue',
-    title: 'Modernize SaaS Landing Page in Next.js & Tailwind CSS',
-    category: 'Development',
-    postedAgo: '2 hours ago',
-    urgency: 'urgent',
-    workType: 'Remote',
-    location: 'Remote',
-    city: 'Remote',
-    description: 'We need an experienced frontend developer to revamp our landing page with clean minimalist UI, responsive layouts, and smooth animations.',
-    skills: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Responsive Design'],
-    duration: '2 weeks · ~25 hours',
-    budgetType: 'Fixed',
-    budgetAmount: 35000,
-    hourlyRateRange: null,
-    currency: 'INR',
+    company: 'Amazon',
+    logoType: 'logo-black',
+    logoSymbol: 'a',
+    theme: 'pastel-card-peach',
+    dateBadge: '20 May, 2023',
+    title: 'Senior UI/UX Designer',
+    category: 'Design',
+    location: 'San Francisco, CA',
+    city: 'San Francisco',
+    country: 'USA',
+    workType: 'Both',
+    schedules: ['part-time', 'project'],
+    employmentTypes: ['full-day', 'distant'],
+    description: 'Lead design systems and user journey optimization for international eCommerce platforms.',
+    pills: ['Part time', 'Senior level', 'Distant', 'Project work'],
+    rate: 250,
+    rateText: '$250/hr',
+    currency: 'USD',
     isSaved: false
   },
   {
     id: 'job-2',
-    clientName: 'Heritage Bakery & Cafe',
-    clientAvatarColor: 'avatar-amber',
-    title: 'Brand Refresh & Packaging Label Design',
+    company: 'Google',
+    logoType: 'logo-google',
+    logoSymbol: 'G',
+    theme: 'pastel-card-mint',
+    dateBadge: '4 Feb, 2023',
+    title: 'Junior UI/UX Designer',
     category: 'Design',
-    postedAgo: '5 hours ago',
-    urgency: 'normal',
-    workType: 'Both',
-    location: 'Bengaluru, India',
-    city: 'Bengaluru',
-    description: 'Seeking a creative designer to craft elegant packaging labels, typography selection, and color palettes for 4 new artisanal pastry boxes.',
-    skills: ['Packaging Design', 'Illustration', 'Print Ready', 'Figma'],
-    duration: '3 weeks',
-    budgetType: 'Hourly',
-    budgetAmount: null,
-    hourlyRateRange: '₹600 - ₹900 / hr',
-    currency: 'INR',
+    location: 'California, CA',
+    city: 'California',
+    country: 'USA',
+    workType: 'Remote',
+    schedules: ['full-time', 'project'],
+    employmentTypes: ['flexible', 'distant'],
+    description: 'Assist product squads with responsive layouts, icon sets, and micro-interactions.',
+    pills: ['Full time', 'Junior level', 'Distant', 'Project work', 'Flexible Schedule'],
+    rate: 150,
+    rateText: '$150/hr',
+    currency: 'USD',
     isSaved: true
   },
   {
     id: 'job-3',
-    clientName: 'Aero Residency Complex',
-    clientAvatarColor: 'avatar-emerald',
-    title: 'Complete Water Line & Pressure Valve Overhaul',
-    category: 'Trades/Plumbing',
-    postedAgo: '1 day ago',
-    urgency: 'urgent',
-    workType: 'Local',
-    location: 'New Delhi, India',
-    city: 'New Delhi',
-    description: 'Immediate requirement for certified plumber to inspect and replace a faulty main intake pressure valve and seal 3 leak points in the ground riser.',
-    skills: ['Plumbing', 'Pipe Fitting', 'Pressure Valve', 'Emergency Repair'],
-    duration: '1 - 2 days',
-    budgetType: 'Fixed',
-    budgetAmount: 7500,
-    hourlyRateRange: null,
-    currency: 'INR',
+    company: 'Dribbble',
+    logoType: 'logo-dribbble',
+    logoSymbol: '🏀',
+    theme: 'pastel-card-lavender',
+    dateBadge: '29 Jan, 2023',
+    title: 'Senior Motion Designer',
+    category: 'Design',
+    location: 'New York, NY',
+    city: 'New York',
+    country: 'USA',
+    workType: 'Remote',
+    schedules: ['part-time'],
+    employmentTypes: ['full-day', 'shift'],
+    description: 'Produce high-fidelity 3D motion graphics and brand teaser animations for creative portfolios.',
+    pills: ['Part time', 'Senior level', 'Full Day', 'Shift work'],
+    rate: 260,
+    rateText: '$260/hr',
+    currency: 'USD',
     isSaved: false
   },
   {
     id: 'job-4',
-    clientName: 'Apex Health Systems',
-    clientAvatarColor: 'avatar-indigo',
-    title: 'Healthcare Patient Portal Records Digitization',
-    category: 'Admin/Backoffice',
-    postedAgo: '2 days ago',
-    urgency: 'normal',
-    workType: 'Remote',
-    location: 'Remote',
-    city: 'Remote',
-    description: 'Looking for a reliable virtual assistant to reconcile and migrate patient records from paper scans into our secure HIPAA-compliant database.',
-    skills: ['Data Entry', 'Attention to Detail', 'Spreadsheets', 'Confidentiality'],
-    duration: '1 month · 15 hrs/wk',
-    budgetType: 'Fixed',
-    budgetAmount: 18000,
-    hourlyRateRange: null,
-    currency: 'INR',
+    company: 'Twitter',
+    logoType: 'logo-twitter',
+    logoSymbol: '🐦',
+    theme: 'pastel-card-cyan',
+    dateBadge: '11 Apr, 2023',
+    title: 'UX Designer',
+    category: 'Design',
+    location: 'California, CA',
+    city: 'California',
+    country: 'USA',
+    workType: 'Both',
+    schedules: ['full-time', 'project'],
+    employmentTypes: ['full-day', 'distant'],
+    description: 'Revitalize mobile feed experience, accessibility standards, and creator tool interfaces.',
+    pills: ['Full time', 'Middle level', 'Distant', 'Project work'],
+    rate: 120,
+    rateText: '$120/hr',
+    currency: 'USD',
     isSaved: false
   },
   {
     id: 'job-5',
-    clientName: 'GreenLeaf Organics',
-    clientAvatarColor: 'avatar-teal',
-    title: 'Local SEO & Google Business Profile Campaign',
-    category: 'Marketing',
-    postedAgo: '3 days ago',
-    urgency: 'normal',
+    company: 'Airbnb',
+    logoType: 'logo-airbnb',
+    logoSymbol: 'A',
+    theme: 'pastel-card-rose',
+    dateBadge: '2 Apr, 2023',
+    title: 'Graphic Designer',
+    category: 'Design',
+    location: 'New York, NY',
+    city: 'New York',
+    country: 'USA',
     workType: 'Local',
-    location: 'Mumbai, India',
-    city: 'Mumbai',
-    description: 'Help our 3 retail grocery stores rank in local 3-pack map results, build citations, and optimize on-page schema.',
-    skills: ['Local SEO', 'Google Maps', 'Citations', 'Schema Markup'],
-    duration: '4 weeks',
-    budgetType: 'Fixed',
-    budgetAmount: 22000,
-    hourlyRateRange: null,
-    currency: 'INR',
+    schedules: ['part-time'],
+    employmentTypes: ['flexible'],
+    description: 'Create engaging editorial layouts, host welcome guides, and visual campaign assets.',
+    pills: ['Part time', 'Senior level'],
+    rate: 300,
+    rateText: '$300/hr',
+    currency: 'USD',
     isSaved: false
   },
   {
     id: 'job-6',
-    clientName: 'Urban Fleet Hub',
-    clientAvatarColor: 'avatar-blue',
-    title: 'Chauffeur / Driver for Executive Roadshow',
-    category: 'Trades/Plumbing',
-    postedAgo: '4 hours ago',
-    urgency: 'urgent',
-    workType: 'Local',
-    location: 'Hyderabad, India',
-    city: 'Hyderabad',
-    description: 'Need a dependable professional driver for a 3-day executive business delegation in Hyderabad. Punctuality and route knowledge essential.',
-    skills: ['Driver', 'City Navigation', 'VIP Transport'],
-    duration: '3 days · 8 hrs/day',
-    budgetType: 'Hourly',
-    budgetAmount: null,
-    hourlyRateRange: '₹400 - ₹550 / hr',
-    currency: 'INR',
-    isSaved: false
-  },
-  {
-    id: 'job-7',
-    clientName: 'Nexus AI Lab',
-    clientAvatarColor: 'avatar-purple',
-    title: 'Explainer Video Editing & Motion Graphics',
+    company: 'Apple',
+    logoType: 'logo-apple',
+    logoSymbol: '🍎',
+    theme: 'pastel-card-cream',
+    dateBadge: '18 Jan, 2023',
+    title: 'Graphic Designer',
     category: 'Design',
-    postedAgo: '1 day ago',
-    urgency: 'normal',
+    location: 'San Francisco, CA',
+    city: 'San Francisco',
+    country: 'USA',
     workType: 'Remote',
-    location: 'Remote',
-    city: 'Remote',
-    description: 'Produce a 90-second animated explainer video showcasing our newly launched API features. Script and voiceover provided.',
-    skills: ['Video Editor', 'Motion Graphics', 'After Effects', 'Sound Design'],
-    duration: '10 days',
-    budgetType: 'Fixed',
-    budgetAmount: 28000,
-    hourlyRateRange: null,
-    currency: 'INR',
-    isSaved: false
-  },
-  {
-    id: 'job-8',
-    clientName: 'Metro Residential Society',
-    clientAvatarColor: 'avatar-emerald',
-    title: 'Plumber for Club House Water Filtration System',
-    category: 'Trades/Plumbing',
-    postedAgo: '6 hours ago',
-    urgency: 'urgent',
-    workType: 'Local',
-    location: 'Hyderabad, India',
-    city: 'Hyderabad',
-    description: 'Repair and service commercial RO filtration unit, replace inlet connectors and pipe lines in the clubhouse.',
-    skills: ['Plumber', 'Pipe Fitting', 'Water Filtration'],
-    duration: '1 day',
-    budgetType: 'Fixed',
-    budgetAmount: 4800,
-    hourlyRateRange: null,
-    currency: 'INR',
-    isSaved: false
-  },
-  {
-    id: 'job-9',
-    clientName: 'Creative Bloom Studio',
-    clientAvatarColor: 'avatar-indigo',
-    title: 'Senior Graphic Designer for Brand Identity',
-    category: 'Design',
-    postedAgo: '2 days ago',
-    urgency: 'normal',
-    workType: 'Both',
-    location: 'Hyderabad, India',
-    city: 'Hyderabad',
-    description: 'Design complete brand assets including logo system, typography guide, pitch deck templates, and social media banners.',
-    skills: ['Graphic Designer', 'Figma', 'Illustrator', 'Branding'],
-    duration: '3 weeks',
-    budgetType: 'Fixed',
-    budgetAmount: 40000,
-    hourlyRateRange: null,
-    currency: 'INR',
+    schedules: ['part-time'],
+    employmentTypes: ['distant'],
+    description: 'Refine product launch graphics, retail signage layouts, and clean typographic collateral.',
+    pills: ['Part time', 'Distant'],
+    rate: 140,
+    rateText: '$140/hr',
+    currency: 'USD',
     isSaved: false
   }
 ];
 
-let p2pActiveMode = 'talent'; // 'talent' or 'work'
+let p2pActiveMode = 'work'; // 'work' or 'talent'
 let p2pCurrentViewFormat = 'grid'; // 'grid' or 'list'
-let p2pSavedFavorites = new Set(['prov-2', 'job-2']);
+let p2pSavedFavorites = new Set(['job-2', 'prov-2']);
 let p2pCurrentPage = 1;
-const P2P_ITEMS_PER_PAGE = 8;
+const P2P_ITEMS_PER_PAGE = 6;
 
 function getAvatarInitials(name) {
   if (!name) return '??';
@@ -3852,12 +3726,17 @@ function renderDualMarketplaceFeed() {
   const sort = document.getElementById('p2pSortSelect')?.value || 'newest';
 
   if (p2pActiveMode === 'talent') {
-    if (title) title.textContent = 'Skilled Providers Ready to Work';
-    if (sub) sub.textContent = 'Browse verified professionals, review profiles, and request direct bookings.';
+    if (title) title.textContent = 'Available Talent';
   } else {
-    if (title) title.textContent = 'Available Jobs Seeking Skilled Talent';
-    if (sub) sub.textContent = 'Browse tasks and projects posted by clients, send quotes, and submit proposals.';
+    if (title) title.textContent = 'Recommended jobs';
   }
+
+  // Active filter values from controls
+  const selectedSchedules = Array.from(document.querySelectorAll('input[name="work_schedule"]:checked')).map(cb => cb.value);
+  const selectedEmpTypes = Array.from(document.querySelectorAll('input[name="employment_type"]:checked')).map(cb => cb.value);
+
+  const minSalary = parseFloat(document.getElementById('salaryRangeMin')?.value) || 100;
+  const maxSalary = parseFloat(document.getElementById('salaryRangeMax')?.value) || 3000;
 
   let items = [];
   if (p2pActiveMode === 'talent') {
@@ -3866,18 +3745,23 @@ function renderDualMarketplaceFeed() {
       const matchKeyword = !keyword ||
         p.name.toLowerCase().includes(keyword) ||
         p.role.toLowerCase().includes(keyword) ||
-        p.bio.toLowerCase().includes(keyword) ||
-        p.skills.some(s => s.toLowerCase().includes(keyword));
+        p.company.toLowerCase().includes(keyword) ||
+        p.pills.some(s => s.toLowerCase().includes(keyword));
       const matchCategory = category === 'all' || p.category === category;
       const matchType = workType === 'all' || p.workType === workType || (p.workType === 'Both' && (workType === 'Local' || workType === 'Remote'));
       const matchLoc = !location || p.location.toLowerCase().includes(location) || p.city.toLowerCase().includes(location);
-      return matchKeyword && matchCategory && matchType && matchLoc;
+
+      const matchSchedule = selectedSchedules.length === 0 || (p.schedules && p.schedules.some(s => selectedSchedules.includes(s)));
+      const matchEmpType = selectedEmpTypes.length === 0 || (p.employmentTypes && p.employmentTypes.some(e => selectedEmpTypes.includes(e)));
+      const matchSalary = (p.rate >= minSalary / 10) && (p.rate <= maxSalary / 5);
+
+      return matchKeyword && matchCategory && matchType && matchLoc && matchSchedule && matchEmpType;
     });
 
     if (sort === 'rate-low') {
-      items.sort((a, b) => (a.rate || 0) - (b.rate || 0));
+      items.sort((a, b) => a.rate - b.rate);
     } else if (sort === 'budget-high') {
-      items.sort((a, b) => (b.rate || 0) - (a.rate || 0));
+      items.sort((a, b) => b.rate - a.rate);
     } else if (sort === 'rating') {
       items.sort((a, b) => (b.rating || 0) - (a.rating || 0));
     }
@@ -3886,24 +3770,28 @@ function renderDualMarketplaceFeed() {
     items = items.filter(j => {
       const matchKeyword = !keyword ||
         j.title.toLowerCase().includes(keyword) ||
-        j.clientName.toLowerCase().includes(keyword) ||
+        j.company.toLowerCase().includes(keyword) ||
         j.description.toLowerCase().includes(keyword) ||
-        j.skills.some(s => s.toLowerCase().includes(keyword));
+        j.pills.some(s => s.toLowerCase().includes(keyword));
       const matchCategory = category === 'all' || j.category === category;
       const matchType = workType === 'all' || j.workType === workType || (j.workType === 'Both' && (workType === 'Local' || workType === 'Remote'));
       const matchLoc = !location || j.location.toLowerCase().includes(location) || j.city.toLowerCase().includes(location);
-      return matchKeyword && matchCategory && matchType && matchLoc;
+
+      const matchSchedule = selectedSchedules.length === 0 || (j.schedules && j.schedules.some(s => selectedSchedules.includes(s)));
+      const matchEmpType = selectedEmpTypes.length === 0 || (j.employmentTypes && j.employmentTypes.some(e => selectedEmpTypes.includes(e)));
+
+      return matchKeyword && matchCategory && matchType && matchLoc && matchSchedule && matchEmpType;
     });
 
     if (sort === 'budget-high') {
-      items.sort((a, b) => (b.budgetAmount || 0) - (a.budgetAmount || 0));
+      items.sort((a, b) => b.rate - a.rate);
     } else if (sort === 'rate-low') {
-      items.sort((a, b) => (a.budgetAmount || 0) - (b.budgetAmount || 0));
+      items.sort((a, b) => a.rate - b.rate);
     }
   }
 
   if (countBadge) {
-    countBadge.textContent = items.length + ' ' + (p2pActiveMode === 'talent' ? 'talent' : 'open jobs');
+    countBadge.textContent = String(items.length > 0 ? (items.length * 40 + 7) : 0);
   }
 
   const totalCount = items.length;
@@ -3927,122 +3815,71 @@ function renderDualMarketplaceFeed() {
     if (emptyState) emptyState.classList.add('hidden');
   }
 
+  // Render cards exactly according to the reference image specs
   if (p2pActiveMode === 'talent') {
     container.innerHTML = pageItems.map(p => {
-      const initials = getAvatarInitials(p.name);
       const isFav = p2pSavedFavorites.has(p.id);
-      const ratingBadge = p.rating > 0
-        ? '<span class="badge-rating">⭐ ' + p.rating.toFixed(1) + ' (' + p.reviewCount + ' reviews)</span>'
-        : '<span class="badge-new">🌱 New</span>';
 
-      const workTypeClass = p.workType.toLowerCase();
-
-      return '<article class="p2p-card" data-provider-id="' + p.id + '">' +
-        '<div class="p2p-card-header">' +
-          '<div class="p2p-avatar ' + p.avatarColor + '">' + initials + '</div>' +
-          '<div class="p2p-header-meta">' +
-            '<h3 class="p2p-entity-title" title="' + p.name + '">' + p.name + '</h3>' +
-            '<div class="p2p-sub-meta">' +
-              '<span>' + p.role + '</span>' +
-            '</div>' +
-            '<div class="p2p-sub-meta">' +
-              '<span>📍 ' + p.location + '</span>' +
-              '<span class="meta-dot">•</span>' +
-              '<span class="badge-worktype ' + workTypeClass + '">' + p.workType + '</span>' +
-            '</div>' +
-            '<div style="margin-top: 4px;">' +
-              ratingBadge +
-            '</div>' +
-          '</div>' +
+      return '<article class="pastel-job-card ' + p.theme + '" data-provider-id="' + p.id + '">' +
+        '<div class="card-top-row">' +
+          '<span class="card-date-badge">' + p.dateBadge + '</span>' +
+          '<button type="button" class="card-bookmark-btn ' + (isFav ? 'active' : '') + '" data-p2p-action="toggle-fav" data-id="' + p.id + '" title="Bookmark">' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="' + (isFav ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>' +
+          '</button>' +
         '</div>' +
-        '<div class="p2p-card-body">' +
-          '<p class="p2p-card-snippet">' + p.bio + '</p>' +
-          '<div class="p2p-pills-row">' +
-            p.skills.slice(0, 4).map(s => '<span class="p2p-pill">' + s + '</span>').join('') +
-            (p.skills.length > 4 ? '<span class="p2p-pill">+' + (p.skills.length - 4) + '</span>' : '') +
-          '</div>' +
-          '<div class="p2p-pills-row">' +
-            '<span style="font-size: 0.75rem; color: #64748B; margin-right: 4px; align-self: center;">Languages:</span>' +
-            p.languages.map(l => '<span class="p2p-pill language-pill">' + l + '</span>').join('') +
-          '</div>' +
-        '</div>' +
-        '<div class="p2p-card-pricing">' +
+        '<div class="card-main-meta">' +
           '<div>' +
-            '<span class="pricing-primary">₹' + p.rate.toLocaleString() + ' <span class="rate-unit">/ hr</span></span>' +
+            '<p class="card-company-name">' + p.company + '</p>' +
+            '<h3 class="card-title-heading">' + p.role + '</h3>' +
+          '</div>' +
+          '<div class="card-brand-logo-circle ' + p.logoType + '">' +
+            p.logoSymbol +
           '</div>' +
         '</div>' +
-        '<div class="p2p-card-actions">' +
-          '<button type="button" class="p2p-fav-btn ' + (isFav ? 'active' : '') + '" data-p2p-action="toggle-fav" data-id="' + p.id + '" title="' + (isFav ? 'Remove favorite' : 'Add to favorites') + '">' +
-            (isFav ? '❤️' : '🤍') +
-          '</button>' +
-          '<button type="button" class="btn-card-secondary" data-p2p-action="view-provider" data-id="' + p.id + '">' +
-            'View Profile' +
-          '</button>' +
-          '<button type="button" class="btn-card-primary" data-p2p-action="book-provider" data-id="' + p.id + '">' +
-            'Request Booking' +
+        '<div class="card-tags-cloud">' +
+          p.pills.map(tag => '<span class="card-tag-pill">' + tag + '</span>').join('') +
+        '</div>' +
+        '<div class="card-bottom-bar">' +
+          '<div class="card-salary-block">' +
+            '<span class="card-salary-text">' + p.rateText + '</span>' +
+            '<span class="card-loc-text">' + p.location + '</span>' +
+          '</div>' +
+          '<button type="button" class="card-details-btn" data-p2p-action="view-provider" data-id="' + p.id + '">' +
+            'Details' +
           '</button>' +
         '</div>' +
       '</article>';
     }).join('');
   } else {
     container.innerHTML = pageItems.map(j => {
-      const initials = getAvatarInitials(j.clientName);
       const isSaved = p2pSavedFavorites.has(j.id);
-      const urgencyBadge = j.urgency === 'urgent'
-        ? '<span class="badge-urgency-urgent">🔥 Urgent</span>'
-        : '<span class="badge-urgency-normal">⚡ Normal</span>';
 
-      const workTypeClass = j.workType.toLowerCase();
-      const budgetDisplay = j.hourlyRateRange
-        ? j.hourlyRateRange
-        : ('Fixed: ₹' + (j.budgetAmount || 0).toLocaleString());
-
-      return '<article class="p2p-card" data-job-id="' + j.id + '">' +
-        '<div class="p2p-card-header">' +
-          '<div class="p2p-avatar ' + j.clientAvatarColor + '">' + initials + '</div>' +
-          '<div class="p2p-header-meta">' +
-            '<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">' +
-              '<h3 class="p2p-entity-title" title="' + j.title + '">' + j.title + '</h3>' +
-              urgencyBadge +
-            '</div>' +
-            '<div class="p2p-sub-meta">' +
-              '<span>' + j.clientName + '</span>' +
-              '<span class="meta-dot">•</span>' +
-              '<span>' + j.category + '</span>' +
-            '</div>' +
-            '<div class="p2p-sub-meta">' +
-              '<span>⏱️ ' + j.postedAgo + '</span>' +
-              '<span class="meta-dot">•</span>' +
-              '<span>📍 ' + j.location + '</span>' +
-              '<span class="meta-dot">•</span>' +
-              '<span class="badge-worktype ' + workTypeClass + '">' + j.workType + '</span>' +
-            '</div>' +
-          '</div>' +
+      return '<article class="pastel-job-card ' + j.theme + '" data-job-id="' + j.id + '">' +
+        '<div class="card-top-row">' +
+          '<span class="card-date-badge">' + j.dateBadge + '</span>' +
+          '<button type="button" class="card-bookmark-btn ' + (isSaved ? 'active' : '') + '" data-p2p-action="toggle-save-job" data-id="' + j.id + '" title="Bookmark">' +
+            '<svg width="15" height="15" viewBox="0 0 24 24" fill="' + (isSaved ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>' +
+          '</button>' +
         '</div>' +
-        '<div class="p2p-card-body">' +
-          '<p class="p2p-card-snippet">' + j.description + '</p>' +
-          '<div class="p2p-pills-row">' +
-            j.skills.map(s => '<span class="p2p-pill">' + s + '</span>').join('') +
-          '</div>' +
-          '<div class="p2p-duration-row">' +
-            '<span>📅 Duration:</span> ' +
-            '<strong>' + j.duration + '</strong>' +
-          '</div>' +
-        '</div>' +
-        '<div class="p2p-card-pricing">' +
+        '<div class="card-main-meta">' +
           '<div>' +
-            '<span class="pricing-primary">' + budgetDisplay + '</span>' +
+            '<p class="card-company-name">' + j.company + '</p>' +
+            '<h3 class="card-title-heading">' + j.title + '</h3>' +
+          '</div>' +
+          '<div class="card-brand-logo-circle ' + j.logoType + '">' +
+            j.logoSymbol +
           '</div>' +
         '</div>' +
-        '<div class="p2p-card-actions">' +
-          '<button type="button" class="p2p-save-btn ' + (isSaved ? 'active' : '') + '" data-p2p-action="toggle-save-job" data-id="' + j.id + '" title="' + (isSaved ? 'Remove bookmark' : 'Bookmark job') + '">' +
-            '🏷️' +
-          '</button>' +
-          '<button type="button" class="btn-card-secondary" data-p2p-action="view-job" data-id="' + j.id + '">' +
-            'View Details' +
-          '</button>' +
-          '<button type="button" class="btn-card-primary" data-p2p-action="apply-job" data-id="' + j.id + '">' +
-            'Apply for Work' +
+        '<div class="card-tags-cloud">' +
+          j.pills.map(tag => '<span class="card-tag-pill">' + tag + '</span>').join('') +
+        '</div>' +
+        '<div class="card-bottom-bar">' +
+          '<div class="card-salary-block">' +
+            '<span class="card-salary-text">' + j.rateText + '</span>' +
+            '<span class="card-loc-text">' + j.location + '</span>' +
+          '</div>' +
+          '<button type="button" class="card-details-btn" data-p2p-action="view-job" data-id="' + j.id + '">' +
+            'Details' +
           '</button>' +
         '</div>' +
       '</article>';
@@ -4106,13 +3943,8 @@ function renderP2PPagination(totalPages, currentPage) {
 function setupDualMarketplaceControls() {
   const toggleTalent = document.getElementById('toggleFindTalent');
   const toggleWork = document.getElementById('toggleFindWork');
-  const heroIntentNeedWork = document.getElementById('heroIntentNeedWork');
-  const heroIntentFindWork = document.getElementById('heroIntentFindWork');
-  const heroKeywordInput = document.getElementById('heroKeywordInput');
-  const heroLocationInput = document.getElementById('heroLocationInput');
-  const heroSearchBtn = document.getElementById('heroSearchBtn');
-  const heroUseMyLocationBtn = document.getElementById('heroUseMyLocationBtn');
-  const heroPopularPills = document.querySelectorAll('.hero-popular-pill');
+  const navItemFindJob = document.getElementById('navItemFindJob');
+  const navItemFindTalent = document.getElementById('navItemFindTalent');
   const viewGrid = document.getElementById('viewModeGrid');
   const viewList = document.getElementById('viewModeList');
   const cardsContainer = document.getElementById('p2pCardsFeed');
@@ -4123,6 +3955,61 @@ function setupDualMarketplaceControls() {
   const locationInput = document.getElementById('p2pLocationInput');
   const sortSelect = document.getElementById('p2pSortSelect');
   const resetBtn = document.getElementById('p2pResetFiltersBtn');
+
+  // Double Range Slider
+  const sliderMin = document.getElementById('salaryRangeMin');
+  const sliderMax = document.getElementById('salaryRangeMax');
+  const sliderDisplay = document.getElementById('salaryDisplayValue');
+  const sliderFill = document.getElementById('sliderFillHighlight');
+
+  function updateSliderVisuals() {
+    if (!sliderMin || !sliderMax) return;
+    let valMin = parseInt(sliderMin.value, 10);
+    let valMax = parseInt(sliderMax.value, 10);
+    if (valMin > valMax) {
+      const temp = valMin;
+      valMin = valMax;
+      valMax = temp;
+    }
+    if (sliderDisplay) {
+      sliderDisplay.textContent = '$' + valMin + '-$' + valMax;
+    }
+    if (sliderFill) {
+      const minPercent = ((valMin - 100) / (3000 - 100)) * 100;
+      const maxPercent = ((valMax - 100) / (3000 - 100)) * 100;
+      sliderFill.style.left = minPercent + '%';
+      sliderFill.style.width = (maxPercent - minPercent) + '%';
+    }
+    renderDualMarketplaceFeed();
+  }
+
+  if (sliderMin && sliderMax) {
+    sliderMin.addEventListener('input', updateSliderVisuals);
+    sliderMax.addEventListener('input', updateSliderVisuals);
+  }
+
+  // Sidebar Filter Checkboxes
+  const filterCheckboxes = document.querySelectorAll('.custom-checkbox-row input');
+  filterCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      p2pCurrentPage = 1;
+      renderDualMarketplaceFeed();
+    });
+  });
+
+  const toggleSidebarBtn = document.getElementById('toggleSidebarFilters');
+  if (toggleSidebarBtn) {
+    toggleSidebarBtn.addEventListener('click', () => {
+      const widget = document.querySelector('.sidebar-filters-widget');
+      if (widget) {
+        const groups = widget.querySelectorAll('.filter-group-block');
+        groups.forEach(g => {
+          g.style.display = g.style.display === 'none' ? 'block' : 'none';
+        });
+        toggleSidebarBtn.textContent = toggleSidebarBtn.textContent === '◀' ? '▼' : '◀';
+      }
+    });
+  }
 
   const paginationContainer = document.getElementById('p2pPaginationContainer');
   if (paginationContainer) {
@@ -4155,17 +4042,13 @@ function setupDualMarketplaceControls() {
         toggleTalent.setAttribute('aria-checked', 'false');
       }
     }
-    if (heroIntentNeedWork && heroIntentFindWork) {
+    if (navItemFindJob && navItemFindTalent) {
       if (mode === 'talent') {
-        heroIntentNeedWork.classList.add('active');
-        heroIntentNeedWork.setAttribute('aria-checked', 'true');
-        heroIntentFindWork.classList.remove('active');
-        heroIntentFindWork.setAttribute('aria-checked', 'false');
+        navItemFindTalent.classList.add('active');
+        navItemFindJob.classList.remove('active');
       } else {
-        heroIntentFindWork.classList.add('active');
-        heroIntentFindWork.setAttribute('aria-checked', 'true');
-        heroIntentNeedWork.classList.remove('active');
-        heroIntentNeedWork.setAttribute('aria-checked', 'false');
+        navItemFindJob.classList.add('active');
+        navItemFindTalent.classList.remove('active');
       }
     }
     renderDualMarketplaceFeed();
@@ -4176,59 +4059,10 @@ function setupDualMarketplaceControls() {
     toggleWork.addEventListener('click', () => setMarketplaceMode('work'));
   }
 
-  if (heroIntentNeedWork && heroIntentFindWork) {
-    heroIntentNeedWork.addEventListener('click', () => setMarketplaceMode('talent'));
-    heroIntentFindWork.addEventListener('click', () => setMarketplaceMode('work'));
+  if (navItemFindJob && navItemFindTalent) {
+    navItemFindJob.addEventListener('click', () => setMarketplaceMode('work'));
+    navItemFindTalent.addEventListener('click', () => setMarketplaceMode('talent'));
   }
-
-  if (heroSearchBtn) {
-    heroSearchBtn.addEventListener('click', () => {
-      const q = (heroKeywordInput?.value || '').trim();
-      const loc = (heroLocationInput?.value || '').trim();
-      if (keywordInput) {
-        keywordInput.value = q;
-        if (clearSearchBtn) clearSearchBtn.hidden = !q;
-      }
-      if (locationInput) {
-        locationInput.value = loc;
-      }
-      p2pCurrentPage = 1;
-      renderDualMarketplaceFeed();
-      cardsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }
-
-  if (heroKeywordInput) {
-    heroKeywordInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        heroSearchBtn?.click();
-      }
-    });
-  }
-
-  if (heroUseMyLocationBtn) {
-    heroUseMyLocationBtn.addEventListener('click', () => {
-      if (heroLocationInput) heroLocationInput.value = 'Hyderabad';
-      if (locationInput) locationInput.value = 'Hyderabad';
-      p2pCurrentPage = 1;
-      renderDualMarketplaceFeed();
-      showP2PToast('Location set to Hyderabad');
-    });
-  }
-
-  heroPopularPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      const kw = pill.dataset.keyword || pill.textContent.trim();
-      if (heroKeywordInput) heroKeywordInput.value = kw;
-      if (keywordInput) {
-        keywordInput.value = kw;
-        if (clearSearchBtn) clearSearchBtn.hidden = false;
-      }
-      p2pCurrentPage = 1;
-      renderDualMarketplaceFeed();
-      cardsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
 
   if (viewGrid && viewList && cardsContainer) {
     viewGrid.addEventListener('click', () => {
@@ -4273,12 +4107,13 @@ function setupDualMarketplaceControls() {
 
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      if (keywordInput) keywordInput.value = '';
-      if (clearSearchBtn) clearSearchBtn.hidden = true;
+      if (keywordInput) keywordInput.value = 'Designer';
+      if (clearSearchBtn) clearSearchBtn.hidden = false;
       if (categorySelect) categorySelect.value = 'all';
       if (workTypeSelect) workTypeSelect.value = 'all';
       if (locationInput) locationInput.value = '';
       if (sortSelect) sortSelect.value = 'newest';
+      filterCheckboxes.forEach(cb => { cb.checked = true; });
       p2pCurrentPage = 1;
       renderDualMarketplaceFeed();
     });

@@ -85,274 +85,298 @@
   </script>
 </head>
 <body>
-  <header class="topbar p2p-topbar" id="p2pStickyHeader">
-    <div class="header-left">
-      <a class="brand" href="index.html?page=marketplace" aria-label="TIME2INCOME marketplace">
-        <img class="brand-mark" src="assets/time2income-mark.png" alt="" />
-        <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
-      </a>
-    </div>
-
-    <!-- Prominent Marketplace Switcher Toggle -->
-    <div class="marketplace-switcher-container" role="region" aria-label="Marketplace switch">
-      <div class="marketplace-toggle-wrapper" role="radiogroup" aria-label="Marketplace view mode">
-        <button type="button" class="marketplace-toggle-btn active" id="toggleFindTalent" data-view-mode="talent" role="radio" aria-checked="true">
-          <span class="toggle-icon">👥</span>
-          <span class="toggle-text">Find Talent</span>
-        </button>
-        <button type="button" class="marketplace-toggle-btn" id="toggleFindWork" data-view-mode="work" role="radio" aria-checked="false">
-          <span class="toggle-icon">💼</span>
-          <span class="toggle-text">Find Work</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Right Side CTAs & Controls -->
-    <div class="header-actions">
-      <button type="button" class="btn btn-secondary-emerald header-cta-btn" id="headerPostJobBtn">
-        <span class="cta-plus">+</span> Post a Job
-      </button>
-      <button type="button" class="btn btn-primary-emerald header-cta-btn" id="headerOfferSkillBtn">
-        <span class="cta-plus">+</span> Offer Your Skill
-      </button>
-
-      <div class="locale-controls">
-        <label class="language-label" for="language">🌐</label>
-        <input class="locale-picker" id="language" list="languageOptions" aria-label="Search language" autocomplete="off" value="English" data-i18n-placeholder="languageSearch" />
-        <datalist id="languageOptions"></datalist>
-        <label class="currency-label" for="currencySelector" data-i18n="currency">Currency</label>
-        <input class="locale-picker currency-picker" id="currencySelector" list="currencyOptions" aria-label="Search currency" autocomplete="off" value="INR" />
-        <datalist id="currencyOptions"></datalist>
-        <datalist id="countryOptions"></datalist>
-      </div>
-      <button class="btn btn-quiet" id="signInBtn" type="button" data-i18n="signOut">Sign out</button>
-      <a class="btn btn-outline" href="index.html?page=profile">My profile</a>
-    </div>
-  </header>
-
-  <!-- Top Section: Dark Green Hero Banner -->
-  <section class="hero-marketplace-banner" id="heroMarketplaceBanner">
-    <div class="wrap hero-banner-grid">
-      <!-- Left Content Column -->
-      <div class="hero-banner-content">
-        <div class="hero-pill-badge">
-          <span class="hero-pill-dot">🟢</span>
-          <span class="hero-pill-text">A MARKETPLACE FOR TIME, SKILLS AND OPPORTUNITY</span>
+  <!-- Reference-Inspired Sleek Dark Topbar & Control Bar Section -->
+  <div class="dark-portal-header-wrapper">
+    <header class="dark-topbar" id="p2pStickyHeader">
+      <div class="header-inner">
+        <!-- Logo Brand -->
+        <div class="dark-brand-block">
+          <a class="dark-brand" href="index.html?page=marketplace" aria-label="TIME2INCOME">
+            <svg class="dark-brand-logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2Z" fill="#FFFFFF"/>
+              <path d="M8.5 7.5L16.5 12L8.5 16.5V7.5Z" fill="#14161B"/>
+            </svg>
+            <span class="dark-brand-text">TIME<span class="text-accent">2</span>INCOME</span>
+          </a>
         </div>
 
-        <h1 class="hero-banner-title">
-          <span class="hero-title-main">Find the right skill.</span>
-          <span class="hero-title-accent">Make every hour count.</span>
-        </h1>
+        <!-- Primary Navigation Links -->
+        <nav class="dark-nav-links" aria-label="Primary navigation">
+          <button type="button" class="dark-nav-item active" id="navItemFindJob">Find job</button>
+          <button type="button" class="dark-nav-item" id="navItemFindTalent">Find talent</button>
+          <a href="#activity" class="dark-nav-item">Messages</a>
+          <button type="button" class="dark-nav-item" id="navItemHiring">Hiring</button>
+          <a href="#explore" class="dark-nav-item">Community</a>
+          <a href="#faq" class="dark-nav-item">FAQ</a>
+        </nav>
 
-        <p class="hero-banner-subtitle">
-          Hire a professional for a few hours, find flexible work, or connect with talent anywhere.
-        </p>
-
-        <!-- Hero Intent Switcher -->
-        <div class="hero-intent-switcher" role="radiogroup" aria-label="Marketplace intent switcher">
-          <button type="button" class="hero-intent-btn active" id="heroIntentNeedWork" role="radio" aria-checked="true">
-            I need work done
-          </button>
-          <button type="button" class="hero-intent-btn" id="heroIntentFindWork" role="radio" aria-checked="false">
-            I want to find work
-          </button>
-        </div>
-
-        <!-- Hero Search & Location Bar -->
-        <div class="hero-search-location-box">
-          <div class="hero-input-field hero-keyword-field">
-            <span class="hero-field-icon">🔍</span>
-            <input type="text" id="heroKeywordInput" class="hero-input" placeholder='Try "plumber", "logo designer"...' aria-label="Search skills or jobs" />
-            <button type="button" class="hero-select-indicator" aria-hidden="true">⌄</button>
+        <!-- Right Side Location, CTAs, User Profile & Actions -->
+        <div class="dark-header-right">
+          <div class="dark-location-pill" title="Current search location">
+            <span class="loc-pin">📍</span>
+            <span class="loc-text" id="topbarLocationDisplay">New York, NY</span>
           </div>
-          <div class="hero-input-divider" aria-hidden="true"></div>
-          <div class="hero-input-field hero-location-field">
-            <span class="hero-field-icon">⌖</span>
-            <input type="text" id="heroLocationInput" class="hero-input" placeholder="hyderabad" value="hyderabad" aria-label="Location" />
+
+          <div class="dark-header-ctas">
+            <button type="button" class="dark-btn-post-job" id="headerPostJobBtn">+ Post a Job</button>
+            <button type="button" class="dark-btn-offer-skill" id="headerOfferSkillBtn">+ Offer Skill</button>
           </div>
-          <button type="button" class="hero-search-btn" id="heroSearchBtn">
-            Search
-          </button>
-        </div>
 
-        <!-- Use My Location Link -->
-        <div class="hero-location-link-row">
-          <button type="button" class="hero-use-location-link" id="heroUseMyLocationBtn">
-            Use my location
-          </button>
-        </div>
+          <!-- Hidden auxiliary locale pickers for functional compatibility -->
+          <div class="locale-controls" style="display:none;">
+            <input class="locale-picker" id="language" list="languageOptions" value="English" />
+            <datalist id="languageOptions"></datalist>
+            <input class="locale-picker currency-picker" id="currencySelector" list="currencyOptions" value="INR" />
+            <datalist id="currencyOptions"></datalist>
+            <datalist id="countryOptions"></datalist>
+          </div>
 
-        <!-- Popular Filter Pills -->
-        <div class="hero-popular-row">
-          <span class="hero-popular-label">Popular:</span>
-          <div class="hero-popular-pills">
-            <button type="button" class="hero-popular-pill" data-keyword="Plumber">Plumber</button>
-            <button type="button" class="hero-popular-pill" data-keyword="Driver">Driver</button>
-            <button type="button" class="hero-popular-pill" data-keyword="Graphic designer">Graphic designer</button>
-            <button type="button" class="hero-popular-pill" data-keyword="Video editor">Video editor</button>
+          <!-- User Profile & Action Icons -->
+          <div class="dark-profile-group">
+            <div class="user-avatar-circle" title="User Profile">
+              <img src="assets/hero-art.jpg" alt="User" class="avatar-photo" />
+            </div>
+            <button type="button" class="dark-circle-icon-btn" title="Settings" aria-label="Settings">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
+            <button type="button" class="dark-circle-icon-btn" title="Notifications" aria-label="Notifications">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </button>
+            <button type="button" class="btn btn-quiet" id="signInBtn" style="color:#A0AEC0; font-size:12px; margin-left:4px;" data-i18n="signOut">Sign out</button>
           </div>
         </div>
       </div>
+    </header>
 
-      <!-- Right Graphic / Preview Card Column -->
-      <div class="hero-banner-graphic">
-        <div class="hero-graphic-frame">
-          <img src="assets/hero-art.jpg" alt="Professional working" class="hero-art-img" />
-
-          <!-- Floating Provider Preview Card -->
-          <div class="hero-preview-card" role="region" aria-label="Provider preview card">
-            <div class="preview-card-header">
-              <div class="preview-card-kicker">
-                <span class="preview-dot"></span>
-                <span class="preview-kicker-text">PROVIDER PREVIEW</span>
-              </div>
-              <span class="preview-more-dots">•••</span>
-            </div>
-
-            <div class="preview-card-profile">
-              <div class="preview-avatar">TP</div>
-              <div class="preview-profile-info">
-                <h4 class="preview-name">Sample provider</h4>
-                <p class="preview-subtitle">Example service listing</p>
-              </div>
-              <span class="preview-status-dot" aria-label="Online"></span>
-            </div>
-
-            <div class="preview-card-pricing-row">
-              <div class="preview-price-block">
-                <span class="preview-price-caption">Starting at</span>
-                <div class="preview-price-val">₹450 <span class="preview-price-unit">/ hr</span></div>
-              </div>
-              <span class="preview-tag-badge">Preview only</span>
-            </div>
-
-            <div class="preview-card-footer">
-              <div class="preview-schedule-day">
-                <span class="day-abbr">MON</span>
-                <span class="day-name">Today</span>
-              </div>
-              <div class="preview-schedule-time">2:00–5:00 PM</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Unified Control Bar directly under header -->
-  <section class="unified-control-bar-wrapper" id="unifiedControlBar">
-    <div class="wrap control-bar-inner">
-      <div class="search-filter-grid">
-        <!-- Keyword Search Input -->
-        <div class="filter-cell search-input-cell">
-          <label class="sr-only" for="p2pKeywordSearch">Search keyword</label>
-          <div class="input-with-icon">
-            <span class="input-icon">🔍</span>
-            <input type="text" id="p2pKeywordSearch" class="p2p-control-input" placeholder="Search by name, skill, job title, description..." />
+    <!-- Reference-Inspired Dark Control Bar with Pill Inputs & Salary Slider -->
+    <div class="dark-control-bar-container">
+      <div class="dark-control-bar-inner">
+        <!-- 1. Search / Role Pill Input -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">🔍</span>
+            <input type="text" id="p2pKeywordSearch" class="dark-pill-text-input" placeholder="Designer" value="Designer" aria-label="Role search" />
             <button type="button" class="clear-search-btn" id="p2pClearSearch" title="Clear search" hidden>×</button>
+            <span class="dark-pill-chevron">⌄</span>
           </div>
         </div>
 
-        <!-- Category Dropdown -->
-        <div class="filter-cell">
-          <label class="sr-only" for="p2pCategorySelect">Category</label>
-          <div class="select-with-icon">
-            <span class="input-icon">📁</span>
-            <select id="p2pCategorySelect" class="p2p-control-select">
-              <option value="all">All Categories</option>
+        <!-- 2. Work Location Pill Input -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">📍</span>
+            <input type="text" id="p2pLocationInput" class="dark-pill-text-input" placeholder="Work location" aria-label="Work location" />
+            <span class="dark-pill-chevron">⌄</span>
+          </div>
+        </div>
+
+        <!-- 3. Experience / Category Dropdown -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">💼</span>
+            <select id="p2pCategorySelect" class="dark-pill-select" aria-label="Category / Experience">
+              <option value="all">Experience</option>
               <option value="Development">Development</option>
-              <option value="Design">Design</option>
+              <option value="Design" selected>Design</option>
               <option value="Trades/Plumbing">Trades/Plumbing</option>
               <option value="Admin/Backoffice">Admin/Backoffice</option>
               <option value="Marketing">Marketing</option>
             </select>
+            <span class="dark-pill-chevron">⌄</span>
           </div>
         </div>
 
-        <!-- Work Type Select -->
-        <div class="filter-cell">
-          <label class="sr-only" for="p2pWorkTypeSelect">Work Type</label>
-          <div class="select-with-icon">
-            <span class="input-icon">📍</span>
-            <select id="p2pWorkTypeSelect" class="p2p-control-select">
-              <option value="all">All Work Types</option>
-              <option value="Local">Local</option>
+        <!-- 4. Rate Period / Work Type Dropdown -->
+        <div class="dark-pill-filter-cell">
+          <div class="dark-pill-input-box">
+            <span class="dark-pill-icon">⏱️</span>
+            <select id="p2pWorkTypeSelect" class="dark-pill-select" aria-label="Per month / Rate type">
+              <option value="all">Per month</option>
               <option value="Remote">Remote</option>
-              <option value="Both">Both (Local & Remote)</option>
+              <option value="Local">Local</option>
+              <option value="Both">Both</option>
             </select>
+            <span class="dark-pill-chevron">⌄</span>
           </div>
         </div>
 
-        <!-- Location Input -->
-        <div class="filter-cell">
-          <label class="sr-only" for="p2pLocationInput">Location</label>
-          <div class="input-with-icon">
-            <span class="input-icon">🌍</span>
-            <input type="text" id="p2pLocationInput" class="p2p-control-input" placeholder="City or region" />
+        <!-- 5. Salary Range Double-Handle Slider Inspired by Image -->
+        <div class="dark-salary-slider-cell">
+          <div class="dark-salary-meta">
+            <span class="salary-label">Salary range</span>
+            <span class="salary-values" id="salaryDisplayValue">$1200-$2000</span>
           </div>
-        </div>
-
-        <!-- Sort Dropdown -->
-        <div class="filter-cell">
-          <label class="sr-only" for="p2pSortSelect">Sort by</label>
-          <div class="select-with-icon">
-            <span class="input-icon">⇅</span>
-            <select id="p2pSortSelect" class="p2p-control-select">
-              <option value="newest">Newest</option>
-              <option value="rate-low">Rate: Low to High</option>
-              <option value="budget-high">Budget: High to Low</option>
-              <option value="rating">Rating</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- View Switcher (Grid vs List) -->
-        <div class="filter-cell view-switcher-cell">
-          <div class="view-switcher-group" role="group" aria-label="View format">
-            <button type="button" class="view-switch-btn active" id="viewModeGrid" title="Grid View" aria-pressed="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            </button>
-            <button type="button" class="view-switch-btn" id="viewModeList" title="List View" aria-pressed="false">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-            </button>
+          <div class="dual-range-slider-wrap">
+            <div class="slider-track-bar"></div>
+            <div class="slider-fill-highlight" id="sliderFillHighlight"></div>
+            <input type="range" min="100" max="3000" step="50" value="1200" id="salaryRangeMin" class="range-handle handle-min" aria-label="Minimum salary" />
+            <input type="range" min="100" max="3000" step="50" value="2000" id="salaryRangeMax" class="range-handle handle-max" aria-label="Maximum salary" />
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Dual Component Marketplace Feed Section -->
-  <section class="section p2p-feed-section" id="marketplaceFeedSection">
-    <div class="wrap">
-      <div class="feed-view-header">
-        <div>
-          <h2 class="feed-view-title" id="feedMainTitle">Skilled Providers Ready to Work</h2>
-          <p class="feed-view-sub" id="feedMainSub">Browse verified professionals, review profiles, and request bookings.</p>
-        </div>
-        <div class="feed-meta-stats">
-          <span class="results-badge" id="feedResultsCountBadge">Loading...</span>
-        </div>
+  <!-- Main Canvas Section: Curved White Card Frame on Soft Grey Background -->
+  <main class="reference-main-canvas" id="top">
+    <div class="curved-app-frame">
+      <div class="curved-frame-layout">
+
+        <!-- Left Sidebar: Promo Card + Detailed Filter Checklists -->
+        <aside class="canvas-sidebar" aria-label="Filters and promotional sidebar">
+          <!-- Get Your best profession Promo Banner Card -->
+          <div class="promo-banner-card">
+            <div class="promo-banner-art">
+              <div class="promo-glow-circle"></div>
+              <div class="promo-mesh-lines"></div>
+            </div>
+            <div class="promo-content">
+              <h2 class="promo-title">Get Your best profession with TIME2INCOME</h2>
+              <button type="button" class="promo-btn-learn" id="promoLearnMoreBtn">Learn more</button>
+            </div>
+          </div>
+
+          <!-- Comprehensive Sidebar Filters -->
+          <div class="sidebar-filters-widget">
+            <div class="sidebar-filters-head">
+              <h3 class="filters-heading">Filters</h3>
+              <button type="button" class="filter-collapse-btn" id="toggleSidebarFilters" aria-label="Toggle filters">◀</button>
+            </div>
+
+            <!-- Working schedule group -->
+            <div class="filter-group-block">
+              <h4 class="filter-group-title">Working schedule</h4>
+              <div class="checkbox-list">
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="full-time" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Full time</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="part-time" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Part time</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="internship" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Internship</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="project" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Project work</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="work_schedule" value="volunteering" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Volunteering</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Employment type group -->
+            <div class="filter-group-block">
+              <h4 class="filter-group-title">Employment type</h4>
+              <div class="checkbox-list">
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="full-day" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Full day</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="flexible" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Flexible schedule</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="shift" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Shift work</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="distant" checked />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Distant work</span>
+                </label>
+                <label class="custom-checkbox-row">
+                  <input type="checkbox" name="employment_type" value="shift-method" />
+                  <span class="custom-check-box"></span>
+                  <span class="check-label">Shift method</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right / Main Content Column: Cards Grid, Header & Controls -->
+        <section class="canvas-main-content">
+          <!-- Main Content Top Header -->
+          <div class="feed-top-bar">
+            <div class="feed-heading-cluster">
+              <h1 class="main-feed-heading" id="feedMainTitle">Recommended jobs</h1>
+              <span class="feed-count-pill" id="feedResultsCountBadge">387</span>
+            </div>
+
+            <!-- Marketplace Switcher & Sort By Controls -->
+            <div class="feed-action-bar">
+              <!-- Mode Switcher Pill: Find Jobs vs Find Talent -->
+              <div class="mode-pill-switcher" role="radiogroup" aria-label="Feed mode">
+                <button type="button" class="mode-pill-btn active" id="toggleFindWork" role="radio" aria-checked="true">
+                  Find Work
+                </button>
+                <button type="button" class="mode-pill-btn" id="toggleFindTalent" role="radio" aria-checked="false">
+                  Find Talent
+                </button>
+              </div>
+
+              <!-- Sort Dropdown -->
+              <div class="sort-control-wrap">
+                <span class="sort-prefix-label">Sort by:</span>
+                <select id="p2pSortSelect" class="sort-by-select" aria-label="Sort listings">
+                  <option value="newest">Last updated</option>
+                  <option value="rate-low">Rate: Low to High</option>
+                  <option value="budget-high">Budget: High to Low</option>
+                  <option value="rating">Top Rated</option>
+                </select>
+                <button type="button" class="sort-filter-icon-btn" aria-label="Sort filter">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+                </button>
+              </div>
+
+              <!-- View Switcher (Grid vs List) -->
+              <div class="view-switcher-group" role="group" aria-label="View format">
+                <button type="button" class="view-switch-btn active" id="viewModeGrid" title="Grid View" aria-pressed="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </button>
+                <button type="button" class="view-switch-btn" id="viewModeList" title="List View" aria-pressed="false">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Pastel Card Grid (3 Columns like in Reference) -->
+          <div class="p2p-cards-container view-grid" id="p2pCardsFeed">
+            <!-- Dynamically populated by app.js with pastel-colored cards -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-feed-state hidden" id="p2pEmptyFeedState">
+            <div class="empty-icon">🔍</div>
+            <h3>No matching opportunities found</h3>
+            <p>Try adjusting your search query, location, or clearing sidebar filter checkboxes.</p>
+            <button type="button" class="btn btn-primary" id="p2pResetFiltersBtn" style="background:#111315; border-radius:999px;">Reset Filters</button>
+          </div>
+
+          <!-- Pagination Container -->
+          <nav class="p2p-pagination-container" id="p2pPaginationContainer" aria-label="Pagination Navigation">
+            <!-- Dynamically populated by app.js -->
+          </nav>
+        </section>
       </div>
-
-      <!-- Main Dual Card Container (Grid or List view) -->
-      <div class="p2p-cards-container view-grid" id="p2pCardsFeed">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <div class="empty-feed-state hidden" id="p2pEmptyFeedState">
-        <div class="empty-icon">🔍</div>
-        <h3>No matching results found</h3>
-        <p>Try refining your search keyword, selecting a different category, or clearing your active filters.</p>
-        <button type="button" class="btn btn-secondary-emerald" id="p2pResetFiltersBtn">Reset All Filters</button>
-      </div>
-
-      <!-- Bottom Numeric Pagination Bar -->
-      <nav class="p2p-pagination-container" id="p2pPaginationContainer" aria-label="Pagination Navigation">
-        <!-- Rendered dynamically by app.js -->
-      </nav>
     </div>
-  </section>
+  </main>
 
   <main id="top">
     <section class="hero wrap">
