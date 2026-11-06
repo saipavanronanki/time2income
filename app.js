@@ -216,6 +216,8 @@ const translations = {
     iosInstallGuide:'iPhone or iPad: open this site in Safari, tap Share, then Add to Home Screen.',
     noResults:'No matching providers', tryDifferent:'Try another skill or clear your filters.',
     clearFilters:'Clear filters', simpleSteps:'SIMPLE STEPS',
+    showingProviders:'Showing {count} available professionals', filterLocation:'Filter location…',
+    resetFilters:'Reset', sortLabel:'Sort:', gridView:'Grid view', listView:'List view', newProvider:'New',
     browseCategories:'Browse categories', changeLocation:'Change location',
     footerMarketplace:'Marketplace', footerHelp:'Help & information',
     helpCenter:'Help', privacyPolicy:'Privacy Policy', termsOfService:'Terms of Service',
@@ -426,6 +428,8 @@ const translations = {
     noResults:'कोई प्रोफाइल नहीं मिली',
     tryDifferent:'दूसरा कौशल खोजें या फ़िल्टर हटाएँ।',
     clearFilters:'फ़िल्टर हटाएँ', simpleSteps:'आसान चरण',
+    showingProviders:'{count} उपलब्ध प्रोफेशनल दिख रहे हैं', filterLocation:'स्थान से फ़िल्टर करें…',
+    resetFilters:'रीसेट', sortLabel:'क्रम:', gridView:'ग्रिड व्यू', listView:'सूची व्यू', newProvider:'नया', allCategories:'सभी श्रेणियाँ',
     howTitle:'आपके समय के अनुसार काम',
     howSub:'कौशल खोजने से काम पूरा करने तक सब आसान रखें।',
     step1Title:'काम खोजें या पोस्ट करें',
@@ -524,6 +528,8 @@ const translations = {
     noResults:'કોઈ પ્રોફાઇલ મળી નથી',
     tryDifferent:'બીજી કુશળતા શોધો અથવા ફિલ્ટર દૂર કરો.',
     clearFilters:'ફિલ્ટર દૂર કરો', simpleSteps:'સરળ પગલાં',
+    showingProviders:'{count} ઉપલબ્ધ પ્રોફેશનલ દેખાઈ રહ્યા છે', filterLocation:'સ્થાનથી ફિલ્ટર કરો…',
+    resetFilters:'રીસેટ', sortLabel:'ક્રમ:', gridView:'ગ્રિડ વ્યૂ', listView:'યાદી વ્યૂ', newProvider:'નવું', allCategories:'બધી શ્રેણીઓ',
     howTitle:'તમારા સમયને અનુકૂળ કામ',
     howSub:'કુશળતા શોધવાથી કામ પૂરું કરવા સુધી બધું સરળ રાખો.',
     step1Title:'કામ શોધો અથવા પોસ્ટ કરો',
@@ -1111,6 +1117,66 @@ function interleaveUnreviewedProviders(providers, location, coordinates) {
   return result;
 }
 
+const DIRECTORY_PIN_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>';
+const DIRECTORY_GLOBE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></svg>';
+
+function directoryAvatarTone(id) {
+  let hash = 0;
+  for (const character of String(id || '')) hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+  return hash % 4;
+}
+
+function getDirectoryLayout() {
+  try { return localStorage.getItem('time2income_directory_layout') === 'list' ? 'list' : 'grid'; }
+  catch (error) { return 'grid'; }
+}
+
+function applyDirectoryLayout(layout) {
+  const grid = $('workerGrid');
+  if (!grid) return;
+  grid.classList.toggle('is-list', layout === 'list');
+  document.querySelectorAll('[data-directory-layout]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.directoryLayout === layout));
+    button.setAttribute('aria-label', t(button.dataset.directoryLayout === 'list' ? 'listView' : 'gridView'));
+    button.title = button.getAttribute('aria-label');
+  });
+}
+
+function renderDirectoryCategoryOptions() {
+  const select = $('directoryCategoryFilter');
+  if (!select) return;
+  const options = [new Option(t('allCategories'), '')];
+  taskCategories.forEach(category => options.push(new Option(category.name, category.id)));
+  select.replaceChildren(...options);
+  select.value = activeCategoryId || '';
+}
+
+function syncDirectoryControls() {
+  const categorySelect = $('directoryCategoryFilter');
+  if (categorySelect) {
+    if (categorySelect.options[0]) categorySelect.options[0].textContent = t('allCategories');
+    if ([...categorySelect.options].some(option => option.value === activeCategoryId)) {
+      categorySelect.value = activeCategoryId || '';
+    }
+  }
+  const locationFilter = $('directoryLocationFilter');
+  if (locationFilter && document.activeElement !== locationFilter) {
+    locationFilter.value = $('locationInput').value;
+  }
+  applyDirectoryLayout(getDirectoryLayout());
+}
+
+function renderProviderCount(count) {
+  const label = $('providerCountLabel');
+  if (!label) return;
+  $('providerCountBadge').classList.toggle('hidden', count === null);
+  if (count === null) return;
+  const [before, after = ''] = t('showingProviders').split('{count}');
+  const strong = document.createElement('strong');
+  strong.textContent = String(count);
+  label.replaceChildren(before, strong, after);
+}
+
 function renderWorkers() {
   const grid = $('workerGrid');
   if (!grid) return;
@@ -1121,10 +1187,12 @@ function renderWorkers() {
   const locationCoordinates = searchLocationCoordinates;
   const status = $('marketplaceResultsStatus');
   const empty = $('emptyState');
+  syncDirectoryControls();
   if (workerDirectoryState === 'loading') {
     grid.replaceChildren();
     status.textContent = t('loadingProviders');
     empty.classList.add('hidden');
+    renderProviderCount(null);
     renderMarketplaceFilterSummary();
     return;
   }
@@ -1132,6 +1200,7 @@ function renderWorkers() {
     grid.replaceChildren();
     status.textContent = t('providersLoadFailed');
     empty.classList.add('hidden');
+    renderProviderCount(null);
     renderMarketplaceFilterSummary();
     return;
   }
@@ -1163,31 +1232,48 @@ function renderWorkers() {
   grid.innerHTML = list.map(p => {
     const initials = p.initials || (p.name || 'U')
       .split(/\s+/).map(s => s[0]).join('').slice(0,2).toUpperCase();
-    const tags = [...(p.tags || []), ...(p.languages || []).map(language => `${t('languages')}: ${language}`)].map(tag =>
-      `<span class="skill-tag">${safeText(tag)}</span>`
-    ).join('');
+    const workType = p.type || 'Remote';
+    const workTypeLabel = { Local: t('local'), Remote: t('remote'), Both: t('bothModes') }[workType] || workType;
+    const tags = [
+      p.category ? `<span class="skill-tag skill-tag-category">${safeText(p.category)}</span>` : '',
+      ...(p.tags || []).map(tag => `<span class="skill-tag">${safeText(tag)}</span>`),
+      ...(p.languages || []).map(language =>
+        `<span class="skill-tag skill-tag-language" title="${safeText(t('languages'))}">${DIRECTORY_GLOBE_ICON}${safeText(language)}</span>`
+      )
+    ].join('');
     const portfolioPhotos = (p.portfolioImages || []).slice(0, 4).map((url, index) =>
       `<img src="${safeText(url)}" alt="${safeText(p.name)} portfolio image ${index + 1}" loading="lazy">`
     ).join('');
+    const [priceText, priceEstimate] = p.rate
+      ? window.TIME2INCOME_CURRENCY.formatDisplay(Number(p.rate), p.currency || 'INR', 'INR', 'en-IN').split(' · ')
+      : ['Contact', ''];
 
     return `
       <article class="worker-card">
-        <div class="worker-card-top">
-          <div class="worker-meta">
-            <h3>${safeText(p.name)}</h3>
-            <p>${safeText(p.skill)} · ${safeText(p.city || p.country || 'Remote')}</p>
+        <div class="worker-card-body">
+          <div class="worker-card-top">
+            <div class="worker-identity">
+              <span class="worker-avatar worker-avatar-${directoryAvatarTone(p.id)}" aria-hidden="true">${safeText(initials)}</span>
+              <div class="worker-meta">
+                <div class="worker-title-row">
+                  <h3>${safeText(p.name)}</h3>
+                  <span class="work-type work-type-${safeText(workType.toLowerCase())}">${safeText(workTypeLabel)}</span>
+                </div>
+                <p>${safeText(p.skill)} <span aria-hidden="true">•</span> <span class="worker-location">${DIRECTORY_PIN_ICON}${safeText(p.city || p.country || t('remote'))}</span></p>
+              </div>
+            </div>
+            <span class="rating">★ ${p.reviewCount ? `${Number(p.rating).toFixed(1)} (${p.reviewCount})` : safeText(t('newProvider'))}</span>
           </div>
-          <span class="rating">${p.reviewCount ? `★ ${Number(p.rating).toFixed(1)} (${p.reviewCount})` : t('providerRatingNone')}</span>
-        </div>
-        <p class="worker-description">${safeText(p.description || p.bio || 'Marketplace service provider.')}</p>
-        ${portfolioPhotos ? `<div class="worker-portfolio-gallery" aria-label="${t('portfolioImages')}">${portfolioPhotos}</div>` : ''}
-        <div class="tag-row">${tags}</div>
-        <div class="worker-bottom">
-          <div class="worker-price">
-            <small>${t('startingAt')}</small>
-            <strong>${p.rate ? safeText(window.TIME2INCOME_CURRENCY.formatDisplay(Number(p.rate), p.currency || 'INR', 'INR', 'en-IN')) : 'Contact'} <small>${p.rate ? '/ hr' : ''}</small></strong>
+          <p class="worker-description">${safeText(p.description || p.bio || 'Marketplace service provider.')}</p>
+          ${portfolioPhotos ? `<div class="worker-portfolio-gallery" aria-label="${t('portfolioImages')}">${portfolioPhotos}</div>` : ''}
+          <div class="tag-row">${tags}</div>
+          <div class="worker-bottom">
+            <small class="worker-price-label">${t('startingAt')}</small>
+            <div class="worker-price">
+              <strong>${safeText(priceText)} <small>${p.rate ? '/ hr' : ''}</small></strong>
+              ${priceEstimate ? `<small class="worker-price-estimate">${safeText(priceEstimate)}</small>` : ''}
+            </div>
           </div>
-          <span class="work-type">${safeText(p.type || 'Remote')}</span>
         </div>
         <div class="worker-actions">
           <button class="btn btn-outline" data-save-worker="${safeText(p.id)}" type="button" aria-pressed="${isSavedWorker(p.id)}" aria-label="Save provider">${isSavedWorker(p.id) ? '♥' : '♡'}</button>
@@ -1198,7 +1284,8 @@ function renderWorkers() {
     `;
   }).join('');
 
-  status.textContent = list.length ? t('providersFound').replace('{count}', String(list.length)) : '';
+  renderProviderCount(list.length);
+  status.textContent = '';
   empty.classList.toggle('hidden', list.length > 0);
   $('emptyStateTitle').textContent = t('noResults');
   $('emptyStateMessage').textContent = location
@@ -1952,6 +2039,7 @@ async function loadTaskCategories() {
     .select('id, name').eq('is_active', true).order('name');
   if (error) throw error;
   taskCategories = data || [];
+  renderDirectoryCategoryOptions();
 
   const categoryFilter = $('taskCategoryFilter');
   if (categoryFilter) {
@@ -2908,6 +2996,29 @@ function initializeApp() {
   });
   $('typeFilter').addEventListener('change', renderWorkers);
   $('sortFilter').addEventListener('change', renderWorkers);
+  $('directoryCategoryFilter').addEventListener('change', event => {
+    const category = taskCategories.find(item => item.id === event.target.value);
+    activeCategoryId = category?.id || '';
+    activeCategory = category?.name || '';
+    syncCategoryCards();
+    updateMarketplaceSuggestions();
+    renderWorkers();
+  });
+  $('directoryLocationFilter').addEventListener('input', event => {
+    $('locationInput').value = event.target.value;
+    searchLocationCoordinates = null;
+    $('searchLocationStatus').textContent = '';
+    clearTimeout(marketplaceSearchTimer);
+    marketplaceSearchTimer = setTimeout(renderWorkers, 180);
+  });
+  $('resetDirectoryFilters').addEventListener('click', () => $('clearFilters').click());
+  document.querySelectorAll('[data-directory-layout]').forEach(button => {
+    button.addEventListener('click', () => {
+      try { localStorage.setItem('time2income_directory_layout', button.dataset.directoryLayout); }
+      catch (error) { console.warn('Could not save directory layout preference:', error); }
+      applyDirectoryLayout(button.dataset.directoryLayout);
+    });
+  });
   $('clearFilters').addEventListener('click', () => {
     query = '';
     activeCategory = '';

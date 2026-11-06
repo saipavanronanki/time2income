@@ -220,34 +220,74 @@
 
     <section class="section featured-section">
       <div class="wrap">
-        <div class="section-heading">
+        <div class="section-heading directory-heading">
           <div>
-            <p class="section-kicker" data-i18n="readyToHelp">READY TO HELP</p>
+            <p class="directory-kicker"><span class="directory-pulse" aria-hidden="true"></span><span data-i18n="readyToHelp">READY TO HELP</span></p>
             <h2 data-i18n="professionalsTitle">People with skills, ready to work</h2>
             <p data-i18n="professionalsSub">Published provider profiles appear here. Create a profile to start offering your skills.</p>
           </div>
-          <div class="filter-row">
-            <select id="typeFilter" aria-label="Filter work type">
-              <option value="all" data-i18n="allWorkTypes">All work types</option>
-              <option value="Local" data-i18n="local">Local</option>
-              <option value="Remote" data-i18n="remote">Remote</option>
-              <option value="Both" data-i18n="bothModes">Local and remote</option>
-            </select>
-            <select id="sortFilter" aria-label="Sort professionals">
-              <option value="recommended" data-i18n="recommended">Recommended</option>
-              <option value="price" data-i18n="lowestRate">Lowest rate</option>
-              <option value="rating" data-i18n="topRated">Top rated</option>
-            </select>
+          <p class="directory-count" id="providerCountBadge" aria-live="polite">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span id="providerCountLabel"></span>
+          </p>
+        </div>
+        <div class="directory-toolbar" role="group" aria-label="Filter professionals">
+          <div class="directory-filters">
+            <label class="directory-control directory-select">
+              <select id="directoryCategoryFilter" aria-label="Filter category">
+                <option value="" data-i18n="allCategories">All categories</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </label>
+            <label class="directory-control directory-select">
+              <select id="typeFilter" aria-label="Filter work type">
+                <option value="all" data-i18n="allWorkTypes">All work types</option>
+                <option value="Local" data-i18n="local">Local</option>
+                <option value="Remote" data-i18n="remote">Remote</option>
+                <option value="Both" data-i18n="bothModes">Local and remote</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </label>
+            <label class="directory-control directory-location">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              <input id="directoryLocationFilter" type="search" maxlength="100" autocomplete="off" aria-label="Filter location" data-i18n-placeholder="filterLocation" placeholder="Filter location…" />
+            </label>
+            <button class="directory-reset" id="resetDirectoryFilters" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <span data-i18n="resetFilters">Reset</span>
+            </button>
+          </div>
+          <div class="directory-view-controls">
+            <span class="directory-sort-label" data-i18n="sortLabel">Sort:</span>
+            <label class="directory-control directory-select">
+              <select id="sortFilter" aria-label="Sort professionals">
+                <option value="recommended" data-i18n="recommended">Recommended</option>
+                <option value="price" data-i18n="lowestRate">Lowest rate</option>
+                <option value="rating" data-i18n="topRated">Top rated</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>
+            </label>
+            <div class="directory-layout-switch" role="group" aria-label="Layout">
+              <button id="gridViewBtn" type="button" data-directory-layout="grid" aria-pressed="true" aria-label="Grid view" title="Grid view">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+              </button>
+              <button id="listViewBtn" type="button" data-directory-layout="list" aria-pressed="false" aria-label="List view" title="List view">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+              </button>
+            </div>
           </div>
         </div>
         <p class="fx-status" id="fxStatus" role="status" aria-live="polite"></p>
         <p class="marketplace-results-status" id="marketplaceResultsStatus" role="status" aria-live="polite"></p>
         <div class="worker-grid" id="workerGrid"></div>
         <div class="empty-state hidden" id="emptyState">
+          <span class="empty-state-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m13.5 8.5-5 5M8.5 8.5l5 5"/><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </span>
           <strong id="emptyStateTitle" data-i18n="noResults">No matching providers</strong>
           <p id="emptyStateMessage" data-i18n="tryDifferent">Try another skill or clear your filters.</p>
           <div class="empty-state-actions">
-            <button class="btn btn-outline" id="clearFilters" type="button" data-i18n="clearFilters">Clear filters</button>
+            <button class="btn btn-primary" id="clearFilters" type="button" data-i18n="clearFilters">Clear filters</button>
             <a class="btn btn-outline" href="#explore" data-i18n="browseCategories">Browse categories</a>
             <button class="btn btn-outline" id="changeLocationBtn" type="button" data-i18n="changeLocation">Change location</button>
           </div>
