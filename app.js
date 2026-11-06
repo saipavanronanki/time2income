@@ -4199,13 +4199,15 @@ function openP2PApplyModal(job) {
   const modal = document.getElementById('p2pApplyModal');
   if (!modal) return;
   document.getElementById('p2pApplyJobId').value = job.id;
-  document.getElementById('p2pApplyJobTitle').textContent = 'Apply for: ' + job.title;
-  document.getElementById('p2pApplyClientMeta').textContent = 'Client: ' + job.clientName + ' · ' + job.category + ' · ' + job.location;
+  document.getElementById('p2pApplyJobTitle').textContent = 'Apply for: ' + (job.title || 'Job');
+  const clientName = job.company || job.clientName || 'Verified Client';
+  document.getElementById('p2pApplyClientMeta').textContent = 'Client: ' + clientName + ' · ' + (job.category || 'General') + ' · ' + (job.location || 'Remote');
 
   const brief = document.getElementById('p2pApplyJobBrief');
   if (brief) {
-    const budgetStr = job.hourlyRateRange || ('₹' + (job.budgetAmount || 0).toLocaleString());
-    brief.innerHTML = '<strong>Task Description:</strong><br/>' + job.description + '<br/><br/><strong>Budget:</strong> ' + budgetStr + ' · <strong>Urgency:</strong> ' + job.urgency;
+    const budgetStr = job.rateText || job.hourlyRateRange || (job.budgetAmount ? ('₹' + job.budgetAmount.toLocaleString()) : 'Competitive');
+    const urgency = job.urgency || 'Normal';
+    brief.innerHTML = '<strong>Task Description:</strong><br/>' + (job.description || '') + '<br/><br/><strong>Budget:</strong> ' + budgetStr + ' · <strong>Urgency:</strong> ' + urgency;
   }
 
   document.getElementById('p2pApplyForm').reset();
@@ -4216,12 +4218,13 @@ function openP2PBookingModal(provider) {
   const modal = document.getElementById('p2pBookingModal');
   if (!modal) return;
   document.getElementById('p2pBookingProviderId').value = provider.id;
-  document.getElementById('p2pBookingProviderName').textContent = 'Hire ' + provider.name;
-  document.getElementById('p2pBookingProviderRole').textContent = provider.role + ' · ' + provider.location;
+  document.getElementById('p2pBookingProviderName').textContent = 'Hire ' + (provider.name || 'Provider');
+  document.getElementById('p2pBookingProviderRole').textContent = (provider.role || 'Service Specialist') + ' · ' + (provider.location || 'Remote');
 
   const banner = document.getElementById('p2pBookingRateBanner');
   if (banner) {
-    banner.innerHTML = '<strong>Hourly Rate:</strong> ₹' + provider.rate.toLocaleString() + ' / hr · <strong>Work Preference:</strong> ' + provider.workType + '<br/><small>Review score: ⭐ ' + (provider.rating || 'New') + ' (' + provider.reviewCount + ' reviews)</small>';
+    const rateStr = provider.rateText || ('₹' + (provider.rate || 0).toLocaleString() + ' / hr');
+    banner.innerHTML = '<strong>Rate:</strong> ' + rateStr + ' · <strong>Work Preference:</strong> ' + (provider.workType || 'Flexible') + '<br/><small>Review score: ⭐ ' + (provider.rating || 'New') + ' (' + (provider.reviewCount || 0) + ' reviews)</small>';
   }
 
   document.getElementById('p2pBookingForm').reset();
@@ -4240,22 +4243,30 @@ function openP2PProviderProfileModal(provider) {
   const modal = document.getElementById('p2pDetailViewModal');
   if (!modal) return;
   document.getElementById('p2pDetailKicker').textContent = 'PROVIDER FULL PROFILE';
-  document.getElementById('p2pDetailTitle').textContent = provider.name;
+  document.getElementById('p2pDetailTitle').textContent = provider.name || 'Provider Profile';
 
   const body = document.getElementById('p2pDetailBody');
   const actions = document.getElementById('p2pDetailActions');
 
+  const skillsList = (provider.skills && provider.skills.length > 0)
+    ? provider.skills
+    : (provider.pills || ['General Skills']);
+  const languagesList = (provider.languages && provider.languages.length > 0)
+    ? provider.languages
+    : ['English'];
+  const displayRate = provider.rateText || ('₹' + (provider.rate || 0).toLocaleString() + ' / hour');
+
   body.innerHTML = '<div>' +
-    '<p style="font-size: 1.05rem; font-weight: 600; color: #0F172A;">' + provider.role + ' <span class="badge-rating" style="margin-left: 8px;">⭐ ' + (provider.rating || 'New') + ' (' + provider.reviewCount + ' reviews)</span></p>' +
-    '<p style="color: #64748B;">📍 ' + provider.location + ' · Work Type: ' + provider.workType + '</p>' +
+    '<p style="font-size: 1.05rem; font-weight: 600; color: #0F172A;">' + (provider.role || 'Service Specialist') + ' <span class="badge-rating" style="margin-left: 8px;">⭐ ' + (provider.rating || 'New') + ' (' + (provider.reviewCount || 0) + ' reviews)</span></p>' +
+    '<p style="color: #64748B;">📍 ' + (provider.location || 'Remote') + ' · Work Type: ' + (provider.workType || 'Flexible') + '</p>' +
     '<h4>About & Experience</h4>' +
-    '<p>' + provider.bio + '</p>' +
+    '<p>' + (provider.bio || 'Experienced verified service provider ready for hire.') + '</p>' +
     '<h4>Key Skills & Expertise</h4>' +
-    '<div class="p2p-pills-row">' + provider.skills.map(s => '<span class="p2p-pill">' + s + '</span>').join('') + '</div>' +
+    '<div class="p2p-pills-row">' + skillsList.map(s => '<span class="p2p-pill">' + s + '</span>').join('') + '</div>' +
     '<h4>Spoken Languages</h4>' +
-    '<p>' + provider.languages.join(', ') + '</p>' +
-    '<h4>Standard Hourly Rate</h4>' +
-    '<p style="font-size: 1.2rem; font-weight: 700; color: #059669;">₹' + provider.rate.toLocaleString() + ' <span style="font-size: 0.85rem; color: #64748B; font-weight: normal;">/ hour</span></p>' +
+    '<p>' + languagesList.join(', ') + '</p>' +
+    '<h4>Standard Rate</h4>' +
+    '<p style="font-size: 1.2rem; font-weight: 700; color: #059669;">' + displayRate + '</p>' +
   '</div>';
 
   actions.innerHTML = '<button type="button" class="btn btn-card-secondary" id="p2pCloseDetailBtn">Close</button>' +
@@ -4274,22 +4285,28 @@ function openP2PJobDetailModal(job) {
   const modal = document.getElementById('p2pDetailViewModal');
   if (!modal) return;
   document.getElementById('p2pDetailKicker').textContent = 'PROJECT SCOPE & REQUIREMENTS';
-  document.getElementById('p2pDetailTitle').textContent = job.title;
+  document.getElementById('p2pDetailTitle').textContent = job.title || 'Job Opportunity';
 
   const body = document.getElementById('p2pDetailBody');
   const actions = document.getElementById('p2pDetailActions');
 
-  const budgetDisplay = job.hourlyRateRange || ('Fixed Budget: ₹' + (job.budgetAmount || 0).toLocaleString());
+  const budgetDisplay = job.rateText || job.hourlyRateRange || (job.budgetAmount ? ('Fixed Budget: ₹' + job.budgetAmount.toLocaleString()) : 'Competitive Rate');
+  const skillsList = (job.skills && job.skills.length > 0)
+    ? job.skills
+    : (job.pills || ['General Skills']);
+  const clientName = job.company || job.clientName || 'Verified Client';
+  const postedAgo = job.dateBadge || job.postedAgo || 'Recently posted';
+  const duration = job.duration || 'Flexible timeline';
 
   body.innerHTML = '<div>' +
-    '<p style="font-size: 1.05rem; font-weight: 600; color: #0F172A;">Client: ' + job.clientName + ' · ' + job.category + '</p>' +
-    '<p style="color: #64748B;">📍 ' + job.location + ' · Work Type: ' + job.workType + ' · Posted: ' + job.postedAgo + '</p>' +
+    '<p style="font-size: 1.05rem; font-weight: 600; color: #0F172A;">Client / Company: ' + clientName + ' · ' + (job.category || 'General') + '</p>' +
+    '<p style="color: #64748B;">📍 ' + (job.location || 'Remote') + ' · Work Type: ' + (job.workType || 'Flexible') + ' · Posted: ' + postedAgo + '</p>' +
     '<h4>Project Description</h4>' +
-    '<p>' + job.description + '</p>' +
-    '<h4>Required Skills</h4>' +
-    '<div class="p2p-pills-row">' + job.skills.map(s => '<span class="p2p-pill">' + s + '</span>').join('') + '</div>' +
+    '<p>' + (job.description || 'Details available upon proposal submission.') + '</p>' +
+    '<h4>Required Skills & Scope</h4>' +
+    '<div class="p2p-pills-row">' + skillsList.map(s => '<span class="p2p-pill">' + s + '</span>').join('') + '</div>' +
     '<h4>Duration & Compensation</h4>' +
-    '<p>⏱️ Estimated duration: <strong>' + job.duration + '</strong></p>' +
+    '<p>⏱️ Estimated duration: <strong>' + duration + '</strong></p>' +
     '<p style="font-size: 1.2rem; font-weight: 700; color: #059669;">' + budgetDisplay + '</p>' +
   '</div>';
 
