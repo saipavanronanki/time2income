@@ -50,7 +50,7 @@
     installStatus.textContent = 'On iPhone or iPad, open this site in Safari and use Share > Add to Home Screen. The App Store version is not available yet.';
   } else if (isAndroid && installStatus) {
     installStatus.textContent = 'Install TIME2INCOME as a website app using this button or your browser menu. The Google Play version is not available yet.';
-  } else if (installStatus) {
+  } else if (installStatus && !installButton?.hasAttribute('data-show-install-guidance')) {
     installStatus.textContent = 'Install TIME2INCOME as a website app from a supported browser. Native store apps are not available yet.';
   }
 
@@ -63,7 +63,11 @@
   installButton?.addEventListener('click', async () => {
     if (!installPrompt) {
       if (installGuides) installGuides.open = true;
-      if (installStatus) installStatus.textContent = 'Choose Install app from your browser menu if the install prompt is unavailable.';
+      if (installStatus) {
+        installStatus.textContent = isIos
+          ? 'On iPhone or iPad, open this site in Safari and use Share > Add to Home Screen.'
+          : 'Choose Install app from your browser menu if the install prompt is unavailable.';
+      }
       return;
     }
     const promptEvent = installPrompt;
@@ -97,9 +101,10 @@
 
   navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' }).then(reg => {
     registration = reg;
-    if (nativeInstallEventSupported && !isIos && !isStandalone && installButton) {
+    const showInstallGuidance = installButton?.hasAttribute('data-show-install-guidance');
+    if (!isStandalone && installButton && (showInstallGuidance || (nativeInstallEventSupported && !isIos))) {
       installButton.hidden = false;
-      if (installStatus && !installPrompt) {
+      if (installStatus && !installPrompt && !showInstallGuidance) {
         installStatus.textContent = isAndroid
           ? 'Install using this button when available, or choose Install app from your browser menu. The Google Play version is not available yet.'
           : 'Install using this button when available, or choose Install app from your browser menu. Native store apps are not available yet.';

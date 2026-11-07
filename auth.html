@@ -3,116 +3,390 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#173f34" />
+  <script src="browser-check.js"></script>
+  <meta name="theme-color" content="#06244e" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Join or sign in | TIME2INCOME</title>
   <link rel="icon" type="image/x-icon" sizes="192x192" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/time2income-192.png" />
+  <link rel="apple-touch-icon" href="assets/time2income-180.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="redesign.css" />
+  <link rel="stylesheet" href="redesign.css?v=20261104-live-layout2" />
+  <link rel="stylesheet" href="explore.css?v=20261106-help" />
+  <link rel="stylesheet" href="theme-blue.css?v=20261107-blue-theme2" />
 </head>
 <body class="auth-page auth-only-signin">
   <main class="auth-shell">
     <header class="auth-header">
       <a class="brand" href="auth.html" aria-label="TIME2INCOME">
-        <img class="brand-mark" src="assets/time2income-mark.png" alt="" />
+        <span class="brand-mark" aria-hidden="true"><img src="assets/time2income-brand.png" alt="" /></span>
         <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
       </a>
-      <span class="auth-header-note">A marketplace for time, skills and opportunity</span>
+      <span class="auth-header-note" data-auth-copy="headerNote">A marketplace for time, skills and opportunity</span>
+      <div class="auth-language-control">
+        <span class="auth-language-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" focusable="false">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18M5.64 5.64a12.7 12.7 0 0 0 0 12.72M18.36 5.64a12.7 12.7 0 0 1 0 12.72" />
+          </svg>
+        </span>
+        <span class="auth-language-picker" id="authLanguagePicker">
+          <span class="auth-language-input-wrap">
+            <input id="authLanguageSearch" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="authLanguageOptions" aria-label="Select language" data-auth-aria-label="languageSelectLabel" />
+            <button class="auth-country-toggle" id="authLanguageToggle" type="button" aria-expanded="false" aria-controls="authLanguageOptions" data-auth-aria-label="languageOptions">
+              <span aria-hidden="true"></span>
+            </button>
+          </span>
+          <span class="auth-country-options auth-language-options" id="authLanguageOptions" role="listbox" data-auth-aria-label="languageOptions" hidden></span>
+          <span class="auth-country-empty" id="authLanguageEmpty" role="status" data-auth-copy="languageNoMatch" hidden>No matching languages</span>
+        </span>
+        <select id="authLanguage" aria-label="Select language" hidden></select>
+      </div>
     </header>
 
     <div class="auth-card">
       <section class="auth-intro">
         <div>
-          <p class="section-kicker">YOUR NEXT OPPORTUNITY STARTS HERE</p>
-          <h1>Good work begins with the right connection.</h1>
-          <p>Sign in to explore published providers, open tasks and your marketplace activity.</p>
+          <p class="section-kicker" data-auth-copy="kicker">TIME, SKILLS &amp; OPPORTUNITY</p>
+          <h1 data-auth-copy="headline">One account for everything.</h1>
+          <p data-auth-copy="intro">Hire skilled people or offer your skills anytime, anywhere in the world, all with a single T2I account.</p>
         </div>
+        <figure class="auth-global-visual auth-signin-visual" aria-hidden="true" data-signin-only>
+          <img src="assets/auth-signin-freelancer.jpg" alt="" width="760" height="589" fetchpriority="high" />
+          <img src="assets/auth-signin-team.jpg" alt="" width="760" height="417" />
+          <img src="assets/auth-signin-work.jpg" alt="" width="452" height="678" />
+        </figure>
+        <figure class="auth-global-visual auth-signup-visual" aria-hidden="true" data-signup-only>
+          <img src="assets/auth-signup-trades.jpg" alt="" width="760" height="507" fetchpriority="high" />
+          <img src="assets/auth-signup-teaching.jpg" alt="" width="640" height="640" />
+          <img src="assets/auth-signup-craft.jpg" alt="" width="760" height="507" />
+        </figure>
         <ul class="auth-benefits">
-          <li>Find local and remote skills in one place</li>
-          <li>Post a task or send an offer</li>
-          <li>Build a provider profile and portfolio</li>
+          <li data-auth-copy="benefitWork">Find work and earn income</li>
+          <li data-auth-copy="benefitHire">Post tasks and hire talent</li>
+          <li data-auth-copy="benefitGlobal">Connect with global opportunities</li>
+          <li data-auth-copy="benefitProfile">Build your profile and portfolio</li>
         </ul>
       </section>
 
       <section class="auth-panel" aria-labelledby="authTitle">
-        <div class="auth-tabs" role="tablist" aria-label="Account access">
-          <button class="auth-tab" id="signInTab" type="button" role="tab" aria-selected="true">Sign in</button>
-          <button class="auth-tab" id="signUpTab" type="button" role="tab" aria-selected="false">Create account</button>
+        <div class="auth-tabs" role="tablist" aria-label="Account access" data-auth-aria-label="accountAccess">
+          <button class="auth-tab" id="signInTab" type="button" role="tab" aria-selected="true" data-auth-copy="signIn">Sign in</button>
+          <button class="auth-tab" id="signUpTab" type="button" role="tab" aria-selected="false" data-auth-copy="createAccount">Create account</button>
         </div>
         <h2 id="authTitle">Welcome back</h2>
         <p id="authDescription">Sign in to continue to your marketplace.</p>
-        <p class="auth-fee-note" data-signup-only>A one-time activation fee of 1 unit in a supported currency applies after email confirmation to unlock marketplace access.</p>
-
+        <div class="auth-social" id="authSocial">
+          <button class="auth-social-btn" type="button" data-oauth-provider="google"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#428cf4" d="M23.5 12.3c0-.8-.1-1.5-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.7v3h3.9c2.3-2.1 3.5-5.2 3.5-8.8Z"/><path fill="#3464a8" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24Z"/><path fill="#056bfb" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.3a12 12 0 0 0 0 10.8l4-3.1Z"/><path fill="#3580ea" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.9 3.6-4.9 6.7-4.9Z"/></svg>          <span data-auth-copy="socialGoogle">Continue with Google</span></button>
+                    <p class="auth-social-divider"><span data-auth-copy="socialDivider">or use email</span></p>
+                    <p class="auth-social-hint" data-auth-copy="socialEmailHint">Any email works: Gmail, Yahoo, Outlook or your own</p>
+        </div>
         <form class="auth-form" id="authForm">
-          <label class="form-label" data-signup-only>
-            Full name
-            <input id="authName" type="text" autocomplete="name" maxlength="80" />
-          </label>
-          <label class="form-label">
-            Email address
-            <input id="authEmail" type="email" autocomplete="email" maxlength="120" required placeholder="you@example.com" />
-          </label>
-          <label class="form-label">
-            Password
-            <input id="authPassword" type="password" autocomplete="current-password" minlength="8" maxlength="72" required placeholder="At least 8 characters" />
-          </label>
-
-          <div data-signup-only>
-            <div class="form-two">
-              <label class="form-label">
-                Country
-                <input id="authCountry" type="text" autocomplete="country-name" maxlength="80" value="India" required />
-              </label>
-              <label class="form-label">
-                City
-                <input id="authCity" type="text" autocomplete="address-level2" maxlength="80" placeholder="Optional" />
-              </label>
+          <div class="signup-field-grid">
+            <div class="signup-field-pair signup-field-wide">
+            <label class="form-label signup-field-card signup-photo-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"></path><circle cx="12" cy="13" r="4"></circle></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="profilePhoto">Profile photo</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <span class="signup-photo-input-row">
+                  <input id="authProfilePhoto" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="authProfilePhotoHint" required />
+                  <img id="authProfilePhotoPreview" class="profile-photo-preview" alt="Profile photo preview" hidden />
+                </span>
+              </span>
+            </label>
+            <label class="form-label signup-field-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21v-2a8 8 0 0 1 16 0v2"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="fullName">Full name</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <input id="authName" type="text" autocomplete="name" maxlength="80" placeholder="Enter your full name" data-auth-placeholder="namePlaceholder" />
+              </span>
+            </label>
+            <small class="auth-profile-photo-hint" id="authProfilePhotoHint" data-signup-only data-auth-copy="profilePhotoHint">Use a clear, professional photo. Visible to marketplace members, your ID is reviewed privately.</small>
             </div>
-            <label class="form-label">
-              How will you use TIME2INCOME?
-              <select id="authRole">
-                <option value="both">Hire and offer skills</option>
-                <option value="client">Hire help</option>
-                <option value="worker">Offer my skills</option>
+            <div class="signup-field-pair signup-field-wide">
+            <label class="form-label signup-field-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"></circle><path d="M3 19v-1a6 6 0 0 1 12 0v1M16 5h5m-2.5-2.5v13"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="gender">Gender</span> <span class="auth-required" aria-hidden="true">*</span></span>
+              <select id="authGender" autocomplete="sex">
+                <option value="" data-auth-copy="selectGender">Select your gender</option>
+                <option value="Male" data-auth-copy="male">Male</option>
+                <option value="Female" data-auth-copy="female">Female</option>
+                <option value="Non-binary" data-auth-copy="nonBinary">Non-binary</option>
+                <option value="Prefer not to say" data-auth-copy="preferNot">Prefer not to say</option>
+                <option value="Other" data-auth-copy="other">Other</option>
+              </select>
+              </span>
+            </label>
+            <label class="form-label signup-field-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="birthDate">Date of birth</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <input id="authBirthDate" type="date" autocomplete="bday" />
+              </span>
+            </label>
+            </div>
+            <div class="signup-field-pair signup-field-wide">
+            <label class="form-label signup-field-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.7L7.7 9.7a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 1.7-.6l3 .5a2 2 0 0 1 1.7 2.6Z"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="callingCode">Country calling code</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <span class="auth-dial-picker" id="authDialPicker">
+                  <span class="auth-country-input-wrap">
+                    <input id="authDialSearch" autocomplete="tel-country-code" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="authDialOptions" aria-label="Country calling code" data-auth-aria-label="callingCode" />
+                    <button class="auth-country-toggle" id="authDialToggle" type="button" aria-expanded="false" aria-controls="authDialOptions" data-auth-aria-label="callingCodeOptions">
+                      <span aria-hidden="true"></span>
+                    </button>
+                  </span>
+                  <span class="auth-country-options" id="authDialOptions" role="listbox" data-auth-aria-label="callingCodeOptions" hidden></span>
+                  <span class="auth-country-empty" id="authDialEmpty" role="status" data-auth-copy="callingCodeNoMatch" hidden>No matching countries</span>
+                </span>
+                <select id="authDialCode" autocomplete="tel-country-code" hidden></select>
+              </span>
+            </label>
+            <label class="form-label signup-field-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"></rect><path d="M11 18h2"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="mobile">Mobile number</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <input id="authPhone" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="20" placeholder="Enter your mobile number" data-auth-placeholder="mobilePlaceholder" />
+              </span>
+            </label>
+            </div>
+            <div class="signup-field-pair signup-field-wide">
+            <div class="form-label signup-field-card auth-currency-field" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><ellipse cx="9" cy="5" rx="6" ry="3"></ellipse><path d="M3 5v5c0 1.7 2.7 3 6 3s6-1.3 6-3V5M3 10v5c0 1.7 2.7 3 6 3 1 0 2-.1 2.8-.4M15 10c3.3 0 6 1.3 6 3s-2.7 3-6 3-6-1.3-6-3 2.7-3 6-3ZM9 13v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"></path></svg></span>
+              <span class="signup-field-content">
+                <label class="auth-field-label" for="authCurrencySearch"><span data-auth-copy="preferredCurrency">Preferred currency</span> <span class="auth-required" aria-hidden="true">*</span></label>
+                <span class="auth-currency-picker" id="authCurrencyPicker">
+                  <span class="auth-country-input-wrap">
+                    <input id="authCurrencySearch" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="authCurrencyOptions" required placeholder="Search currency by name or code" />
+                    <button class="auth-country-toggle" id="authCurrencyToggle" type="button" aria-expanded="false" aria-controls="authCurrencyOptions" data-auth-aria-label="currencyOptions">
+                      <span aria-hidden="true"></span>
+                    </button>
+                  </span>
+                  <span class="auth-country-options" id="authCurrencyOptions" role="listbox" data-auth-aria-label="currencyOptions" hidden></span>
+                  <span class="auth-country-empty" id="authCurrencyEmpty" role="status" data-auth-copy="currencyNoMatch" hidden>No matching currencies</span>
+                </span>
+                <input id="authCurrency" type="hidden" />
+                <small class="auth-currency-hint" data-auth-copy="currencyHint">Suggested from your country. You can change this later in your account.</small>
+              </span>
+            </div>
+            <label class="form-label signup-field-card" data-credential-field>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m3 6 9 7 9-7"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="email">Email address</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <input id="authEmail" type="email" autocomplete="email" maxlength="120" required placeholder="Enter your email address" data-auth-placeholder="emailPlaceholder" />
+              </span>
+            </label>
+            </div>
+            <div class="signup-field-pair signup-field-wide">
+            <label class="form-label signup-field-card" data-credential-field>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="password">Password</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <span class="signup-password-control">
+                  <input id="authPassword" type="password" autocomplete="current-password" minlength="8" maxlength="72" required placeholder="Create a strong password" data-auth-placeholder="passwordPlaceholder" />
+                  <button class="auth-password-toggle" type="button" data-password-target="authPassword" aria-label="Show password" title="Show password">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle><path class="signup-password-slash" d="m3 3 18 18"></path></svg>
+                  </button>
+                </span>
+                <small class="auth-password-hint" data-auth-copy="passwordHint">Use at least 8 characters with a mix of letters, numbers and a symbol.</small>
+              </span>
+            </label>
+            <label class="form-label signup-field-card" data-signup-only data-credential-field>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="confirmPassword">Confirm password</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <span class="signup-password-control">
+                  <input id="authConfirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="72" placeholder="Re - enter your password" data-auth-placeholder="confirmPlaceholder" />
+                  <button class="auth-password-toggle" type="button" data-password-target="authConfirmPassword" aria-label="Show password" title="Show password">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle><path class="signup-password-slash" d="m3 3 18 18"></path></svg>
+                  </button>
+                </span>
+                <small class="auth-password-hint" id="authConfirmPasswordHint" aria-live="polite"></small>
+              </span>
+            </label>
+            </div>
+            <div class="signup-field-pair signup-field-wide">
+            <label class="form-label signup-field-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="stateProvince">State / Province</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <input id="authState" type="text" autocomplete="address-level1" maxlength="80" required placeholder="Enter your state or province" data-auth-placeholder="statePlaceholder" />
+              </span>
+            </label>
+            <label class="form-label signup-field-card" data-signup-only>
+              <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1m4 0h1m-6 4h1m4 0h1m-5 7v-4h4v4"></path></svg></span>
+              <span class="signup-field-content">
+                <span class="auth-field-label"><span data-auth-copy="city">City</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                <input id="authCity" type="text" autocomplete="address-level2" maxlength="80" placeholder="Enter your city" data-auth-placeholder="cityPlaceholder" />
+              </span>
+            </label>
+            </div>
+            <section class="signup-country-panel signup-field-wide" data-signup-only aria-labelledby="authCountryPanelTitle">
+              <div class="signup-country-heading">
+                <span class="signup-country-title" id="authCountryPanelTitle">
+                  <span class="signup-field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 22V3m0 1c5-3 9 3 16 0v10c-7 3-11-3-16 0"></path></svg></span>
+                  <span><span data-auth-copy="country">Country</span> <span class="auth-required" aria-hidden="true">*</span></span>
+                </span>
+                <div class="auth-country-picker" id="authCountryPicker">
+                  <div class="auth-country-input-wrap">
+                    <input id="authCountry" autocomplete="country-name" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="authCountryOptions" aria-labelledby="authCountryPanelTitle" required placeholder="Type a country name" />
+                    <button class="auth-country-toggle" id="authCountryToggle" type="button" aria-expanded="false" aria-controls="authCountryOptions" data-auth-aria-label="countryOptions">
+                      <span aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <div class="auth-country-options" id="authCountryOptions" role="listbox" data-auth-aria-label="countryOptions" hidden></div>
+                  <div class="auth-country-empty" id="authCountryEmpty" role="status" data-auth-copy="countryNoMatch" hidden>No matching countries</div>
+                </div>
+              </div>
+              <div class="auth-country-details" id="authCountryDetails" aria-live="polite">
+                <span><small>ISO code</small><strong id="authCountryCodeValue"></strong></span>
+                <span><small>Calling code</small><strong id="authCountryDialValue"></strong></span>
+                <span><small>Currency</small><strong id="authCountryCurrencyValue"></strong></span>
+                <span><small>Languages</small><strong id="authCountryLanguagesValue"></strong></span>
+              </div>
+            </section>
+            <label class="form-label" data-signup-only>
+              <span class="auth-field-label"><span data-auth-copy="skillCategory">Skill category</span> <span class="auth-required" aria-hidden="true">*</span></span>
+              <select id="authCategory" required>
+                <option value="" selected disabled data-auth-copy="categoryChoose">Choose a skill category</option>
+                <option value="Home services" data-auth-copy="categoryHome">Home services &amp; repairs</option>
+                <option value="Construction" data-auth-copy="categoryConstruction">Construction &amp; skilled trades</option>
+                <option value="Cleaning" data-auth-copy="categoryCleaning">Cleaning &amp; housekeeping</option>
+                <option value="Gardening" data-auth-copy="categoryGardening">Gardening &amp; landscaping</option>
+                <option value="Beauty" data-auth-copy="categoryBeauty">Beauty, hair &amp; wellness</option>
+                <option value="Health care" data-auth-copy="categoryHealth">Healthcare &amp; caregiving</option>
+                <option value="Child care" data-auth-copy="categoryChildcare">Childcare &amp; babysitting</option>
+                <option value="Food" data-auth-copy="categoryFood">Cooking, catering &amp; food</option>
+                <option value="Automotive" data-auth-copy="categoryAuto">Automotive &amp; mechanics</option>
+                <option value="Driving & delivery" data-auth-copy="categoryDriving">Driving &amp; delivery</option>
+                <option value="Moving" data-auth-copy="categoryMoving">Moving &amp; logistics</option>
+                <option value="IT" data-auth-copy="categoryIT">IT, software &amp; tech support</option>
+                <option value="Web development" data-auth-copy="categoryWeb">Web &amp; app development</option>
+                <option value="Design" data-auth-copy="categoryDesign">Graphic, web &amp; product design</option>
+                <option value="Writing" data-auth-copy="categoryWriting">Writing, editing &amp; translation</option>
+                <option value="Marketing" data-auth-copy="categoryMarketing">Marketing, sales &amp; social media</option>
+                <option value="Photography" data-auth-copy="categoryPhoto">Photography &amp; video</option>
+                <option value="Business" data-auth-copy="categoryBusiness">Business, finance &amp; consulting</option>
+                <option value="Administrative" data-auth-copy="categoryAdmin">Administrative &amp; virtual assistance</option>
+                <option value="Education" data-auth-copy="categoryEducation">Education, tutoring &amp; languages</option>
+                <option value="Events" data-auth-copy="categoryEvents">Events, hospitality &amp; entertainment</option>
+                <option value="Legal" data-auth-copy="categoryLegal">Legal &amp; professional services</option>
+                <option value="Pets" data-auth-copy="categoryPets">Pet care &amp; animal services</option>
+                <option value="Manufacturing" data-auth-copy="categoryManufacturing">Manufacturing &amp; production</option>
+                <option value="Security" data-auth-copy="categorySecurity">Security &amp; safety</option>
+                <option value="Real estate" data-auth-copy="categoryRealEstate">Real estate &amp; property services</option>
+                <option value="Personal services" data-auth-copy="categoryPersonal">Personal &amp; lifestyle services</option>
+                <option value="Other" data-auth-copy="categoryOther">Other</option>
               </select>
             </label>
-            <div class="form-two" id="authProviderFields">
-              <label class="form-label">
-                Skill category
-                <select id="authCategory">
-                  <option>Home services</option>
-                  <option>Driving &amp; delivery</option>
-                  <option>Digital &amp; creative</option>
-                  <option>Office support</option>
-                  <option>Education</option>
-                  <option>Personal help</option>
-                </select>
+            <label class="form-label" data-signup-only>
+              <span class="auth-field-label"><span data-auth-copy="skillCategoryFilter">Filter skill suggestions by category</span> <span class="auth-required" aria-hidden="true">*</span></span>
+              <select id="authSkillCategory" required>
+                <option value="" selected disabled data-auth-copy="categoryChoose">Choose a skill category</option>
+              </select>
+            </label>
+            <label class="form-label" data-signup-only>
+              <span class="auth-field-label"><span data-auth-copy="primarySkill">Primary skill</span> <span class="auth-required" aria-hidden="true">*</span></span>
+              <input id="authSkill" type="text" list="authSkillOptions" maxlength="80" required placeholder="e.g. Plumbing or design" data-auth-placeholder="skillPlaceholder" />
+              <small class="auth-password-hint" data-auth-copy="skillCategoryHint">Search for a skill or enter your own.</small>
+            </label>
+            <label class="form-label" id="authIdentityDocumentTypeField" hidden>
+              <span class="auth-field-label"><span data-auth-copy="documentType">Document type</span> <span class="auth-required" aria-hidden="true">*</span></span>
+              <span class="auth-identity-type-picker" id="authIdentityDocumentTypePicker">
+                <span class="auth-country-input-wrap">
+                  <input id="authIdentityDocumentType" type="text" maxlength="80" autocomplete="off" role="combobox" aria-autocomplete="list" aria-haspopup="listbox" aria-expanded="false" aria-controls="authIdentityDocumentTypeOptions" required placeholder="Select your ID document type" data-auth-placeholder="documentTypePlaceholder" />
+                  <button class="auth-country-toggle" id="authIdentityDocumentTypeToggle" type="button" aria-expanded="false" aria-controls="authIdentityDocumentTypeOptions" aria-label="Show document types">
+                    <span aria-hidden="true"></span>
+                  </button>
+                </span>
+                <span class="auth-country-options" id="authIdentityDocumentTypeOptions" role="listbox" hidden>
+                  <button class="auth-country-option" id="authIdentityDocumentTypeOption-passport" type="button" role="option" data-document-type="Passport">Passport</button>
+                  <button class="auth-country-option" id="authIdentityDocumentTypeOption-national-id" type="button" role="option" data-document-type="National ID card">National ID card</button>
+                  <button class="auth-country-option" id="authIdentityDocumentTypeOption-drivers-license" type="button" role="option" data-document-type="Driver's license">Driver's license</button>
+                  <button class="auth-country-option" id="authIdentityDocumentTypeOption-voter-id" type="button" role="option" data-document-type="Voter ID">Voter ID</button>
+                  <button class="auth-country-option" id="authIdentityDocumentTypeOption-other" type="button" role="option" data-document-type="Other">Other</button>
+                </span>
+              </span>
+              <small class="auth-identity-type-hint" data-auth-copy="documentTypeHint">Choose a listed type or enter the name used for your country's photo ID.</small>
+            </label>
+            <div class="form-label signup-field-wide" id="authIdentityDocumentField" hidden>
+              <label class="auth-field-label" for="authIdentityDocument"><span data-auth-copy="identityDocument">Photo ID document</span> <span class="auth-required" aria-hidden="true">*</span></label>
+              <input id="authIdentityDocument" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,application/pdf" required />
+              <small class="auth-password-hint" data-auth-copy="identityDocumentHint">Upload any valid ID document showing your photo and ID number. Take a photo with your phone camera or choose a file. Image or PDF, up to 50 MB. The original is unchanged and may contain photo metadata. Authorized reviewers will check it manually, submission alone does not verify identity.</small>
+              <small class="auth-password-hint" id="authIdentityDocumentFileName" aria-live="polite"></small>
+            </div>
+            <label class="form-label signup-field-wide" data-signup-only>
+              <span class="auth-field-label" data-auth-copy="catalogSuggestionOptionLabel">Suggest a skill or category? (optional)</span>
+              <select id="authCatalogSuggestionKind">
+                <option value="none" data-auth-copy="catalogSuggestionNone">No suggestion</option>
+                <option value="skill" data-auth-copy="catalogSuggestionSkill">Suggest the primary skill above</option>
+                <option value="category" data-auth-copy="catalogSuggestionCategory">Suggest a new category</option>
+              </select>
+              <small class="auth-password-hint" data-auth-copy="catalogSuggestionSignupHint">Suggestions are reviewed before they are added to the catalog.</small>
+            </label>
+            <label class="form-label signup-field-wide" id="authCatalogSuggestionSkillCategoryField" data-signup-only hidden>
+              <span class="auth-field-label" data-auth-copy="catalogSuggestionSkillCategoryLabel">Category for this new skill</span>
+              <select id="authCatalogSuggestionSkillCategory"></select>
+            </label>
+            <label class="form-label signup-field-wide" id="authCatalogSuggestionCategoryField" data-signup-only hidden>
+              <span class="auth-field-label" data-auth-copy="catalogSuggestionCategoryNameLabel">New category name</span>
+              <input id="authCatalogSuggestionCategoryName" maxlength="80" autocomplete="off" />
+            </label>
+            <div class="auth-consent-group signup-field-wide" data-signup-only>
+              <label class="auth-consent" for="authConsent">
+                <input id="authConsent" type="checkbox" />
+                <span><span data-auth-copy="consentStart">I confirm I am 18 years or older and agree to the</span> <a href="terms.html" data-auth-copy="terms">Terms of Service</a> <span data-auth-copy="and">and</span> <a href="privacy.html" data-auth-copy="privacy">Privacy Policy</a>. <span class="auth-required" aria-hidden="true">*</span></span>
               </label>
-              <label class="form-label">
-                Primary skill
-                <input id="authSkill" type="text" maxlength="80" placeholder="e.g. Plumbing or design" />
+            </div>
+            <div class="auth-consent-group signup-field-wide" id="authIdentityConsentGroup" hidden>
+              <label class="auth-identity-consent" for="authIdentityConsent">
+                <input id="authIdentityConsent" type="checkbox" required />
+                <span data-auth-copy="identityDocumentConsent">I consent to private review of this ID document by authorized TIME2INCOME verification staff. No fixed retention period is approved; records may be preserved where required by law or a valid legal hold. This marketplace review is separate from regulated financial KYC.</span>
+                <span class="auth-required" aria-hidden="true">*</span>
               </label>
             </div>
           </div>
 
-          <button class="auth-toggle-link" id="forgotPasswordBtn" type="button" data-signin-only>Forgot password?</button>
-          <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
           <button class="btn btn-primary auth-submit" id="authSubmit" type="submit">Sign in</button>
+          <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+          <button class="auth-toggle-link" id="forgotPasswordBtn" type="button" data-signin-only data-auth-copy="forgotPassword">Forgot password?</button>
         </form>
-        <p class="auth-footer">Your account is secured by Supabase Authentication. Never share your password or verification codes.</p>
-        <nav class="auth-legal-links" aria-label="Help and legal information">
-          <a href="help.html">Help</a>
-          <a href="privacy.html">Privacy Policy</a>
-          <a href="terms.html">Terms of Service</a>
+        <div class="auth-security-notices">
+          <p class="auth-footer" data-auth-copy="footer">Never share your password or verification codes.</p>
+          <p class="auth-footer auth-verification-note">Check your registered email for verification codes.</p>
+        </div>
+        <div class="auth-app-install" data-signin-only>
+          <button class="btn btn-primary" id="installAppBtn" type="button" data-auth-copy="installApp" data-show-install-guidance hidden>Install App</button>
+          <p class="auth-app-install-status" id="installStatus" role="status" aria-live="polite"></p>
+        </div>
+        <p class="auth-switch-prompt" data-signup-only><span data-auth-copy="alreadyAccount">Already have an account?</span> <button id="authBackToSignIn" type="button" data-auth-copy="logIn">Log in</button></p>
+        <nav class="auth-legal-links" aria-label="Help and legal information" data-auth-aria-label="legalNavigation">
+          <a href="help.html" data-auth-copy="help">Help</a>
+          <a href="privacy.html" data-auth-copy="privacy">Privacy Policy</a>
+          <a href="terms.html" data-auth-copy="terms">Terms of Service</a>
         </nav>
       </section>
     </div>
   </main>
 
+  <datalist id="authSkillOptions"></datalist>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase/client.js"></script>
+  <script src="country-directory.js"></script>
+  <script src="localization.js"></script>
   <script src="currency.js"></script>
+  <script src="skill-suggestions.js"></script>
+  <script src="skill-categories.js"></script>
+  <script src="skill-catalog-live.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tus-js-client@4/dist/tus.min.js"></script>
+  <script src="identity-documents.js"></script>
   <script src="auth.js"></script>
+  <script src="pwa.js" defer></script>
+  <script src="explore-tour.js?v=20261106-help" defer></script>
+  <script src="explore-demo.js?v=20261106-help" defer></script>
 </body>
 </html>

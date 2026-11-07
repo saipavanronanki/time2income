@@ -1,0 +1,167 @@
+.checkout-quote-dialog {
+  box-sizing: border-box;
+  width: min(100% - 28px, 560px);
+  max-width: 560px;
+  max-height: min(88vh, 820px);
+  overflow: hidden;
+  padding: clamp(18px, 4vw, 28px);
+  border: 1px solid #d5dbe4;
+  border-radius: 16px;
+  background: #fff;
+  color: #172436;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .28);
+}
+
+.checkout-quote-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-quote-dialog form {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  margin: 0;
+}
+
+.checkout-quote-content {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 6px 12px 0;
+}
+
+.checkout-quote-dialog::backdrop {
+  background: rgba(3, 25, 18, .64);
+  backdrop-filter: blur(3px);
+}
+
+.checkout-quote-dialog .dialog-head {
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.checkout-quote-dialog .dialog-head h2 {
+  margin: 0;
+  font-size: clamp(21px, 5vw, 27px);
+}
+
+.checkout-quote-dialog .form-label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 750;
+}
+
+.checkout-quote-dialog select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 9px 12px;
+  border: 1px solid #cbd3de;
+  border-radius: 8px;
+  background: #fff;
+  color: #172436;
+  font: inherit;
+}
+
+.checkout-quote-dialog select:focus-visible {
+  outline: 3px solid rgba(6, 78, 59, .18);
+  border-color: #06244e;
+}
+
+.checkout-quote-dialog [hidden] {
+  display: none !important;
+}
+
+.checkout-quote-breakdown {
+  margin-top: 16px;
+  padding: 8px 14px;
+  border: 1px solid #e1e5eb;
+  border-radius: 10px;
+  background: #f8f9fb;
+}
+
+.checkout-quote-breakdown > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px solid #e5ece7;
+  font-size: 13px;
+}
+
+.checkout-quote-breakdown strong {
+  flex: 0 0 auto;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.checkout-quote-breakdown .checkout-quote-total {
+  padding: 13px 0 10px;
+  border-bottom: 0;
+  color: #06244e;
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.checkout-quote-note,
+.checkout-quote-status {
+  margin: 10px 0 0;
+  color: #607267;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.checkout-quote-status {
+  color: #2158a5;
+}
+
+.checkout-quote-dialog .dialog-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  margin: 12px 0 0;
+  padding: 12px 0 2px;
+  background: #fff;
+  border-top: 1px solid #e5ece7;
+}
+
+.checkout-quote-dialog .dialog-actions > button {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 420px) {
+  .checkout-quote-dialog {
+    padding: 17px 14px;
+  }
+
+  .checkout-quote-breakdown {
+    padding-inline: 10px;
+  }
+
+  .checkout-quote-breakdown > div {
+    gap: 8px;
+    font-size: 12px;
+  }
+
+  .checkout-quote-dialog .dialog-actions {
+    flex-direction: row;
+  }
+
+  .checkout-quote-dialog .dialog-actions > button:first-child {
+    flex: 0 0 30%;
+  }
+}
+
+@media (max-width: 340px) {
+  .checkout-quote-dialog .dialog-actions {
+    flex-direction: column-reverse;
+  }
+
+  .checkout-quote-dialog .dialog-actions > button:first-child {
+    flex: 1 1 0;
+  }
+}

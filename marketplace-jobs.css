@@ -1,0 +1,185 @@
+/* TIME2INCOME Finder-style provider marketplace */
+.marketplace-jobs-section{background:#fff!important;color:#15284a;padding:26px 0 76px!important;min-height:720px}
+.marketplace-jobs-wrap{width:min(1360px,calc(100% - 64px));margin:0 auto}
+.jobs-filterbar{display:grid;grid-template-columns:minmax(190px,1.35fr) minmax(150px,1fr) minmax(130px,.9fr) minmax(125px,.8fr) minmax(160px,.9fr);align-items:center;gap:0;background:#fff;border:1px solid #edf1f8;border-radius:13px;box-shadow:0 5px 20px rgba(28,65,125,.055);padding:11px 14px;margin-bottom:30px}
+.jobs-search-control{height:38px;display:flex;align-items:center;gap:9px;padding:0 12px;border-right:1px solid #edf0f5;min-width:0;color:#7a8ba4}
+.jobs-search-control input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#14284b;font-size:12px}
+.jobs-search-control button{border:0;background:transparent;color:#2864c8;font-size:22px;line-height:1}
+.jobs-filter-select{height:38px;display:flex;align-items:center;gap:8px;padding:0 12px;border-right:1px solid #edf0f5;position:relative;min-width:0;color:#8996a8}
+.jobs-filter-select select{width:100%;min-width:0;border:0;outline:0;background:#fff;color:#53647d;font-size:11px;cursor:pointer}
+.marketplace-location-field input{width:100%;min-width:0;border:0;outline:0;color:#53647d;background:transparent;font-size:11px}
+.marketplace-location-field .marketplace-location-suggestions{position:absolute;top:calc(100% + 8px);left:8px;right:8px;z-index:30;background:#fff;border:1px solid #dbe6f7;border-radius:10px;box-shadow:0 14px 30px rgba(16,42,80,.15);max-height:260px;overflow:auto}
+.jobs-salary-filter{padding:0 10px 0 15px;min-width:0}
+.jobs-salary-filter label{display:flex;justify-content:space-between;gap:8px;color:#66758b;font-size:9px;white-space:nowrap}
+.jobs-salary-filter label strong{color:#15284a;font-size:9px}
+.jobs-salary-filter input{width:100%;height:14px;margin:5px 0 0;accent-color:#2864d8;cursor:pointer}
+.jobs-layout{display:grid;grid-template-columns:180px minmax(0,1fr);gap:34px;align-items:start}
+.jobs-sidebar{border-right:1px solid #e8edf5;padding:0 25px 20px 0;min-width:0}
+.jobs-sidebar-title{display:flex;align-items:center;justify-content:space-between;padding:0 0 16px;border-bottom:1px solid #edf1f6}
+.jobs-sidebar-title h2{margin:0;color:#172844;font:700 16px Manrope,sans-serif}
+.jobs-sidebar-title button{border:0;background:transparent;color:#8290a4;font-size:17px;cursor:pointer}
+.jobs-filter-group{border:0;border-bottom:1px solid #edf1f6;margin:0;padding:17px 0 15px;min-width:0}
+.jobs-filter-group legend{padding:0 0 10px;color:#8b97a8;font-size:10px;font-weight:600}
+.jobs-filter-group label{display:flex;align-items:center;gap:9px;margin:7px 0;color:#273750;font-size:11px;cursor:pointer}
+.jobs-filter-group input{width:13px;height:13px;margin:0;accent-color:#2864d8;flex:0 0 auto}
+.jobs-clear-filters{border:0;background:transparent;color:#2864c8;font-size:10px;font-weight:700;padding:13px 0;cursor:pointer}
+.jobs-sidebar.is-collapsed .jobs-filter-group,.jobs-sidebar.is-collapsed .jobs-clear-filters{display:none}
+.jobs-results{min-width:0}
+.jobs-results-heading{display:flex;align-items:center;gap:16px;margin:0 0 20px}
+.jobs-results-heading>div:first-child{margin-right:auto}
+.jobs-results-heading .section-kicker{font-size:9px;margin:0 0 4px;color:#5d8dd8}
+.jobs-results-heading h2{font:750 clamp(20px,2.2vw,27px)/1.2 Manrope,sans-serif;color:#14284b;margin:0 0 5px;letter-spacing:-.035em}
+.jobs-results-heading h2 span{font:500 15px 'DM Sans',sans-serif;color:#8995a8;margin-left:8px}
+.jobs-results-heading p:not(.section-kicker){margin:0;color:#8793a4;font-size:10px}
+.jobs-sort{display:flex;align-items:center;gap:6px;color:#929dad;font-size:10px;white-space:nowrap}
+.jobs-sort select,.jobs-type-filter{border:0;background:#fff;color:#315fba;font-size:10px;font-weight:600;outline:0;cursor:pointer}
+.jobs-type-filter{display:none}
+.jobs-worker-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.finder-provider-card{position:relative;display:flex;flex-direction:column;min-width:0;min-height:278px;padding:18px 18px 15px!important;border:1px solid #edf0f6!important;border-radius:8px!important;background:#fff!important;box-shadow:0 5px 17px rgba(24,53,100,.035)!important;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease!important}
+.finder-provider-card:hover{transform:translateY(-5px)!important;border-color:#a9c7f6!important;box-shadow:0 16px 34px rgba(37,99,235,.12)!important}
+.finder-card-topline{height:30px;display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.finder-category-mark{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#eaf1ff;color:#2864c8;font-size:12px;font-weight:800}
+.finder-active-label{margin-left:auto;color:#8995a8;font-size:9px;white-space:nowrap}
+.finder-save{width:25px;height:25px;border:0;border-radius:50%;background:#f6f8fc;color:#71819a;font-size:16px;cursor:pointer}
+.finder-save[aria-pressed="true"]{color:#2563eb;background:#eaf1ff}
+.finder-provider-card .worker-card-top{align-items:center;gap:10px;margin-bottom:8px}
+.finder-provider-card .worker-avatar{width:42px;height:42px;border-radius:50%;overflow:hidden;background:#eaf1ff;color:#285db2;font-size:12px}
+.finder-provider-card .worker-avatar img{width:100%;height:100%;object-fit:cover}
+.finder-provider-card .worker-meta h3{font-size:13px;color:#172844;margin:0 0 2px}
+.finder-provider-card .worker-meta p{font-size:10px;color:#243b60;margin:0}
+.finder-provider-card .worker-meta .verified-badge{font-size:9px}
+.finder-provider-location{font-size:9px!important;color:#566985!important;margin:5px 0 7px!important}
+.finder-provider-card .worker-description{font-size:9px;line-height:1.55;color:#8a96a7;margin:0 0 10px;min-height:30px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.finder-provider-card .tag-row{gap:5px;margin:0 0 11px;min-height:23px}
+.finder-provider-card .skill-tag{font-size:8px;padding:4px 7px;border-radius:5px;background:#f1edfb;color:#7966b5;border:0}
+.finder-provider-card .worker-bottom{margin-top:auto;padding-top:10px;border-top:1px solid #eef1f6}
+.finder-provider-card .worker-price small{font-size:9px;color:#8995a6}
+.finder-provider-card .worker-price strong{font-size:14px;color:#152b50}
+.finder-provider-card .work-type{font-size:8px;background:#eaf2ff;color:#2864c8}
+.finder-provider-card .worker-actions{margin-top:10px;gap:8px}
+.finder-provider-card .worker-actions .btn{min-height:31px;padding:7px 9px;font-size:9px;border-radius:7px}
+.finder-provider-card .worker-actions [data-action="profile"]{background:#fff;border:1px solid #d4dce9;color:#2e405d}
+.finder-provider-card .worker-actions [data-action="book"]{background:#3268d5;border-color:#3268d5;color:#fff;box-shadow:none}
+.finder-promo-card{position:relative;isolation:isolate;overflow:hidden;min-height:278px;border-radius:9px;padding:24px 21px;background:#f06470;color:#fff;display:flex;flex-direction:column;justify-content:center}
+.finder-promo-card:before{content:"";position:absolute;z-index:-1;width:210px;height:210px;border-radius:50%;background:#ff8990;right:-85px;top:-92px}
+.finder-promo-card:after{content:"";position:absolute;z-index:-1;left:-35px;bottom:-95px;width:260px;height:160px;background:#ffd34c;transform:rotate(-23deg)}
+.finder-promo-kicker{font-size:8px;font-weight:800;letter-spacing:.12em;color:#ffe5e8}
+.finder-promo-card h3{font:750 19px/1.18 Manrope,sans-serif;color:#fff;margin:13px 0 9px;max-width:210px}
+.finder-promo-card p{font-size:10px;line-height:1.55;color:#fff2f2;max-width:205px;margin:0 0 17px}
+.finder-promo-button{height:34px;width:100%;max-width:170px;border:0;border-radius:7px;background:#fff;color:#2b4779;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:space-between;padding:0 13px;cursor:pointer}
+.finder-promo-button:hover{background:#edf4ff;color:#2059bd}
+@media(max-width:1120px){.marketplace-jobs-wrap{width:calc(100% - 42px)}.jobs-filterbar{grid-template-columns:1.2fr 1fr 1fr}.jobs-salary-filter{grid-column:1/-1;padding:10px 12px 0}.jobs-worker-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.marketplace-jobs-section{padding:20px 0 50px!important}.marketplace-jobs-wrap{width:calc(100% - 28px)}.jobs-filterbar{grid-template-columns:1fr 1fr;gap:7px;padding:10px;margin-bottom:20px}.jobs-search-control{grid-column:1/-1;border-right:0;border-bottom:1px solid #edf0f5;padding:0 7px 9px}.jobs-filter-select{border:1px solid #edf0f5;border-radius:7px;padding:0 8px}.jobs-salary-filter{grid-column:1/-1;padding:5px 7px}.jobs-layout{grid-template-columns:1fr;gap:16px}.jobs-sidebar{border:1px solid #e9eef6;border-radius:10px;padding:12px 14px}.jobs-sidebar-title{padding-bottom:8px}.jobs-filter-group{display:inline-block;vertical-align:top;width:32%;padding:10px 4px;border-bottom:0}.jobs-filter-group legend{font-size:9px}.jobs-filter-group label{font-size:9px;gap:5px}.jobs-clear-filters{padding:6px}.jobs-results-heading{align-items:flex-start;flex-wrap:wrap;gap:7px}.jobs-results-heading>div:first-child{width:100%}.jobs-sort{margin-right:auto}.jobs-worker-grid{grid-template-columns:1fr;gap:11px}.finder-provider-card,.finder-promo-card{min-height:0}.finder-promo-card{padding:22px}.finder-promo-card h3{max-width:280px}.jobs-type-filter{display:block}}
+@media(prefers-reduced-motion:reduce){.finder-provider-card,.finder-promo-button{transition:none!important}.finder-provider-card:hover{transform:none!important}}
+
+
+/* User refinement: temporarily remove the Details sidebar and improve readability. */
+.jobs-layout {
+  display: block !important;
+}
+.jobs-sidebar {
+  display: none !important;
+}
+.jobs-results {
+  width: 100%;
+  max-width: 100%;
+}
+.jobs-results-heading {
+  margin-bottom: 24px;
+}
+.jobs-results-heading h2 {
+  font-size: clamp(24px, 2.5vw, 31px);
+}
+.jobs-results-heading h2 span {
+  font-size: 17px;
+}
+.jobs-results-heading p:not(.section-kicker) {
+  font-size: 13px;
+}
+.jobs-results-heading .section-kicker {
+  font-size: 11px;
+}
+.jobs-sort,
+.jobs-sort select {
+  font-size: 13px;
+}
+.jobs-search-control input,
+.jobs-filter-select select,
+.marketplace-location-field input {
+  font-size: 14px;
+}
+.jobs-filter-select,
+.jobs-search-control {
+  min-height: 44px;
+}
+.jobs-salary-filter label,
+.jobs-salary-filter label strong {
+  font-size: 11px;
+}
+.finder-provider-card {
+  padding: 20px 20px 17px !important;
+  min-height: 300px;
+}
+.finder-active-label {
+  font-size: 11px;
+}
+.finder-provider-card .worker-meta h3 {
+  font-size: 16px;
+}
+.finder-provider-card .worker-meta p {
+  font-size: 13px;
+}
+.finder-provider-location {
+  font-size: 12px !important;
+}
+.finder-provider-card .worker-description {
+  font-size: 12px;
+}
+.finder-provider-card .skill-tag {
+  font-size: 11px;
+  padding: 5px 9px;
+}
+.finder-provider-card .worker-price small {
+  font-size: 11px;
+}
+.finder-provider-card .worker-price strong {
+  font-size: 16px;
+}
+.finder-provider-card .work-type {
+  font-size: 10px;
+}
+.finder-provider-card .worker-actions .btn {
+  min-height: 36px;
+  font-size: 12px;
+}
+.finder-promo-kicker {
+  font-size: 10px;
+}
+.finder-promo-card h3 {
+  font-size: 21px;
+}
+.finder-promo-card p {
+  font-size: 12px;
+}
+.finder-promo-button {
+  height: 38px;
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .jobs-layout {
+    display: block !important;
+  }
+  .jobs-sidebar {
+    display: none !important;
+  }
+  .jobs-results-heading h2 {
+    font-size: 24px;
+  }
+  .finder-provider-card .worker-meta h3 {
+    font-size: 16px;
+  }
+  .finder-provider-card .worker-meta p,
+  .finder-provider-card .worker-description {
+    font-size: 13px;
+  }
+}

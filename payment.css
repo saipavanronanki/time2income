@@ -10,10 +10,157 @@
 .payment-submit { width: 100%; min-height: 48px; }
 .payment-submit:disabled { cursor: wait; opacity: .65; }
 .payment-message { min-height: 24px; margin: 18px 0 8px; color: var(--ink); }
-.payment-message[data-error="true"] { color: #a52b21; }
+.payment-message[data-error="true"] { color: #2158a5; }
 .payment-security { margin: 18px 0 0; color: var(--muted); font-size: 12px; text-align: center; }
 @media (max-width: 540px) {
   .payment-page { padding: 16px; }
   .payment-shell .auth-header { margin-bottom: 24px; }
   .payment-card { border-radius: 8px; }
+}
+.pricing-estimate-page {
+  background-color: #072754;
+  background-image: url('assets/pricing-estimate-green-background.png');
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+.pricing-estimate-page .payment-shell { width: 100%; }
+.pricing-estimate-page .auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% + 48px);
+  min-height: 74px;
+  margin: -24px -24px 42px;
+  padding: 8px 24px;
+  box-sizing: border-box;
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+  background: #072754;
+}
+.pricing-estimate-page .auth-header .brand,
+.pricing-estimate-page .auth-header .brand-name,
+.pricing-estimate-page .auth-header .btn-quiet { color: #fff; }
+.pricing-estimate-page .auth-header .brand-mark {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .95);
+}
+.pricing-estimate-page .auth-header .btn-quiet {
+  margin-left: auto;
+  min-height: 40px;
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .06);
+  font-size: 12px;
+  font-weight: 800;
+}
+.pricing-estimate-page .auth-header .btn-quiet:hover {
+  background: rgba(255, 255, 255, .14);
+}
+.pricing-estimate-card,
+.pricing-list-card {
+  width: min(100%, 900px);
+  margin: 0 auto 24px;
+  padding: clamp(22px, 5vw, 40px);
+  border: 1px solid #dfe3e9;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 16px 42px rgba(24, 54, 39, .08);
+}
+.pricing-estimate-card h1,
+.pricing-list-card h2 { margin: 0 0 10px; color: #172436; font: 800 clamp(27px, 5vw, 38px)/1.15 'Manrope', sans-serif; }
+.pricing-list-card h2 { font-size: clamp(23px, 4vw, 30px); }
+.pricing-intro,
+.pricing-net-note,
+.pricing-current-checkout-note,
+.pricing-table-note { color: #607267; font-size: 13px; line-height: 1.65; }
+.pricing-estimate-warning { margin: 18px 0; padding: 14px 16px; border: 1px solid #7aa7e7; border-radius: 9px; background: #e8f2ff; color: #1e3759; font-size: 13px; line-height: 1.6; }
+.pricing-estimate-warning strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #00337a;
+}
+.pricing-estimate-card > .form-label { display: block; margin: 20px 0 6px; color: #172436; font-weight: 800; }
+.pricing-estimate-card > select { width: 100%; min-height: 48px; padding: 10px 12px; border: 1px solid #cbd3de; border-radius: 8px; background: #fff; color: #172436; }
+.pricing-estimate-card > select:focus-visible { outline: 3px solid rgba(6, 78, 59, .15); border-color: #06244e; }
+.pricing-breakdown { margin-top: 20px; padding: 20px; border: 1px solid #e3e6eb; border-radius: 10px; background: #fbfcfd; }
+.pricing-breakdown h2 { margin: 0 0 12px; color: #172436; font: 800 20px 'Manrope', sans-serif; }
+.pricing-breakdown dl { margin: 0; }
+.pricing-breakdown dl > div { display: flex; justify-content: space-between; gap: 18px; padding: 9px 0; border-bottom: 1px solid #e8eee9; font-size: 13px; }
+.pricing-breakdown dt { color: #52665a; }
+.pricing-breakdown dd { margin: 0; color: #172436; font-variant-numeric: tabular-nums; text-align: right; }
+.pricing-breakdown .pricing-total-row { margin-top: 4px; padding-top: 14px; border-bottom: 0; font-size: 16px; font-weight: 800; }
+.pricing-breakdown .pricing-total-row dd { color: #06244e; }
+.pricing-gateway-note,
+.pricing-estimate-status { margin: 10px 0 0; color: #607267; font-size: 12px; line-height: 1.55; }
+.pricing-assumptions { margin-top: 18px; color: #52665a; font-size: 13px; line-height: 1.65; }
+.pricing-assumptions summary { color: #06244e; font-weight: 800; cursor: pointer; }
+.pricing-assumptions p { margin: 10px 0 0; }
+.pricing-net-note { margin: 18px 0 0; }
+.pricing-current-checkout-note {
+  margin: 12px 0 0;
+  padding: 13px 15px;
+  border: 1px solid #7aa7e7;
+  border-left: 4px solid #1659b6;
+  border-radius: 8px;
+  background: #e8f2ff;
+}
+.pricing-current-checkout-note strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #00337a;
+}
+.pricing-table-wrap { overflow-x: auto; margin-top: 18px; }
+.pricing-country-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pricing-country-table th,
+.pricing-country-table td { padding: 11px 12px; border-bottom: 1px solid #e7ede8; text-align: left; white-space: nowrap; }
+.pricing-country-table thead th { background: #f3f5f8; color: #172436; font-size: 12px; }
+.pricing-country-table tbody th { color: #252d39; font-weight: 700; }
+.pricing-country-table td { color: #52665a; font-variant-numeric: tabular-nums; }
+.pricing-table-note {
+  margin: 16px 0 0;
+  padding: 13px 15px;
+  border: 1px solid #7aa7e7;
+  border-left: 4px solid #1659b6;
+  border-radius: 8px;
+  background: #e8f2ff;
+}
+.pricing-table-note strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #00337a;
+}
+.pricing-page-links {
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  margin: 22px auto 28px;
+  padding: 12px 20px;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 8px 24px rgba(0, 40, 25, .16);
+}
+@media (max-width: 540px) {
+  .pricing-estimate-page {
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  .pricing-estimate-page .auth-header {
+    width: calc(100% + 32px);
+    margin: -16px -16px 24px;
+    padding-inline: 16px;
+  }
+  .pricing-estimate-card,
+  .pricing-list-card { padding: 20px 16px; border-radius: 10px; }
+  .pricing-breakdown { padding: 15px 12px; }
+  .pricing-breakdown dl > div { gap: 10px; font-size: 12px; }
+  .pricing-country-table th,
+  .pricing-country-table td { padding: 9px 10px; }
+  .pricing-page-links {
+    max-width: calc(100% - 12px);
+    gap: 8px 14px;
+    padding: 11px 15px;
+  }
 }

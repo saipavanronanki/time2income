@@ -1,0 +1,14 @@
+TIME2INCOME header/menu update
+
+This package is based on the uploaded TIME2INCOME-floating-account-menu project.
+Changes:
+- Location selector and Messages shortcut are outside the account menu.
+- Account menu remains at the top-right corner.
+- Menu uses a vertical navigation panel inspired by the supplied reference.
+- Existing locationContextLink, headerLocationEditor, messagesHeaderBtn, language,
+  currency, walletOpenBtn, signInBtn, signUpBtn and myProfileBtn IDs are preserved.
+- The wallet shortcut triggers the existing wallet button instead of duplicating wallet logic.
+
+Open the project folder in VS Code. Deploy the folder contents to your existing Netlify site.
+Supabase settings and database migrations from the uploaded project are retained.
+Live Supabase/Netlify behavior still needs to be tested in your environment.

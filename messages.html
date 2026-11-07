@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="browser-check.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Messages | TIME2INCOME</title>
+  <meta name="theme-color" content="#06244e">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/time2income-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="messages.css?v=20261105-delete">
+  <link rel="stylesheet" href="theme-blue.css?v=20261107-blue-theme2" />
+  <link rel="stylesheet" href="messaging-addons.css?v=20261107-1" />
+</head>
+<body>
+  <div class="msg-app" id="msgApp" data-view="inbox">
+    <aside class="msg-inbox" aria-label="Conversations">
+      <header class="msg-inbox-head">
+        <div class="msg-brand">
+          <a class="msg-home" href="index.html?page=marketplace" aria-label="Back to TIME2INCOME">&larr;</a>
+          <strong>TIME2INCOME</strong>
+        </div>
+        <h1>Messages</h1>
+        <p>Your conversations, all in one place.</p>
+        <label class="msg-search">
+          <span class="msg-sr">Search</span>
+          <input id="msgSearch" type="search" placeholder="Search name, task or message" autocomplete="off">
+        </label>
+        <div class="msg-filters" role="tablist" aria-label="Filter conversations">
+          <button type="button" class="is-active" data-filter="all" role="tab">All messages</button>
+          <button type="button" data-filter="unread" role="tab">Unread</button>
+          <button type="button" data-filter="active" role="tab">Task chats</button>
+          <button type="button" data-filter="archived" role="tab">Archived</button>
+        </div>
+      </header>
+      <div class="msg-list-title"><h2>Recent conversations</h2><div class="msg-list-actions"><a href="support-chat.html" class="msg-support-link">Contact support</a><a href="index.html?page=tasks">New message +</a></div></div>
+      <div id="msgList" class="msg-list" role="list"><p class="msg-state">Loading…</p></div>
+    </aside>
+
+    <section class="msg-chat" aria-label="Conversation">
+      <div class="msg-chat-empty" id="msgChatEmpty">
+        <div class="msg-empty-icon" aria-hidden="true">&#124081;</div>
+        <h2>Select a conversation</h2>
+        <p>Choose a chat from the list to start messaging.</p>
+      </div>
+      <div class="msg-chat-body" id="msgChatBody" hidden>
+        <header class="msg-chat-head">
+          <button type="button" class="msg-back" id="msgBack" aria-label="Back to conversations">&larr;</button>
+          <span class="msg-avatar" id="msgChatAvatar"></span>
+          <div class="msg-chat-who"><strong id="msgChatName"></strong><small id="msgChatStatus"></small></div>
+          <button type="button" class="msg-details-toggle" id="msgDetailsToggle" aria-label="Chat details">i</button>
+        </header>
+        <div class="msg-task-card" id="msgTaskCard"></div>
+        <div class="msg-thread" id="msgThread" role="log" aria-live="polite"></div>
+        <p class="msg-safety">Never share passwords, verification codes or payment details in chat.</p>
+        <form class="msg-composer" id="msgForm">
+          <label class="msg-attach" title="Attach file">
+            <input type="file" id="msgFile" multiple hidden>
+            <span aria-hidden="true">&#063a82;</span><span class="msg-sr">Attach file</span>
+          </label>
+          <div class="msg-composer-main">
+            <div id="msgFiles" class="msg-files"></div>
+            <textarea id="msgInput" rows="1" maxlength="2000" placeholder="Write a message..."></textarea>
+          </div>
+          <button type="submit" class="msg-send" id="msgSend" aria-label="Send">&#10148;</button>
+        </form>
+      </div>
+    </section>
+
+    <aside class="msg-details" id="msgDetails" aria-label="Chat details" hidden>
+      <h3>Chat details</h3>
+      <div class="msg-details-person"><span class="msg-avatar" id="msgDetAvatar"></span><strong id="msgDetName"></strong></div>
+      <h4>Task information</h4>
+      <dl id="msgDetTask"></dl>
+      <h4>Shared files</h4>
+      <div id="msgDetFiles" class="msg-det-files"></div>
+      <h4>Privacy &amp; safety</h4>
+      <div class="msg-det-actions">
+        <button type="button" id="msgArchiveBtn">Archive conversation</button>
+        <button type="button" id="msgReportBtn">Report</button>
+        <button type="button" id="msgBlockBtn" class="is-danger">Block chat</button>
+        <button type="button" id="msgDeleteBtn" class="is-danger">Delete chat for both</button>
+      </div>
+    </aside>
+  </div>
+
+  <dialog id="msgReportDialog" class="msg-dialog">
+    <form id="msgReportForm">
+      <h3>Report this conversation</h3>
+      <label>Reason
+        <select id="msgReportReason" required>
+          <option value="">Choose a reason</option>
+          <option value="harassment">Harassment or abusive behavior</option>
+          <option value="scam">Scam or suspicious payment request</option>
+          <option value="safety">Safety concern</option>
+          <option value="other">Other</option>
+        </select>
+      </label>
+      <label>Details (optional)<textarea id="msgReportDetails" rows="3" maxlength="1000"></textarea></label>
+      <div class="msg-dialog-actions">
+        <button type="button" id="msgReportCancel">Cancel</button>
+        <button type="submit" class="is-primary">Submit report</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="msgDeleteDialog" class="msg-dialog">
+    <form id="msgDeleteForm" method="dialog">
+      <h3>Delete this chat permanently?</h3>
+      <p>All messages and shared files will be deleted for <strong>both of you</strong>. This cannot be undone and nothing can be recovered afterwards. The other person will be notified.</p>
+      <p class="msg-dialog-note">A chat under dispute or safety review cannot be deleted until it is resolved.</p>
+      <div class="msg-dialog-actions">
+        <button type="button" id="msgDeleteCancel">Cancel</button>
+        <button type="submit" id="msgDeleteConfirm" class="is-danger-solid">Delete permanently</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="msg-toast" id="msgToast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase/client.js"></script>
+  <script src="messages.js?v=20261107-support-events"></script>
+</body>
+</html>

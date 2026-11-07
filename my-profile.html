@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#163765">
+  <title>My Profile &amp; Résumé | TIME2INCOME</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="redesign.css?v=20261104-live-layout2">
+  <link rel="stylesheet" href="explore.css?v=20261106-help">
+  <link rel="stylesheet" href="theme-blue.css?v=20261107-blue-theme2" />
+</head>
+<body class="my-profile-page">
+  <a class="my-profile-skip-link" href="#my-profile-content">Skip to profile builder</a>
+  <header class="my-profile-header">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true"><img src="assets/time2income-brand.png" alt="" /></span>
+      <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
+    </a>
+    <div class="my-profile-header-actions">
+      <a class="btn btn-outline" href="index.html" data-profile-copy="marketplace">Marketplace</a>
+      <button class="btn btn-quiet" id="profileSignOut" type="button" data-profile-copy="signOut">Sign out</button>
+    </div>
+  </header>
+
+  <main id="my-profile-content" class="my-profile-main" tabindex="-1">
+    <section class="my-profile-intro">
+      <p class="section-kicker" data-profile-copy="kicker">YOUR PROFESSIONAL IDENTITY</p>
+      <h1 data-profile-copy="title">Build a profile for every opportunity</h1>
+      <p data-profile-copy="intro">Choose the profile that fits your goal. Add only the information that matters, save multiple profiles, and download a branded PDF, Word, PowerPoint, PNG, or JPG file.</p>
+    </section>
+
+    <div class="my-profile-layout">
+      <aside class="my-profile-sidebar" aria-labelledby="savedProfilesTitle">
+        <div class="my-profile-sidebar-heading">
+          <div>
+            <p class="section-kicker" data-profile-copy="savedKicker">YOUR WORKSPACE</p>
+            <h2 id="savedProfilesTitle" data-profile-copy="savedProfiles">Your profiles</h2>
+          </div>
+          <button class="btn btn-outline" id="newProfileBtn" type="button" data-profile-copy="newProfile">+ New</button>
+        </div>
+        <p class="my-profile-sidebar-hint" data-profile-copy="multipleHint">Keep separate profiles for different goals for example, Job Seeker and Freelancer.</p>
+        <div id="savedProfilesList" class="saved-profiles-list"></div>
+      </aside>
+
+      <section class="my-profile-workspace">
+        <section class="profile-type-panel" aria-labelledby="profileTypeTitle">
+          <div class="profile-step-heading">
+            <span class="profile-step-number">01</span>
+            <div>
+              <p class="section-kicker" data-profile-copy="stepOne">CHOOSE A DIRECTION</p>
+              <h2 id="profileTypeTitle" data-profile-copy="chooseType">What type of profile do you want to create?</h2>
+              <p data-profile-copy="chooseHint">Select a category to see what information you may want to include.</p>
+            </div>
+          </div>
+          <div id="profileTypeChoices" class="profile-type-choices"></div>
+        </section>
+
+        <section class="profile-editor-panel" id="profileEditorPanel" aria-labelledby="profileEditorTitle" hidden>
+          <div class="profile-step-heading">
+            <span class="profile-step-number">02</span>
+            <div>
+              <p class="section-kicker" data-profile-copy="stepTwo">MAKE IT YOURS</p>
+              <h2 id="profileEditorTitle" data-profile-copy="completeProfile">Complete your profile</h2>
+              <p id="profileEditorDescription"></p>
+            </div>
+          </div>
+
+          <section class="profile-template-section" aria-labelledby="profileTemplateTitle">
+            <div class="profile-template-heading">
+              <div>
+                <h3 id="profileTemplateTitle" data-profile-template-copy="title">Choose your résumé design</h3>
+                <p data-profile-template-copy="hint">Pick a style. Your profile details stay the same.</p>
+              </div>
+              <span class="profile-template-count" data-profile-template-copy="count">10 designs</span>
+            </div>
+            <div id="profileTemplateGrid" class="profile-template-grid" role="list"></div>
+            <div class="profile-template-preview-heading">
+              <h4 data-profile-template-copy="preview">Live preview</h4>
+              <span id="selectedTemplateName"></span>
+            </div>
+            <div id="profileLivePreview" class="profile-live-preview" aria-label="Résumé template preview"></div>
+          </section>
+
+          <form id="myResumeForm" class="resume-profile-form" novalidate>
+            <input id="editingProfileId" type="hidden">
+            <label class="form-label" for="profileDisplayName">
+              <span data-profile-copy="profileName">Profile name</span>
+              <input id="profileDisplayName" name="profile_display_name" type="text" maxlength="80" autocomplete="off" required>
+              <small data-profile-copy="profileNameHint">A label to help you find this profile in your workspace.</small>
+            </label>
+
+            <section class="profile-form-section" aria-labelledby="commonInformationTitle">
+              <h3 id="commonInformationTitle" data-profile-copy="basicInformation">Basic information</h3>
+              <p data-profile-copy="basicInformationHint">These details help people recognize and contact you.</p>
+              <div id="commonProfileFields" class="profile-fields-grid"></div>
+              <div class="profile-photo-upload">
+                <div class="profile-photo-preview" id="profilePhotoPreview" aria-label="Profile photo preview">
+                  <span aria-hidden="true">👤</span>
+                </div>
+                <div class="profile-photo-controls">
+                  <label class="form-label" for="profilePhotoInput">
+                    <span data-profile-copy="profilePhoto">Profile photo (optional)</span>
+                    <input id="profilePhotoInput" name="profile_photo" type="file" accept="image/jpeg,image/png,image/webp">
+                  </label>
+                  <small data-profile-copy="profilePhotoHint">JPG, PNG or WebP · Up to 5 MB. Stored privately with this profile.</small>
+                  <button class="text-link" id="removeProfilePhotoBtn" type="button" data-profile-copy="removePhoto" hidden>Remove photo</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="profile-form-section" aria-labelledby="specificInformationTitle">
+              <h3 id="specificInformationTitle" data-profile-copy="profileDetails">Profile details</h3>
+              <p data-profile-copy="profileDetailsHint">Add relevant information. You can leave optional sections blank.</p>
+              <div id="specificProfileFields" class="profile-fields-grid"></div>
+            </section>
+
+            <section class="profile-form-section resume-upload-section" aria-labelledby="resumeUploadTitle">
+              <h3 id="resumeUploadTitle" data-profile-copy="uploadedResume">Existing Resume Or Portfolio File Here (Optional)</h3>
+              <label class="form-label" for="resumeFileInput">
+                <span data-profile-copy="chooseResumeFile">Choose a PDF, Word, PowerPoint, or image file</span>
+                <input id="resumeFileInput" name="resume_file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.png,.jpg,.jpeg,.webp,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation,image/png,image/jpeg,image/webp">
+              </label>
+              <p class="form-hint" data-profile-copy="uploadHint">Maximum 5 MB. Source files stay private and unchanged; downloads generated from your profile include TIME2INCOME branding.</p>
+              <p class="resume-file-status" id="resumeFileStatus" aria-live="polite"></p>
+              <div class="resume-profile-actions">
+                <button class="btn btn-outline" id="uploadResumeBtn" type="button" data-profile-copy="uploadFile">Upload file</button>
+                <button class="btn btn-outline" id="downloadUploadedResumeBtn" type="button" data-profile-copy="downloadUploaded" hidden>Download original file</button>
+                <button class="btn btn-quiet" id="removeUploadedResumeBtn" type="button" data-profile-copy="removeUploaded" hidden>Remove uploaded file</button>
+              </div>
+            </section>
+
+            <div class="resume-profile-actions profile-editor-actions">
+              <button class="btn btn-outline" id="deleteProfileBtn" type="button" data-profile-copy="deleteProfile" hidden>Delete profile</button>
+              <span class="profile-actions-spacer"></span>
+              <button class="btn btn-outline" id="saveResumeProfileBtn" type="submit" data-profile-copy="saveProfile">Save profile</button>
+              <div class="profile-export-controls">
+                <label class="profile-export-label" for="profileExportFormat" data-profile-copy="exportAs">Download format</label>
+                <select id="profileExportFormat">
+                  <option value="pdf" data-profile-copy="exportPdf">PDF</option>
+                  <option value="docx" data-profile-copy="exportDocx">Word (.docx)</option>
+                  <option value="pptx" data-profile-copy="exportPptx">PowerPoint (.pptx)</option>
+                  <option value="png" data-profile-copy="exportPng">PNG image</option>
+                  <option value="jpg" data-profile-copy="exportJpg">JPG image</option>
+                </select>
+                <button class="btn btn-primary" id="downloadProfileResumeBtn" type="button" data-profile-copy="downloadProfile">Download profile</button>
+              </div>
+            </div>
+            <p class="my-profile-status" id="myProfileStatus" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="supabase/client.js"></script>
+  <script src="my-profile.js"></script>
+  <script src="explore-tour.js?v=20261106-help" defer></script>
+  <script src="explore-demo.js?v=20261106-help" defer></script>
+</body>
+</html>

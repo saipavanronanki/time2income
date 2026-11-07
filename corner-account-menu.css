@@ -1,0 +1,241 @@
+/* TIME2INCOME corner account menu — location and messages stay outside */
+.topbar .header-quick-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+  margin-left: auto;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.topbar .header-quick-actions .location-picker {
+  display: block;
+  position: relative;
+  min-width: 0;
+}
+.topbar .header-quick-actions .mobile-location-wallet-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topbar .header-quick-actions .location-context-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: auto;
+  max-width: 190px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #bfd3f2;
+  border-radius: 13px;
+  background: rgba(239,246,255,.92);
+  color: #173d78;
+  box-shadow: 0 5px 18px rgba(37,99,235,.08);
+}
+.topbar .header-quick-actions .location-context-link small {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.topbar .header-quick-actions .messages-header-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 13px;
+  border: 1px solid #bfd3f2;
+  border-radius: 13px;
+  background: rgba(255,255,255,.94);
+  color: #173d78;
+  box-shadow: 0 5px 18px rgba(37,99,235,.08);
+}
+.topbar .header-quick-actions .messages-header-btn:hover,
+.topbar .header-quick-actions .location-context-link:hover {
+  color: #1d4ed8;
+  background: #eaf2ff;
+  border-color: #83adf5;
+  box-shadow: 0 8px 22px rgba(37,99,235,.16);
+  transform: translateY(-1px);
+}
+.topbar .header-quick-actions .messages-header-btn svg,
+.topbar .header-quick-actions .location-context-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.topbar .top-actions.account-quick-menu {
+  display: block !important;
+  position: relative;
+  flex: 0 0 auto;
+  margin-left: 4px;
+  z-index: 60;
+}
+.account-menu-trigger {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 16px;
+  border: 1px solid #c9dcfb;
+  border-radius: 15px;
+  background: rgba(255,255,255,.88);
+  color: #173d78;
+  font: 700 14px/1 inherit;
+  box-shadow: 0 7px 22px rgba(37,99,235,.11), inset 0 1px 0 rgba(255,255,255,.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.account-menu-trigger svg {
+  width: 19px; height: 19px; fill: none; stroke: currentColor;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.account-menu-trigger .account-menu-chevron { width: 14px; height: 14px; transition: transform .2s ease; }
+.account-menu-trigger:hover,
+.account-quick-menu.is-open .account-menu-trigger {
+  background: #eff6ff; border-color: #7fb0ff; color: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(37,99,235,.18), 0 0 0 3px rgba(59,130,246,.09);
+}
+.account-quick-menu.is-open .account-menu-chevron { transform: rotate(180deg); }
+.account-menu-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(350px, calc(100vw - 24px));
+  max-height: min(76vh, 680px);
+  overflow-y: auto;
+  display: grid;
+  gap: 8px;
+  padding: 17px 14px 14px;
+  border: 1px solid rgba(205,218,239,.96);
+  border-radius: 25px;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 24px 70px rgba(15,42,84,.20), inset 0 1px 0 #fff;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  animation: accountMenuEnter .18s ease-out;
+}
+.account-menu-panel[hidden] { display: none !important; }
+.account-menu-heading {
+  display: grid; gap: 3px; padding: 2px 13px 12px;
+  border-bottom: 1px solid #e8effa;
+}
+.account-menu-heading strong { color: #102b55; font: 800 16px/1.3 Manrope,sans-serif; }
+.account-menu-heading span { color: #71839c; font-size: 11px; }
+.account-menu-links { display: grid; gap: 4px; }
+.account-menu-item {
+  min-height: 54px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: #475569;
+  text-align: left;
+  font: 600 15px/1.3 inherit;
+  cursor: pointer;
+  transition: background .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.account-menu-item svg {
+  width: 22px; height: 22px; flex: 0 0 22px;
+  fill: none; stroke: #91a1b5; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+  transition: stroke .18s ease;
+}
+.account-menu-item:hover,
+.account-menu-item:focus-visible {
+  background: #edf3ff;
+  color: #4f46e5;
+  outline: none;
+  transform: translateX(2px);
+  box-shadow: inset 3px 0 0 #5b5ce2;
+}
+.account-menu-item:hover svg,
+.account-menu-item:focus-visible svg { stroke: #4f46e5; }
+.account-menu-divider { height: 1px; background: #e8effa; margin: 5px 7px; }
+.account-menu-panel .tablet-preferences,
+.account-menu-panel .locale-controls { display: flex !important; flex-wrap: wrap; align-items: center; gap: 9px; width: 100%; }
+.account-menu-panel .locale-controls > * { min-width: 0; }
+.account-menu-panel .locale-picker,
+.account-menu-panel .currency-picker {
+  max-width: 100%; min-height: 40px; border: 1px solid #d7e5fa;
+  border-radius: 11px; background: #fff; color: #173d78; font-size: 12px;
+}
+.account-menu-panel #signInBtn,
+.account-menu-panel #signUpBtn,
+.account-menu-panel #myProfileBtn,
+.account-menu-panel .wallet-open-button {
+  min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
+  flex: 1 1 calc(50% - 8px); border-radius: 12px;
+}
+.account-menu-panel .btn-primary,
+.account-menu-panel .wallet-open-button:hover,
+.account-menu-panel #myProfileBtn:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
+.account-menu-panel .header-location-editor { z-index: 80; }
+@keyframes accountMenuEnter {
+  from { opacity: 0; transform: translateY(-7px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (max-width: 900px) {
+  .topbar .header-quick-actions { margin-left: auto; }
+  .topbar .top-actions.account-quick-menu { display: block !important; margin-left: 0; }
+  .account-menu-panel { position: fixed; top: 84px; right: 12px; max-height: calc(100dvh - 100px); }
+}
+@media (max-width: 640px) {
+  .topbar { gap: 8px; }
+  .topbar .header-quick-actions { gap: 5px; }
+  .topbar .header-quick-actions .location-context-link { width: 42px; min-width: 42px; max-width: 42px; overflow: hidden; padding: 8px; justify-content: center; }
+  .topbar .header-quick-actions .location-context-link span,
+  .topbar .header-quick-actions .location-context-link small { display: none; }
+  .topbar .header-quick-actions .messages-header-btn { width: 42px; min-width: 42px; padding: 8px; overflow: hidden; font-size: 0; justify-content: center; }
+  .account-menu-trigger { min-width: 44px; padding: 0 11px; }
+  .account-menu-trigger > span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .account-menu-trigger, .account-menu-trigger .account-menu-chevron, .account-menu-item { transition: none; }
+  .account-menu-panel { animation: none; }
+}
+
+/* Navbar refinement: keep location/messages beside Guide; keep account menu at far right. */
+.topbar .header-quick-actions {
+  margin-left: 10px !important;
+  margin-right: auto !important;
+  order: 3;
+}
+.topbar .top-actions.account-quick-menu {
+  margin-left: auto !important;
+  order: 4;
+}
+/* Remove duplicate auth/profile/wallet action buttons from the floating menu.
+   The dedicated menu shortcuts and existing account flows remain available. */
+.account-menu-panel #signInBtn,
+.account-menu-panel #signUpBtn,
+.account-menu-panel #myProfileBtn,
+.account-menu-panel #walletOpenBtn,
+.account-menu-panel #mobileWalletOpenBtn {
+  display: none !important;
+}
+.account-menu-panel .mobile-wallet-open-button {
+  display: none !important;
+}
+@media (max-width: 900px) {
+  .topbar .header-quick-actions {
+    margin-left: 8px !important;
+    margin-right: auto !important;
+  }
+}
+@media (max-width: 640px) {
+  .topbar .header-quick-actions {
+    margin-left: 6px !important;
+    margin-right: auto !important;
+  }
+}

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#06244e" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Pricing estimate | TIME2INCOME</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/time2income-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="redesign.css?v=20261104-live-layout2" />
+  <link rel="stylesheet" href="payment.css?v=20261106-final-package-prices1" />
+  <link rel="stylesheet" href="theme-blue.css?v=20261107-blue-theme2" />
+</head>
+<body class="payment-page pricing-estimate-page">
+  <main class="payment-shell">
+    <header class="auth-header">
+      <a class="brand" href="index.html?page=marketplace" aria-label="TIME2INCOME marketplace">
+        <span class="brand-mark" aria-hidden="true"><img src="assets/time2income-brand.png" alt="" /></span>
+        <span class="brand-name">TIME<span class="brand-number">2</span>INCOME</span>
+      </a>
+      <a class="btn btn-quiet" href="index.html?page=marketplace">Back to marketplace</a>
+    </header>
+    <section class="pricing-estimate-card" aria-labelledby="pricingTitle">
+      <p class="section-kicker">TIME2INCOME PRICING INFORMATION</p>
+      <h1 id="pricingTitle">T2I package prices and fee information</h1>
+      <p class="pricing-intro">The T2I package base prices shown below are final: 100 T2I / 11, 600 T2I / 59, 1,600 T2I / 145, and 3,500 T2I / 275 in the same numeric amounts for each listed local currency. These are base prices; applicable checkout fees or taxes are separate. The country selector includes the 249 country and territory entries listed in profile setup. The fee calculator below is for provider booking fees, not T2I purchases.</p>
+      <p class="pricing-estimate-warning" role="note">
+        <strong>T2I Token Purchase Disclaimer</strong>
+        T2I Tokens are platform utility tokens purchased for accessing eligible services and features within TIME2INCOME. They are not real money, investments, deposits, or guaranteed monetary-value assets. Tokens can be used for eligible activities such as posting tasks, publishing profiles, accessing premium features, and other services listed on our platform. Tokens do not expire under the current policy and remain in your wallet until used, subject to account and platform terms. Purchased tokens are generally non-refundable and cannot be exchanged for cash, withdrawn, or transferred outside the platform. Please review token prices and usage details carefully before purchasing. Legally required refunds and verified technical-error corrections remain applicable.
+        <br><strong>T2I purchases are not currently enabled; this page does not collect payment.</strong>
+      </p>
+      <label class="form-label" for="pricingCountry">Your profile country / territory and listed currency</label>
+      <select id="pricingCountry" autocomplete="country-name" aria-controls="pricingBreakdown"></select>
+      <p class="pricing-country-coverage" id="pricingCountryCoverage" role="status"></p>
+      <label class="form-label" id="pricingRegionField" for="pricingRegion" hidden>State / province</label>
+      <select id="pricingRegion" hidden></select>
+      <label class="form-label" id="pricingServiceCategoryField" for="pricingServiceCategory" hidden>Malaysia service category</label>
+      <select id="pricingServiceCategory" hidden></select>
+      <section class="pricing-breakdown" id="pricingBreakdown" aria-labelledby="pricingSelectedCountry">
+        <h2 id="pricingSelectedCountry"></h2>
+        <dl>
+          <div><dt>Fixed charge</dt><dd id="pricingFixed"></dd></div>
+          <div><dt>Service fee (5% of fixed charge)</dt><dd id="pricingServiceFee"></dd></div>
+          <div><dt>Platform fee (5% of fixed charge)</dt><dd id="pricingPlatformFee"></dd></div>
+          <div><dt>Fee subtotal</dt><dd id="pricingFeeSubtotal"></dd></div>
+          <div><dt id="pricingTaxLine">Assumed local tax</dt><dd id="pricingTaxAmount"></dd></div>
+          <div><dt>Gateway recovery (gross-up estimate)</dt><dd id="pricingGatewayAmount"></dd></div>
+          <div class="pricing-total-row"><dt id="pricingTotalLabel">Estimated total</dt><dd id="pricingTotal"></dd></div>
+        </dl>
+        <p class="pricing-gateway-note" id="pricingGatewayRate"></p>
+        <p class="pricing-estimate-status" id="pricingEstimateStatus" role="status" aria-live="polite"></p>
+      </section>
+      <details class="pricing-assumptions">
+        <summary>How this estimate is calculated</summary>
+        <p>Fixed charge: 11 local currency units. Service and platform fees: 5% each of that fixed charge. Where a tax rate is shown, it is applied to the 12.10-unit fee subtotal as a planning proxy; a published standard rate may not apply to this transaction. An assumed gateway rate is grossed up against the fee subtotal plus tax, then rounded up to the currency's minor-unit precision.</p>
+        <p>The India gateway planning assumption is 2.36% effective; the generic international planning assumption is 3.54%. These are not country-specific provider quotes and do not confirm payment support. Real gateway fees can depend on merchant location, payment method, currency support, FX and contract terms.</p>
+      </details>
+      <p class="pricing-net-note">No exchange-rate conversion is applied: this estimate uses 11 units of each local currency, not the current equivalent of ₹11. The 12.10-unit fee subtotal is before tax, gateway recovery and business operating expenses, so this estimate cannot guarantee net profit.</p>
+      <p class="pricing-current-checkout-note" role="note">
+        <strong>Payment status and limits</strong>
+        Booking fee totals on this page are estimates, not final payable checkout totals. A listed local currency does not confirm payment-method or settlement support in that country. Paid T2I packages remain disabled until a secure server-side payment and token-credit flow is implemented and verified. Booking-fee estimates must be validated against applicable local rules and the payment provider before use.
+      </p>
+    </section>
+    <section class="pricing-list-card" aria-labelledby="t2iPackagePricesTitle">
+      <p class="section-kicker">FINAL T2I PACKAGE BASE PRICES</p>
+      <h2 id="t2iPackagePricesTitle">Same numeric base price in each listed local currency</h2>
+      <p class="pricing-intro">These are the final TIME2INCOME package base prices, not currency conversions from INR. Fees and taxes are not included in the base prices; estimates may be available only for some countries. Packages cannot currently be purchased.</p>
+      <div class="pricing-table-wrap">
+        <table class="pricing-country-table">
+          <thead><tr><th scope="col">Country / territory</th><th scope="col">Listed currency</th><th scope="col">Mini · 100 T2I</th><th scope="col">Basic · 600 T2I</th><th scope="col">Popular · 1,600 T2I</th><th scope="col">Pro · 3,500 T2I</th></tr></thead>
+          <tbody id="t2iPackageCountryRows"></tbody>
+        </table>
+      </div>
+      <p class="pricing-table-note" role="note">
+        <strong>Transparent pricing status</strong>
+        The same numeric base amounts (11, 59, 145 and 275) are final in each listed local currency. This price listing does not promise local payment acceptance, government approval, tax treatment, or legal availability. Taxes and gateway fees, if legally applicable, may change the payable amount; they have not been verified for every jurisdiction.
+      </p>
+    </section>
+    <section class="pricing-list-card" aria-labelledby="pricingListTitle">
+      <p class="section-kicker">PROVIDER BOOKING FEE ESTIMATES</p>
+      <h2 id="pricingListTitle">Estimated booking fees for all listed currencies</h2>
+      <div class="pricing-table-wrap">
+        <table class="pricing-country-table">
+          <thead><tr><th scope="col">Country / territory</th><th scope="col">Currency</th><th scope="col">Tax basis</th><th scope="col">Fee estimate</th></tr></thead>
+          <tbody id="pricingCountryRows"></tbody>
+        </table>
+      </div>
+      <p class="pricing-table-note" role="note">
+        <strong>Estimate assumptions</strong>
+        For countries without either a configured tax estimate or a published rate reference, the amount shown is a pre-tax planning subtotal; local tax is not assumed to be zero. The international gateway factor is a generic 3.54% planning assumption, not a country-specific provider quote. Existing chart rates are estimates unless explicitly linked to a published standard-rate source; even a published standard rate does not determine the tax treatment of a particular service. Brazil uses the supplied 5% assumption. Source links are provided in the table; rates were reviewed on 6 November 2026. Tax applicability and whether a gateway fee may be passed to customers require review before live use.
+      </p>
+    </section>
+    <section class="pricing-list-card" id="pricingJurisdictionBreakdown" aria-labelledby="pricingJurisdictionTitle" hidden>
+      <p class="section-kicker">LOCATION-WISE DETAILS</p>
+      <h2 id="pricingJurisdictionTitle">State, province, and service-category estimates</h2>
+      <div class="pricing-table-wrap">
+        <table class="pricing-country-table">
+          <thead><tr><th scope="col">State / province / category</th><th scope="col">Tax assumption</th><th scope="col">Estimated checkout</th></tr></thead>
+          <tbody id="pricingJurisdictionRows"></tbody>
+        </table>
+      </div>
+    </section>
+    <nav class="auth-legal-links pricing-page-links" aria-label="Help and legal information">
+      <a href="help.html">Help</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+  </main>
+  <script src="country-directory.js?v=20261106-directory-currencies"></script>
+  <script src="pricing-config.js?v=20261106-global-checkout-v5"></script>
+  <script src="pricing-estimate.js?v=20261106-all-country-estimate-subtotals1"></script>
+</body>
+</html>

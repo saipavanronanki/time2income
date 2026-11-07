@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Customer Support | TIME2INCOME</title><meta name="theme-color" content="#2563eb">
+<link rel="stylesheet" href="theme-blue.css"><link rel="stylesheet" href="messaging-addons.css">
+</head><body class="support-page">
+<header class="support-topbar"><a href="index.html" class="support-brand"><span class="support-logo">t2i</span><strong>TIME2INCOME</strong></a><nav><a href="index.html">Home</a><a href="messages.html">Messages</a></nav><a class="support-back" href="messages.html">Back to messages</a></header>
+<main class="support-shell" id="supportApp">
+<aside class="support-list-panel"><div class="support-list-head"><div><span class="support-eyebrow">HELP CENTER</span><h1>Support inbox</h1><p>Talk to the TIME2INCOME team.</p></div><button id="supportNew" class="support-primary">New request</button></div>
+<label class="support-search"><span>⌕</span><input id="supportSearch" type="search" placeholder="Search support requests"></label>
+<div class="support-list-tabs"><button class="active" data-support-filter="all">All</button><button data-support-filter="open">Open</button><button data-support-filter="closed">Closed</button></div>
+<div id="supportList" class="support-list"><p class="support-muted">Loading support requests…</p></div></aside>
+<section class="support-chat-panel"><div id="supportEmpty" class="support-empty"><div class="support-empty-icon">✦</div><h2>How can we help?</h2><p>Select a support request or start a new conversation with our team.</p><button id="supportStart" class="support-primary">Start a support chat</button></div>
+<div id="supportChat" class="support-chat" hidden><header class="support-chat-head"><div class="support-agent-avatar">t2i</div><div><strong id="supportChatTitle">TIME2INCOME Support</strong><small id="supportChatStatus">Support team · Usually replies soon</small></div><span id="supportTicketStatus" class="support-status">Open</span></header>
+<div id="supportMessages" class="support-messages" aria-live="polite"></div><form id="supportComposer" class="support-composer"><textarea id="supportMessageInput" rows="1" maxlength="4000" placeholder="Write your message…"></textarea><button class="support-primary" id="supportSend" type="submit">Send</button></form></div></section>
+</main><div id="supportToast" class="support-toast" role="status"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase/client.js"></script><script src="support-chat.js"></script>
+</body></html>

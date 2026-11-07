@@ -1,0 +1,10 @@
+TIME2INCOME light photographic theme update
+
+- Marketplace hero now uses the bright activity-office-background-4k.jpg with a pale white/blue overlay.
+- Mobile app/install section uses the same light workplace photo with a brighter overlay.
+- Marketplace footer is white/pale-blue with dark navy text and blue social icons.
+- Existing HTML, routes, Supabase configuration and app interactions are preserved.
+- New stylesheet: light-photo-theme.css (loaded after existing styles).
+
+Open index.html through the existing local dev server to preview.
+Live Supabase and deployment behavior have not been tested in this environment.
