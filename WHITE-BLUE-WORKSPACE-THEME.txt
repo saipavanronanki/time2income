@@ -1,0 +1,7 @@
+TIME2INCOME unified white-blue workspace theme
+- Unified white (#FFFFFF), pale blue and primary blue palette.
+- Added a custom light-blue workspace photograph as a compressed WebP asset.
+- Homepage hero and app install section use the workspace image with a bright overlay.
+- All HTML pages load unified-white-blue-theme.css for consistent controls, cards, navigation and footer.
+- Existing HTML, JS, Supabase settings and route files are retained.
+- Verify page-specific visual details and Supabase workflows in local development before deployment.
