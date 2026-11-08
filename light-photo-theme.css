@@ -17,15 +17,15 @@ body[data-page="marketplace"] .hero.wrap {
 body[data-page="marketplace"] .hero h1,
 body[data-page="marketplace"] .hero-copy,
 body[data-page="marketplace"] .hero-sub {
-  color: #102b50 !important;
+  color: #173B3A !important;
 }
 body[data-page="marketplace"] .hero h1 em {
-  color: #2563eb !important;
+  color: #0D9488 !important;
 }
 body[data-page="marketplace"] .eyebrow {
   background: rgba(255,255,255,.88) !important;
   border-color: rgba(37,99,235,.24) !important;
-  color: #1e3a66 !important;
+  color: #173B3A !important;
   box-shadow: 0 5px 18px rgba(37,99,235,.08) !important;
 }
 body[data-page="marketplace"] .hero-sub {
@@ -48,10 +48,10 @@ body[data-page="marketplace"] .app-download-section {
   border-bottom: 1px solid #dce9fb;
 }
 body[data-page="marketplace"] .app-download-section .section-kicker {
-  color: #2563eb !important;
+  color: #0D9488 !important;
 }
 body[data-page="marketplace"] .app-download-copy h2 {
-  color: #102b50 !important;
+  color: #173B3A !important;
 }
 body[data-page="marketplace"] .app-download-description,
 body[data-page="marketplace"] .install-status,
@@ -59,7 +59,7 @@ body[data-page="marketplace"] .install-guides {
   color: #435b7a !important;
 }
 body[data-page="marketplace"] .install-guides summary {
-  color: #1d4ed8 !important;
+  color: #0f766e !important;
 }
 body[data-page="marketplace"] .store-badge {
   background: rgba(255,255,255,.88) !important;
@@ -84,11 +84,11 @@ body[data-page="marketplace"] .footer {
 }
 body[data-page="marketplace"] .footer .brand-name,
 body[data-page="marketplace"] .footer-link-group strong {
-  color: #102b50 !important;
+  color: #173B3A !important;
 }
 body[data-page="marketplace"] .footer .brand-number,
 body[data-page="marketplace"] .footer-bottom .powered-by {
-  color: #2563eb !important;
+  color: #0D9488 !important;
 }
 body[data-page="marketplace"] .footer-brand-area > p,
 body[data-page="marketplace"] .footer-link-group a,
@@ -98,7 +98,7 @@ body[data-page="marketplace"] .footer-bottom {
 }
 body[data-page="marketplace"] .footer-link-group a:hover,
 body[data-page="marketplace"] .footer-link-group button:hover {
-  color: #2563eb !important;
+  color: #0D9488 !important;
 }
 body[data-page="marketplace"] .footer-bottom {
   border-top-color: #dce7f6 !important;
@@ -107,7 +107,7 @@ body[data-page="marketplace"] .footer-social-links a,
 body[data-page="marketplace"] .footer-social-icon {
   background: #ffffff !important;
   border-color: #dbe7f7 !important;
-  color: #2563eb !important;
+  color: #0D9488 !important;
   box-shadow: 0 5px 16px rgba(37,99,235,.07);
 }
 body[data-page="marketplace"] .footer-social-links a:hover {

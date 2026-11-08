@@ -1,4 +1,234 @@
 
+let userNotifications = [];
+let notificationRealtimeSubscription = null;
+
+async function loadUserNotifications() {
+  if (!currentUser || !supabaseClient) {
+    userNotifications = [];
+    updateNotificationUI();
+    return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('user_notifications')
+      .select('id, event_type, title, body, task_id, booking_id, created_at, read_at')
+      .eq('user_id', currentUser.id)
+      .order('created_at', { ascending: false })
+      .limit(30);
+
+    if (error) {
+      console.warn('Could not load notifications:', error.message);
+      return;
+    }
+
+    userNotifications = Array.isArray(data) ? data : [];
+    updateNotificationUI();
+  } catch (err) {
+    console.warn('Notification fetch exception:', err);
+  }
+}
+
+function updateNotificationUI() {
+  const badge = document.getElementById('notificationUnreadBadge');
+  const list = document.getElementById('notificationList');
+  if (!badge || !list) return;
+
+  const unreadCount = userNotifications.filter(n => !n.read_at).length;
+  if (unreadCount > 0) {
+    badge.textContent = unreadCount > 99 ? '99+' : String(unreadCount);
+    badge.hidden = false;
+  } else {
+    badge.textContent = '0';
+    badge.hidden = true;
+  }
+
+  if (!userNotifications.length) {
+    list.innerHTML = '<div class="notification-empty-state">No notifications yet</div>';
+    return;
+  }
+
+  list.innerHTML = userNotifications.map(n => {
+    const isUnread = !n.read_at;
+    const timeAgo = formatNotificationTime(n.created_at);
+    return `
+      <div class="notification-item ${isUnread ? 'unread' : ''}" data-notification-id="${safeText(n.id)}" data-task-id="${safeText(n.task_id || '')}" data-booking-id="${safeText(n.booking_id || '')}">
+        <div class="notification-item-dot" aria-hidden="true"></div>
+        <div class="notification-item-content">
+          <strong class="notification-item-title">${safeText(n.title)}</strong>
+          <p class="notification-item-body">${safeText(n.body)}</p>
+          <span class="notification-item-time">${safeText(timeAgo)}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.notification-item').forEach(item => {
+    item.addEventListener('click', async () => {
+      const id = item.dataset.notificationId;
+      const taskId = item.dataset.taskId;
+      const bookingId = item.dataset.bookingId;
+      await markNotificationAsRead(id);
+      if (bookingId) {
+        window.location.href = `messages.html?booking=${encodeURIComponent(bookingId)}`;
+      } else if (taskId) {
+        window.location.href = `index.html?page=tasks&task=${encodeURIComponent(taskId)}`;
+      }
+    });
+  });
+}
+
+function formatNotificationTime(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  const now = new Date();
+  const diffSec = Math.floor((now - d) / 1000);
+  if (diffSec < 60) return 'Just now';
+  if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
+  if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`;
+  return `${Math.floor(diffSec / 86400)}d ago`;
+}
+
+async function markNotificationAsRead(id) {
+  if (!currentUser || !supabaseClient) return;
+  try {
+    await supabaseClient.rpc('mark_notification_read', { p_notification_id: id });
+    const notif = userNotifications.find(n => n.id === id);
+    if (notif) notif.read_at = new Date().toISOString();
+    updateNotificationUI();
+  } catch (err) {
+    console.warn('Failed to mark notification read:', err);
+  }
+}
+
+async function markAllNotificationsAsRead() {
+  if (!currentUser || !supabaseClient) return;
+  const unread = userNotifications.filter(n => !n.read_at);
+  for (const n of unread) {
+    markNotificationAsRead(n.id);
+  }
+}
+
+function setupNotificationListeners() {
+  const bell = document.getElementById('notificationBellBtn');
+  const panel = document.getElementById('notificationPanel');
+  const markAllBtn = document.getElementById('markAllNotificationsReadBtn');
+
+  if (bell && panel) {
+    bell.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isHidden = panel.hidden;
+      panel.hidden = !isHidden;
+      bell.setAttribute('aria-expanded', String(!isHidden));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && !bell.contains(e.target)) {
+        panel.hidden = true;
+        bell.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  if (markAllBtn) {
+    markAllBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      markAllNotificationsAsRead();
+    });
+  }
+}
+
+function subscribeToNotificationRealtime() {
+  if (!currentUser || !supabaseClient || notificationRealtimeSubscription) return;
+  try {
+    notificationRealtimeSubscription = supabaseClient
+      .channel(`public:user_notifications:${currentUser.id}`)
+      .on('postgres_changes', {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'user_notifications',
+        filter: `user_id=eq.${currentUser.id}`
+      }, (payload) => {
+        if (payload.new) {
+          userNotifications.unshift(payload.new);
+          updateNotificationUI();
+        }
+      })
+      .subscribe();
+  } catch (err) {
+    console.warn('Notification realtime setup failed:', err);
+  }
+}
+
+
+function updateAccountDropdownInfo() {
+  if (!currentUser) {
+    const nameEl = document.getElementById('accountDropdownName');
+    if (nameEl) nameEl.textContent = 'Guest User';
+    const emailEl = document.getElementById('accountDropdownEmail');
+    if (emailEl) emailEl.textContent = 'Sign in to access your account';
+    const roleEl = document.getElementById('accountDropdownRole');
+    if (roleEl) roleEl.textContent = 'Guest';
+    const kycEl = document.getElementById('accountDropdownKyc');
+    if (kycEl) {
+      kycEl.textContent = 'KYC: Not started';
+      kycEl.className = 'badge-kyc kyc-unverified';
+    }
+    const triggerName = document.getElementById('accountTriggerName');
+    if (triggerName) triggerName.textContent = 'Account';
+    const avatarMini = document.getElementById('accountAvatarMini');
+    if (avatarMini) avatarMini.textContent = 'U';
+    const dropdownAvatar = document.getElementById('accountDropdownAvatar');
+    if (dropdownAvatar) dropdownAvatar.textContent = 'U';
+    return;
+  }
+
+  const name = accountProfile?.display_name || currentUser.user_metadata?.display_name || currentUser.email?.split('@')[0] || 'User';
+  const email = currentUser.email || '';
+  const roles = Array.isArray(accountProfile?.roles) ? accountProfile.roles : ['customer'];
+  const roleText = roles.map(r => r.charAt(0).toUpperCase() + r.slice(1)).join(' / ');
+  const initials = name.slice(0, 2).toUpperCase();
+
+  const nameEl = document.getElementById('accountDropdownName');
+  if (nameEl) nameEl.textContent = name;
+  const emailEl = document.getElementById('accountDropdownEmail');
+  if (emailEl) emailEl.textContent = email;
+  const roleEl = document.getElementById('accountDropdownRole');
+  if (roleEl) roleEl.textContent = roleText;
+  const triggerName = document.getElementById('accountTriggerName');
+  if (triggerName) triggerName.textContent = name;
+  const avatarMini = document.getElementById('accountAvatarMini');
+  if (avatarMini) avatarMini.textContent = initials;
+  const dropdownAvatar = document.getElementById('accountDropdownAvatar');
+  if (dropdownAvatar) dropdownAvatar.textContent = initials;
+
+  const kycEl = document.getElementById('accountDropdownKyc');
+  if (kycEl) {
+    if (currentIdentityVerified) {
+      kycEl.textContent = 'KYC: Approved';
+      kycEl.className = 'badge-kyc kyc-approved';
+    } else if (identityVerificationRequest?.status === 'pending') {
+      kycEl.textContent = 'KYC: Under review';
+      kycEl.className = 'badge-kyc kyc-pending';
+    } else if (identityVerificationRequest?.status === 'rejected') {
+      kycEl.textContent = 'KYC: Resubmission required';
+      kycEl.className = 'badge-kyc kyc-rejected';
+    } else {
+      kycEl.textContent = 'KYC: Not started';
+      kycEl.className = 'badge-kyc kyc-unverified';
+    }
+  }
+
+  const adminShortcut = document.getElementById('adminPortalShortcut');
+  if (adminShortcut) {
+    const isAdmin = currentUser.user_metadata?.role === 'admin' ||
+      currentUser.app_metadata?.role === 'admin' ||
+      accountProfile?.roles?.includes('admin');
+    adminShortcut.hidden = !isAdmin;
+  }
+}
+
+
 /* TIME2INCOME — Supabase-connected application
    Requires:
    1. Supabase JS v2 loaded in index.html
@@ -2833,7 +3063,12 @@ function renderWorkers() {
       String(a.id).localeCompare(String(b.id));
   });
 
-  const providerCards = list.map((p, index) => {
+  const totalWorkerPages = Math.ceil(list.length / WORKERS_PER_PAGE);
+  if (currentWorkerPage > totalWorkerPages && totalWorkerPages > 0) currentWorkerPage = 1;
+  const startIndex = (currentWorkerPage - 1) * WORKERS_PER_PAGE;
+  const paginatedList = list.slice(startIndex, startIndex + WORKERS_PER_PAGE);
+
+  const providerCards = paginatedList.map((p, index) => {
     const initials = p.initials || (p.name || 'U').split(/\s+/).map(s => s[0]).join('').slice(0,2).toUpperCase();
     const tags = [...(p.tags || []), ...(p.languages || []).map(language => `${t('languages')}: ${language}`)].slice(0, 4).map(tag =>
       `<span class="skill-tag">${safeText(tag)}</span>`
@@ -2868,6 +3103,11 @@ function renderWorkers() {
     : t('tryDifferent');
   $('changeLocationBtn').classList.toggle('hidden', !location);
   renderMarketplaceFilterSummary();
+  renderNumericPagination('workerPagination', currentWorkerPage, Math.ceil(list.length / WORKERS_PER_PAGE), (newPage) => {
+    currentWorkerPage = newPage;
+    renderWorkers();
+
+  });
 }
 
 function renderPortfolioPreview(paths) {
@@ -5414,6 +5654,9 @@ async function loadAccountProfile() {
   startNearbyAlertRealtime();
   const currentTrust = await loadUserTrust([currentUser.id], false);
   currentIdentityVerified = Boolean(currentTrust.get(currentUser.id)?.identityVerified);
+  updateAccountDropdownInfo();
+  loadUserNotifications();
+  subscribeToNotificationRealtime();
   if (!$('locationInput').value.trim()) {
     let savedLocation = '';
     try {
@@ -6403,9 +6646,13 @@ async function renderTaskBoardData() {
   );
   updateMarketplaceSuggestions();
 
-  $('openTaskCount').textContent = openTasks.length;
-  $('openTaskList').innerHTML = openTasks.length
-    ? openTasks.map(task => {
+    $('openTaskCount').textContent = openTasks.length;
+  const totalTaskPages = Math.ceil(openTasks.length / TASKS_PER_PAGE);
+  if (currentTaskPage > totalTaskPages && totalTaskPages > 0) currentTaskPage = 1;
+  const paginatedTasks = openTasks.slice((currentTaskPage - 1) * TASKS_PER_PAGE, currentTaskPage * TASKS_PER_PAGE);
+
+  $('openTaskList').innerHTML = paginatedTasks.length
+    ? paginatedTasks.map(task => {
       const offerStatus = taskOfferStatuses[task.id];
       const location = task.work_mode === 'remote'
         ? t('remote')
@@ -6423,6 +6670,12 @@ async function renderTaskBoardData() {
       return `<article class="activity-item"><div class="activity-item-top"><strong>${safeText(task.title)}</strong>${renderVerifiedBadge(task.identityVerified)}<span class="activity-status">${safeText(task.work_mode === 'remote' ? t('remote') : t('local'))}</span></div>${categoryName ? `<p class="task-category-name">${safeText(categoryName)}</p>` : ''}<p>${safeText(location)} · ${safeText(customerRating)}</p>${isOpen ? `<p>${safeText(taskDescriptions[task.id] || t('noExtraDetails'))}</p>` : ''}<div class="activity-item-bottom"><span>${task.budget ? `${safeText(task.pricing_type)} ${t('budget').toLowerCase()}: ${safeText(formatMoney(task.budget, task.currency_code))}` : t('priceByAgreement')}</span>${taskAction}</div></article>`;
     }).join('')
     : `<div class="activity-empty">${t('noTasksMatch')}</div>`;
+  renderNumericPagination("taskPagination", currentTaskPage, Math.ceil(openTasks.length / TASKS_PER_PAGE), function(newPage) {
+    currentTaskPage = newPage;
+    renderTaskBoard();
+    const el = document.getElementById("openTaskList");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
 }
 
 async function taskPaymentError(error) {
@@ -7349,6 +7602,10 @@ async function syncSession(session) {
     taskDescriptions = {};
     openTasks = [];
     taskOfferStatuses = {};
+    if (new URLSearchParams(location.search).has('preview')) {
+      document.documentElement.classList.remove('auth-gate');
+      return;
+    }
     if (document.documentElement.classList.contains('location-gateway-active')) {
       document.documentElement.classList.remove('auth-gate');
       return;
@@ -8540,7 +8797,11 @@ async function initializeApp() {
     syncSession(data.session);
   }).catch(error => {
     console.error('Session load failed:', error);
-    location.replace('auth.html?mode=signin');
+    if (!new URLSearchParams(location.search).has('preview')) {
+      location.replace('auth.html?mode=signin');
+    } else {
+      document.documentElement.classList.remove('auth-gate');
+    }
   });
 }
 
@@ -9285,3 +9546,10 @@ function isSavedWorker(id) {
     setTimeout(() => run(savedState.index), 650);
   }
 })();
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupNotificationListeners);
+  } else {
+    setupNotificationListeners();
+  }
+}
