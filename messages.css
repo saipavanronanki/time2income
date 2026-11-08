@@ -69,7 +69,7 @@ button { cursor: pointer; }
 .msg-day { align-self: center; padding: 2px 12px; border-radius: 999px; background: #e2e8e4; color: #475569; font-size: 11px; }
 .msg-bubble { max-width: min(78%, 520px); padding: 8px 12px 6px; border-radius: 14px; background: #fff; border: 1px solid var(--line); overflow-wrap: anywhere; }
 .msg-bubble p { margin: 0 0 2px; white-space: pre-wrap; line-height: 1.4; }
-.msg-bubble.is-mine { align-self: flex-end; background: var(--g100); border-color: #a7c7f3; }
+.msg-bubble.is-mine { align-self: flex-end; background: #0D9488 !important; color: #ffffff !important; border: 1px solid #0D9488 !important; } .msg-bubble.is-mine time { color: rgba(255, 255, 255, 0.8) !important; }
 .msg-bubble time { display: block; text-align: right; font-size: 10px; color: var(--muted); }
 .msg-file { display: flex; align-items: center; gap: 10px; margin: 4px 0; padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,.7); border: 1px solid var(--line); width: 100%; text-align: left; }
 .msg-file strong { display: block; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
